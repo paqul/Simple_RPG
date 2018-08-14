@@ -482,6 +482,23 @@ def spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP
         print("Wchodzisz do nowego obszaru i nic sie nie dzieje")#(",zaszlo,")")
         return HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag
 
+#-------------------support function--------------------------------------------------#
+
+def nakladka_klimat(HP, HP_max):
+    dic = ["Pełnia zdrowia","Lekko ranny","Średnio ranny","Ciężko ranny","Prawie martwy","Martwy"]
+    if HP == HP_max:
+        return dic[0]
+    elif HP < HP_max and HP >= 0.75*HP_max:
+        return dic[1]
+    elif HP < 0.75*HP_max and HP >= 0.5*HP_max:
+        return dic[2]
+    elif HP< 0.5*HP_max and HP>= 0.25*HP_max:
+        return dic[3]
+    elif HP < 0.25*HP_max and HP >= 1:
+        return dic[4]
+    else:
+        return dic[5]
+
 def porownanie_HP_HPmax(HP_akt, HP_max):
     if HP_akt >= HP_max:
         HP_akt = HP_max
@@ -577,22 +594,28 @@ def walka(HP_gracza,HP_potwora,dmg_potwora,EXP_gracza_aktualny,EXP_potwora,Bonus
         print("Rozpoczynasz walke...")
         input()
         # print("Twoje aktualne zdrowie to: %d" % HP_gracza)
+        HP_potwora_maksymalne = HP_potwora
+        HP_gracza_maksymalne = HP_gracza
         while (HP_gracza >= 1):
             if flag == "war":
                 damage_zadane = random.randrange(1, 5) + Bonus_DMG
             elif flag == "mag":
                 damage_zadane = random.randrange(1, 3) + Bonus_DMG
             HP_potwora = HP_potwora - damage_zadane
-            print("Zadales przeciwnikowi %d HP i zostalo mu" % damage_zadane,"%d zycia" % HP_potwora)
             HP_gracza = HP_gracza - dmg_potwora
-            print("Przeciwnik uderzył Cie za %d HP i zostalo tobie" % dmg_potwora, "%d życia" % HP_gracza)
+            naloz_gracz = nakladka_klimat(HP_gracza, HP_maksymalne)
+            naloz_potwor = nakladka_klimat(HP_potwora, HP_potwora_maksymalne)
+            print("Zadales przeciwnikowi obrażenia i jest %s" % naloz_potwor)
+            print("Przeciwnik uderzył Cie i jesteś %s" % naloz_gracz)
+            # print("Zadales przeciwnikowi %d HP i zostalo mu" % damage_zadane,"%d zycia" % HP_potwora)
+            # print("Przeciwnik uderzył Cie za %d HP i zostalo tobie" % dmg_potwora, "%d życia" % HP_gracza)
             if HP_gracza <= 0:
                 print("GAME OVER ! ! !")
                 GAME_OVER()
                 break
             elif HP_potwora <= 0:
                 print("Wygrales walke!")
-                input()
+                #input()
                 HP_po_walce = HP_gracza
                 EXP_gracza_aktualny += EXP_potwora
                 return HP_po_walce, EXP_gracza_aktualny
@@ -618,15 +641,22 @@ def walka(HP_gracza,HP_potwora,dmg_potwora,EXP_gracza_aktualny,EXP_potwora,Bonus
                     print("Rozpoczynasz walke...")
                     input()
                     #print("Twoje aktualne zdrowie to: %d" % HP_gracza)
+                    HP_potwora_maksymalne = HP_potwora
+                    HP_gracza_maksymalne = HP_gracza
                     while (HP_gracza >= 1):
                         if flag == "war":
                             damage_zadane = random.randrange(1, 5) + Bonus_DMG
                         elif flag == "mag":
                             damage_zadane = random.randrange(1, 3) + Bonus_DMG
                         HP_potwora = HP_potwora - damage_zadane
-                        print("Zadales przeciwnikowi %d obrażeń i zostalo mu"% damage_zadane, "%d życia" %  HP_potwora)
                         HP_gracza = HP_gracza - dmg_potwora
-                        print("Przeciwnik uderzył Cie za %d obrażeń i zostalo tobie" % dmg_potwora, "%d życia" % HP_gracza)
+                        # print(HP_gracza,HP_maksymalne,HP_potwora,HP_potwora_maksymalne)
+                        naloz_gracz = nakladka_klimat(HP_gracza,HP_maksymalne)
+                        naloz_potwor = nakladka_klimat(HP_potwora, HP_potwora_maksymalne)
+                        print("Zadales przeciwnikowi obrażenia i jest %s" % naloz_potwor)
+                        print("Przeciwnik uderzył Cie i jesteś %s" % naloz_gracz)
+                        # print("Zadales przeciwnikowi %d obrażeń i zostalo mu"% damage_zadane, "%d życia" %  HP_potwora)
+                        # print("Przeciwnik uderzył Cie za %d obrażeń i zostalo tobie" % dmg_potwora, "%d życia" % HP_gracza)
                         if HP_gracza <= 0:
                             print ("Giniesz - GAME OVER ! ! !")
                             input()
@@ -686,6 +716,7 @@ def main():
     HP_maksymalne = aktualny_status.HP_maksymalne
     flag = aktualny_status.flag
     EXP_gracza_aktualny = 474
+    HP_gracza_aktualne = 50
     input()
     print ("Rozpoczynasz GRE - prostego RPGA")
     print("Czy chcesz wskoczyć do studni prowadzącej do mrocznego lochu gdzie będziesz brodził w kale po kostki do samego końca? (tak/nie)")
