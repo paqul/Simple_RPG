@@ -4,9 +4,9 @@ import sys
 import timeit
 # global HP_gracza_aktualne
 # global EXP_gracza_aktualny
-global Level_gracza_aktualny
-global Bonus_DMG
-global HP_maksymalne
+# global Level_gracza_aktualny
+# global Bonus_DMG
+# global HP_maksymalne
 # global HP_po_starciu
 
 #--------------------------------lokacje-----------------------------------------#
@@ -76,13 +76,17 @@ def central(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_m
     odpowiedz = spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
     HP_gracza_aktualne = odpowiedz[0]
     EXP_gracza_aktualny = odpowiedz[1]
-    Level_gracza_aktualny = odpowiedz[2]
-    HP_maksymalne = odpowiedz[3]
-    Bonus_DMG = odpowiedz[4]
-    flag = odpowiedz[5]
-    wywolaj_status(odpowiedz[0], odpowiedz[1], odpowiedz[2], odpowiedz[3], odpowiedz[4], odpowiedz[5])
+    # Level_gracza_aktualny = odpowiedz[2]
+    # HP_maksymalne = odpowiedz[3]
+    # Bonus_DMG = odpowiedz[4]
+    # flag = odpowiedz[5]
+    level_tab = level(EXP_gracza_aktualny, flag)
+    Level_gracza_aktualny = level_tab[0]
+    EXP_gracza_aktualny = level_tab[1]
+    HP_maksymalne = level_tab[3]
+    Bonus_DMG = level_tab[2]
+    wywolaj_status(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
     print ("Znajdujesz się w centrum lochu czesci lochu")
-    print(odpowiedz)
     print ("Gdzie idziesz? Mozliwe wyjscia polodnie(s) i polnoc(n) i wschod(e) i zachod(w)")
     idz = input()
     while(idz != "w" and idz != "n" and idz != "e" and idz != "s"):
@@ -579,9 +583,9 @@ def walka(HP_gracza,HP_potwora,dmg_potwora,EXP_gracza_aktualny,EXP_potwora,Bonus
             elif flag == "mag":
                 damage_zadane = random.randrange(1, 3) + Bonus_DMG
             HP_potwora = HP_potwora - damage_zadane
-            print("Zadales przeciwnikowi %d HP i zostalo mu $d zycia" % damage_zadane, HP_potwora)
+            print("Zadales przeciwnikowi %d HP i zostalo mu" % damage_zadane,"%d zycia" % HP_potwora)
             HP_gracza = HP_gracza - dmg_potwora
-            print("Przeciwnik uderzył Cie za %d HP i zostalo tobie $d zycia" % dmg_potwora, HP_gracza)
+            print("Przeciwnik uderzył Cie za %d HP i zostalo tobie" % dmg_potwora, "%d życia" % HP_gracza)
             if HP_gracza <= 0:
                 print("GAME OVER ! ! !")
                 GAME_OVER()
@@ -593,6 +597,7 @@ def walka(HP_gracza,HP_potwora,dmg_potwora,EXP_gracza_aktualny,EXP_potwora,Bonus
                 EXP_gracza_aktualny += EXP_potwora
                 return HP_po_walce, EXP_gracza_aktualny
             else:
+                print("Czy chcesz kontynuować walkę ? (t/n)")
                 while True:
                     kontynuacja = input()
                     if kontynuacja == "t":
@@ -602,8 +607,6 @@ def walka(HP_gracza,HP_potwora,dmg_potwora,EXP_gracza_aktualny,EXP_potwora,Bonus
                         break
                     else:
                         print("wpisz 't' lub 'n'")
-
-
 
     else:
         input()
@@ -682,7 +685,7 @@ def main():
     Bonus_DMG = aktualny_status.Bonus_DMG
     HP_maksymalne = aktualny_status.HP_maksymalne
     flag = aktualny_status.flag
-    EXP_gracza_aktualny = 49
+    EXP_gracza_aktualny = 474
     input()
     print ("Rozpoczynasz GRE - prostego RPGA")
     print("Czy chcesz wskoczyć do studni prowadzącej do mrocznego lochu gdzie będziesz brodził w kale po kostki do samego końca? (tak/nie)")
@@ -706,3 +709,4 @@ main()
 # 1. Zmienic przedzialy znalezienia miksturki i walki z prrzeciwnikami
 # 2. Zmienic HPeki z versji debugerskiej do versji relase
 # 3. Zmienic poziom Expa do wytriggerowania final bossa lub wywolywac gso z palca
+# 4. Problem z wyswietlaniem poprawnego statusu!
