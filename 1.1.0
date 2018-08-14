@@ -313,19 +313,19 @@ def level(EXP_gracza_aktualny, flag):
             # print("Twoj poziom to 3")
             Level_gracza_aktualny = 3
             HP_maksymalne = 22
-            Bonus_DMG = 4
+            Bonus_DMG = 5
             return Level_gracza_aktualny, EXP_gracza_aktualny, Bonus_DMG, HP_maksymalne
         elif EXP_gracza_aktualny >= 100 and EXP_gracza_aktualny < 200:
             # print("Twoj poziom to 4")
             Level_gracza_aktualny = 4
             HP_maksymalne = 30
-            Bonus_DMG = 6
+            Bonus_DMG = 8
             return Level_gracza_aktualny, EXP_gracza_aktualny, Bonus_DMG, HP_maksymalne
         elif EXP_gracza_aktualny >= 200 and EXP_gracza_aktualny < 350:
             # print("Twoj poziom to 5 - Ostatni!")
             Level_gracza_aktualny = 5
             HP_maksymalne = 50
-            Bonus_DMG = 10
+            Bonus_DMG = 13
             return Level_gracza_aktualny, EXP_gracza_aktualny, Bonus_DMG, HP_maksymalne
         else:
             # print("Twoj poziom to 6 - Secret!")
@@ -377,7 +377,7 @@ def przejdz():
     return przejscie()
 
 def przejscie(HP_gracza_aktualne, EXP_gracza_aktualny, Bonus_DMG, HP_maksymalne, flag):
-    if EXP_gracza_aktualny >= 475:
+    if EXP_gracza_aktualny >= 280:
         print("Czujesz że jesteś już wystarczająco poteżny by zmierzyć się z FINAL BOSSEM, Czy chcesz tego? (tak/nie)")
         while True:
             final_decision = input()
@@ -397,8 +397,6 @@ def przejscie(HP_gracza_aktualne, EXP_gracza_aktualny, Bonus_DMG, HP_maksymalne,
                 print("Przed tobą pojawia się portal - na ten moment wydaje się jedynym rozsądnym miejscem ucieczki z lochu.")
                 print("Czy chcesz przejść przez portal? (tak/nie)")
                 while True:
-                    # t = timeit(30.0, wahania)
-                    # t.start()
                     koncowka=input()
                     if koncowka == "tak":
                         print("Przechodzisz przez portal i znadujesz sie na powierzchni, na dziedzińcu w jakimś zamku...")
