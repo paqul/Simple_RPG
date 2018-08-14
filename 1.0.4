@@ -76,10 +76,6 @@ def central(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_m
     odpowiedz = spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
     HP_gracza_aktualne = odpowiedz[0]
     EXP_gracza_aktualny = odpowiedz[1]
-    # Level_gracza_aktualny = odpowiedz[2]
-    # HP_maksymalne = odpowiedz[3]
-    # Bonus_DMG = odpowiedz[4]
-    # flag = odpowiedz[5]
     level_tab = level(EXP_gracza_aktualny, flag)
     Level_gracza_aktualny = level_tab[0]
     EXP_gracza_aktualny = level_tab[1]
@@ -340,7 +336,7 @@ def przejscie(HP_gracza_aktualne, EXP_gracza_aktualny, Bonus_DMG, HP_maksymalne,
                 input()
                 walka(HP_gracza_aktualne, 100, 5, EXP_gracza_aktualny, 1000000, Bonus_DMG, HP_maksymalne, flag)
                 input()
-                print("Udało Ci się pokonać Last Bossa i ukończyć prostego RPGa!!! Królowa Kału rozpada sie na milony fragmentów ekskrementu i znika...")
+                print("Udało Ci się pokonać Last Bossa i ukończyć prostego RPGa!!! Królowa Kału rozpada sie na miliony fragmentów ekskrementu i znika...")
                 input()
                 print("Następuje silne trzesienie ziemi, a loch zaczyna się walić...")
                 input()
@@ -374,7 +370,7 @@ def przejscie(HP_gracza_aktualne, EXP_gracza_aktualny, Bonus_DMG, HP_maksymalne,
 
 def spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag):
     EXP_gracza_aktualny = EXP_gracza_aktualny
-    zaszlo = random.randrange(0,100)
+    zaszlo = random.randrange(0,101)
     HP_gracza_aktualne = HP_gracza_aktualne
     EXP_gracza_aktualny = EXP_gracza_aktualny
     Level_gracza_aktualny = Level_gracza_aktualny
@@ -385,11 +381,11 @@ def spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP
     HP_maksymalne = level_tab[3]
     Bonus_DMG = level_tab[2]
     przejscie(HP_gracza_aktualne, EXP_gracza_aktualny, Bonus_DMG, HP_maksymalne, flag)
-    if zaszlo > 50:
+    if zaszlo > 33 and zaszlo <= 66:
         print("Na swojej drodze spotykasz przeciwnika, przygotuj sie do walki !") #(",zaszlo,")")
         losuj_przeciwnika = random.randrange(1,101)
         # print("wylsoowales liczbe portwora dla liczby %d" % (losuj_przeciwnika))
-        if losuj_przeciwnika >= 1  and losuj_przeciwnika <= 50:
+        if losuj_przeciwnika >= 1  and losuj_przeciwnika <= 40:
             my_enemy = szczur()
             staty = my_enemy.status()
             Staty_po_starciu = walka(HP_gracza_aktualne,staty[1],staty[2],EXP_gracza_aktualny,staty[3],Bonus_DMG,HP_maksymalne,flag)
@@ -400,7 +396,7 @@ def spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP
             HP_po_starciu = odpowiedz[0]
             HP_maksymalne = odpowiedz[1]
             return HP_po_starciu, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag
-        elif losuj_przeciwnika > 50 and losuj_przeciwnika < 90:
+        elif losuj_przeciwnika > 40 and losuj_przeciwnika < 80:
             my_enemy = goblin()
             staty = my_enemy.status()
             Staty_po_starciu = walka(HP_gracza_aktualne,staty[1],staty[2],EXP_gracza_aktualny,staty[3],Bonus_DMG,HP_maksymalne,flag)
@@ -433,10 +429,10 @@ def spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP
             HP_po_starciu = odpowiedz[0]
             HP_maksymalne = odpowiedz[1]
             return HP_po_starciu, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag
-    elif zaszlo > 2 and zaszlo <= 50:
+    elif zaszlo > 66 and zaszlo <= 100:
         jaki_mix = random.randrange(0,101)
         #print("Okreslenie rodzaju miksturky: %d" % jaki_mix)
-        if jaki_mix < 50:
+        if jaki_mix < 40:
             #print("Znajdujesz małą miksturke leczącą, która leczy Cie za 2 punkty życia")
             print("Znajdujesz małą miksturke leczącą, która odrobinę poprawia twój stan zdrowia")
             input()
@@ -450,7 +446,7 @@ def spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP
             HP_maksymalne = odpowiedz1[1]
             #print("AKUTALNE ZDROWIE %d" % HP_gracza_aktualne)
             return HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag
-        elif jaki_mix >= 50 and jaki_mix< 90:
+        elif jaki_mix >= 40 and jaki_mix< 80:
             #print("Znajdujesz miksturke leczącą która leczy Cie za 4 punkty życia")
             print("Znajdujesz miksturke leczącą, która Cie leczy")
             input()
@@ -715,8 +711,8 @@ def main():
     Bonus_DMG = aktualny_status.Bonus_DMG
     HP_maksymalne = aktualny_status.HP_maksymalne
     flag = aktualny_status.flag
-    EXP_gracza_aktualny = 474
-    HP_gracza_aktualne = 50
+    # EXP_gracza_aktualny = 474
+    # HP_gracza_aktualne = 50
     input()
     print ("Rozpoczynasz GRE - prostego RPGA")
     print("Czy chcesz wskoczyć do studni prowadzącej do mrocznego lochu gdzie będziesz brodził w kale po kostki do samego końca? (tak/nie)")
@@ -737,7 +733,4 @@ def main():
 main()
 
 ############################### B U ! G I #########################################
-# 1. Zmienic przedzialy znalezienia miksturki i walki z prrzeciwnikami
-# 2. Zmienic HPeki z versji debugerskiej do versji relase
-# 3. Zmienic poziom Expa do wytriggerowania final bossa lub wywolywac gso z palca
-# 4. Problem z wyswietlaniem poprawnego statusu!
+# 1. Zmienic poziom Expa do wytriggerowania final bossa lub wywolywac gso z palca
