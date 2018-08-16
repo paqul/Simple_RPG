@@ -1,5 +1,5 @@
 # Simple_RPG
-First text game
+My first text game in python
 
 1. Click Clone or Download (Button on green background on right side) (Download ZIP),
 2. Extract files - > Go to Catalog with python files,
