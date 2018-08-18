@@ -1,17 +1,12 @@
 from __future__ import print_function
 import random
 import sys
-import timeit
-# global HP_gracza_aktualne
-# global EXP_gracza_aktualny
-# global Level_gracza_aktualny
-# global Bonus_DMG
-# global HP_maksymalne
-# global HP_po_starciu
 
 #--------------------------------lokacje-----------------------------------------#
-def top_left(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag):
-    odpowiedz = spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+# def top_left(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag):
+def top_left(aktualny_status):
+    # odpowiedz = spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+    odpowiedz = spotkanie(aktualny_status)
     HP_gracza_aktualne = odpowiedz[0]
     EXP_gracza_aktualny = odpowiedz[1]
     level_tab = level(EXP_gracza_aktualny, flag)
@@ -28,12 +23,16 @@ def top_left(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_
         idz = input()
     else:
         if idz == 's':
-            return left(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            # return left(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            return left(aktualny_status)
         elif idz == "e":
-            return top(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            # return top(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            return top(aktualny_status)
 
-def top(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag):
-    odpowiedz = spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+# def top(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag):
+def top(aktualny_status):
+    # odpowiedz = spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+    odpowiedz = spotkanie(aktualny_status)
     HP_gracza_aktualne = odpowiedz[0]
     EXP_gracza_aktualny = odpowiedz[1]
     level_tab = level(EXP_gracza_aktualny, flag)
@@ -50,14 +49,19 @@ def top(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksy
         idz = input()
     else:
         if idz == 's':
-            return central(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            # return central(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            return central(aktualny_status)
         elif idz == "e":
-            return top_right(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            # return top_right(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            return top_right(aktualny_status)
         elif idz == "w":
-            return top_left(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            # return top_left(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            return top_left(aktualny_status)
 
-def top_right(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag):
-    odpowiedz = spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+# def top_right(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag):
+def top_right(aktualny_status):
+    # odpowiedz = spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+    odpowiedz = spotkanie(aktualny_status)
     HP_gracza_aktualne = odpowiedz[0]
     EXP_gracza_aktualny = odpowiedz[1]
     level_tab = level(EXP_gracza_aktualny, flag)
@@ -74,13 +78,16 @@ def top_right(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP
         idz = input()
     else:
         if idz == 's':
-            return right(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            # return right(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            return right(aktualny_status)
         elif idz == "w":
-            return top(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            # return top(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            return top_left(aktualny_status)
 
-
-def left(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag):
-    odpowiedz = spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+# def left(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag):
+def left(aktualny_status):
+    # odpowiedz = spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+    odpowiedz = spotkanie(aktualny_status)
     HP_gracza_aktualne = odpowiedz[0]
     EXP_gracza_aktualny = odpowiedz[1]
     level_tab = level(EXP_gracza_aktualny, flag)
@@ -97,22 +104,29 @@ def left(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maks
         idz = input()
     else:
         if idz == 's':
-            return bot_left(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            # return bot_left(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            return bot_left(aktualny_status)
         elif idz == "e":
-            return central(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            # return central(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            return central(aktualny_status)
         elif idz == "n":
-            return top_left(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            # return top_left(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            return top_left(aktualny_status)
 
-def central(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag):
-    odpowiedz = spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+# def central(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag):
+def central(aktualny_status):
+    # odpowiedz = spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+    odpowiedz = spotkanie(aktualny_status)
     HP_gracza_aktualne = odpowiedz[0]
     EXP_gracza_aktualny = odpowiedz[1]
-    level_tab = level(EXP_gracza_aktualny, flag)
+    # level_tab = level(EXP_gracza_aktualny, flag)
+    level_tab = level(aktualny_status[1], aktualny_status[5])
     Level_gracza_aktualny = level_tab[0]
     EXP_gracza_aktualny = level_tab[1]
     HP_maksymalne = level_tab[3]
     Bonus_DMG = level_tab[2]
-    wywolaj_status(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+    # wywolaj_status(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+    wywolaj_status(aktualny_status)
     print ("Znajdujesz się w centrum lochu czesci lochu")
     print ("Gdzie idziesz? Mozliwe wyjscia polodnie(s) i polnoc(n) i wschod(e) i zachod(w)")
     idz = input()
@@ -121,17 +135,22 @@ def central(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_m
         idz = input()
     else:
             if idz == "s":
-                return bot(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+                # return bot(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+                return bot(aktualny_status)
             elif idz == "w":
-                return left(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+                # return left(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+                return left(aktualny_status)
             elif idz == "n":
-                return top(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+                # return top(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+                return  top(aktualny_status)
             elif idz == "e":
-                return right(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+                # return right(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+                return right(aktualny_status)
 
-
-def right(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag):
-    odpowiedz = spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+# def right(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag):
+def right(aktualny_status):
+    # odpowiedz = spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+    odpowiedz = spotkanie(aktualny_status)
     HP_gracza_aktualne = odpowiedz[0]
     EXP_gracza_aktualny = odpowiedz[1]
     level_tab = level(EXP_gracza_aktualny, flag)
@@ -148,14 +167,19 @@ def right(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_mak
         idz = input()
     else:
         if idz == 's':
-            return bot_right(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            # return bot_right(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            return bot_right(aktualny_status)
         elif idz == "w":
-            return central(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            # return central(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            return central(aktualny_status)
         elif idz == "n":
-            return top_right(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            # return top_right(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            return top_right(aktualny_status)
 
-def bot_left(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag):
-    odpowiedz = spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+# def bot_left(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag):
+def bot_left(aktualny_status):
+    # odpowiedz = spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+    odpowiedz = spotkanie(aktualny_status)
     HP_gracza_aktualne = odpowiedz[0]
     EXP_gracza_aktualny = odpowiedz[1]
     level_tab = level(EXP_gracza_aktualny, flag)
@@ -172,11 +196,13 @@ def bot_left(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_
         idz = input()
     else:
         if idz == 'n':
-            return left(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            # return left(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            return left(aktualny_status)
         elif idz == "e":
-            return bot(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            # return bot(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            return bot(aktualny_status)
 
-def bot(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag):
+def bot(aktualny_status):
     print ("Znajdujesz się w polodniowej czesci lochu")
     print ("Gdzie idziesz? Mozliwe wyjscia polnoc(n) i zachod(w) i wschod(e)")
     idz = input()
@@ -185,14 +211,19 @@ def bot(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksy
         idz = input()
     else:
         if idz == 'n':
-            return central(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            # return central(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            return central(aktualny_status)
         elif idz == "w":
-            return bot_left(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            # return bot_left(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            return bot_left(aktualny_status)
         elif idz == "e":
-            return bot_right(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            # return bot_right(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            return bot_right(aktualny_status)
 
-def bot_right(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag):
-    odpowiedz = spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+# def bot_right(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag):
+def bot_right(aktualny_status):
+    # odpowiedz = spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+    odpowiedz = spotkanie(aktualny_status)
     HP_gracza_aktualne = odpowiedz[0]
     EXP_gracza_aktualny = odpowiedz[1]
     level_tab = level(EXP_gracza_aktualny, flag)
@@ -209,36 +240,33 @@ def bot_right(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP
         idz = input()
     else:
         if idz == 'n':
-            return right(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            # return right(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            return right(aktualny_status)
         elif idz == "w":
-            return bot(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            # return bot(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            return bot(aktualny_status)
 
 #--------------------------------status-----------------------------------------#
 
 class moj_status_poczatkowy(object):
-    def __init__(self, damage, HP_gracza, EXP, level, Bonus_DMG, HP_maksymalne, flag):
-        self.damage = damage
+    def __init__(self, HP_gracza, EXP, level, Bonus_DMG, HP_maksymalne, flag):
         self.HP_gracza = HP_gracza
         self.EXP = EXP
         self.level = level
         self.Bonus_DMG = Bonus_DMG
         self.HP_maksymalne = HP_maksymalne
-        self.flag = flag
-
-    def display_status(self):
-        print("Twoje HPeki = %d, natomiast Damage jaki zadajesz to DMG = %d" % (self.HP_gracza, self.damage))
-
+        self.flag = str(flag)
+    def __repr__(self):
+        return "(%d ,%d ,%d, %d, %d, %s)" % (self.HP_gracza, self.EXP, self.level, self.Bonus_DMG, self.HP_maksymalne, self.flag)
+    def status(self, HP_gracza, EXP, level, Bonus_DMG, HP_maksymalne, flag):
+        status = [HP_gracza, EXP, level, Bonus_DMG, HP_maksymalne, str(flag)]
+        return status
 
 class moj_status(moj_status_poczatkowy):
-    def __init__(self, damage, HP_gracza, EXP, level):
-        self.damage = damage
+    def __init__(self, HP_gracza, EXP):
         self.HP_gracza = HP_gracza
         self.EXP = EXP
-        #self.level = level
-    def stat(self):
-        print("Twoje HP = $d, a twoj DMG = %d" % (self.HP_gracza, self.damage))
     def get_status(self):
-        print("WTF")
         return self.HP_gracza
 
 def wybor_postaci():
@@ -262,28 +290,27 @@ def warrior():
     HP = 10
     HP_maksymalne = 10
     print("HP: %d /" % HP, HP_maksymalne)
-    damage = random.randrange(1, 5)
+    #damage = random.randrange(1, 5)
     print ("Obrazenia jakie zadajessz to 1 - 4, ponieważ masz miecz")
     EXP = 0
     level = 1
     Bonus_DMG = 0
     flag = "war"
-    return damage, HP, EXP, level, Bonus_DMG, HP_maksymalne, flag
+    return HP, EXP, level, Bonus_DMG, HP_maksymalne, flag
 
 def mage():
     print("Twoje statystyki to: ")
     HP = 4
     HP_maksymalne = 4
     print("HP: %d /" % HP, HP_maksymalne)
-    damage = random.randrange(1, 3)
+    #damage = random.randrange(1, 3)
     print("Obrazenia jakie zadajessz to 1 - 2, uzyżywając magii")
     print("Ale ze wzrostem twojej mocy twoje czary staja sie bardziej potezne")
-    damage_spell = 99
     EXP = 0
     level = 1
     Bonus_DMG = 0
     flag = "mag"
-    return damage, HP, EXP, level, Bonus_DMG, HP_maksymalne, flag, damage_spell
+    return HP, EXP, level, Bonus_DMG, HP_maksymalne, flag
 
 def wywolaj_status(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag):
     print("|--Klasa--|--LVL--|--HP --|--HPmax--|--Exp --|--Damage zadawany--|")
@@ -292,97 +319,87 @@ def wywolaj_status(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualn
     elif flag == "mag":
         print("|--",flag,"--|--",Level_gracza_aktualny,"--|--",HP_gracza_aktualne,"--|--",HP_maksymalne,"--|--",EXP_gracza_aktualny,"--|-----", 1+Bonus_DMG,"-",2+Bonus_DMG,"------|")
     print("|---------|-------|-------|---------|--------|-------------------|")
-    input()
     return
 
 def level(EXP_gracza_aktualny, flag):
     if flag == "war":
         if EXP_gracza_aktualny < 25:
-            # print("Twoj poziom to 1")
             Level_gracza_aktualny = 1
             HP_maksymalne = 10
             Bonus_DMG = 0
             return Level_gracza_aktualny, EXP_gracza_aktualny, Bonus_DMG, HP_maksymalne
         elif EXP_gracza_aktualny >= 25 and EXP_gracza_aktualny < 50:
-            # print("Twoj poziom to 2")
             Level_gracza_aktualny = 2
             HP_maksymalne = 15
             Bonus_DMG = 2
             return Level_gracza_aktualny, EXP_gracza_aktualny, Bonus_DMG, HP_maksymalne
         elif EXP_gracza_aktualny >= 50 and EXP_gracza_aktualny < 100:
-            # print("Twoj poziom to 3")
             Level_gracza_aktualny = 3
             HP_maksymalne = 22
-            Bonus_DMG = 4
+            Bonus_DMG = 5
             return Level_gracza_aktualny, EXP_gracza_aktualny, Bonus_DMG, HP_maksymalne
         elif EXP_gracza_aktualny >= 100 and EXP_gracza_aktualny < 200:
-            # print("Twoj poziom to 4")
             Level_gracza_aktualny = 4
             HP_maksymalne = 30
-            Bonus_DMG = 6
+            Bonus_DMG = 8
             return Level_gracza_aktualny, EXP_gracza_aktualny, Bonus_DMG, HP_maksymalne
         elif EXP_gracza_aktualny >= 200 and EXP_gracza_aktualny < 350:
-            # print("Twoj poziom to 5 - Ostatni!")
             Level_gracza_aktualny = 5
             HP_maksymalne = 50
-            Bonus_DMG = 10
+            Bonus_DMG = 13
             return Level_gracza_aktualny, EXP_gracza_aktualny, Bonus_DMG, HP_maksymalne
         else:
-            # print("Twoj poziom to 6 - Secret!")
             Level_gracza_aktualny = 6
             HP_maksymalne = 100
             Bonus_DMG = 50
             return Level_gracza_aktualny, EXP_gracza_aktualny, Bonus_DMG, HP_maksymalne
     elif flag == "mag":
         if EXP_gracza_aktualny < 25:
-            # print("Twoj poziom to 1")
             Level_gracza_aktualny = 1
             HP_maksymalne = 4
             Bonus_DMG = 0
             return Level_gracza_aktualny, EXP_gracza_aktualny, Bonus_DMG, HP_maksymalne
         elif EXP_gracza_aktualny >= 25 and EXP_gracza_aktualny < 50:
-            # print("Twoj poziom to 2")
             Level_gracza_aktualny = 2
             HP_maksymalne = 8
             Bonus_DMG = 5
             return Level_gracza_aktualny, EXP_gracza_aktualny, Bonus_DMG, HP_maksymalne
         elif EXP_gracza_aktualny >= 50 and EXP_gracza_aktualny < 100:
-            # print("Twoj poziom to 3")
             Level_gracza_aktualny = 3
             HP_maksymalne = 12
             Bonus_DMG = 10
             return Level_gracza_aktualny, EXP_gracza_aktualny, Bonus_DMG, HP_maksymalne
         elif EXP_gracza_aktualny >= 100 and EXP_gracza_aktualny < 200:
-            # print("Twoj poziom to 4")
             Level_gracza_aktualny = 4
             HP_maksymalne = 16
             Bonus_DMG = 15
             return Level_gracza_aktualny, EXP_gracza_aktualny, Bonus_DMG, HP_maksymalne
         elif EXP_gracza_aktualny >= 200 and EXP_gracza_aktualny < 350:
-            # print("Twoj poziom to 5 - Ostatni!")
             Level_gracza_aktualny = 5
             HP_maksymalne = 25
             Bonus_DMG = 25
             return Level_gracza_aktualny, EXP_gracza_aktualny, Bonus_DMG, HP_maksymalne
         else:
-            # print("Twoj poziom to 6 - Secret!")
             Level_gracza_aktualny = 6
             HP_maksymalne = 50
             Bonus_DMG = 100
             return Level_gracza_aktualny, EXP_gracza_aktualny, Bonus_DMG, HP_maksymalne
 
-
 #--------------------------------spotkanie -----------------------------------------#
+
 def przejdz():
     return przejscie()
 
 def przejscie(HP_gracza_aktualne, EXP_gracza_aktualny, Bonus_DMG, HP_maksymalne, flag):
-    if EXP_gracza_aktualny >= 475:
+# def przejscie(aktualny_status[0], aktualny_status[1], aktualny_status[4], aktualny_status[3], aktualny_status[5]):
+    if EXP_gracza_aktualny >= 280:
+    # if aktualny_status[1] >= 280:
         print("Czujesz że jesteś już wystarczająco poteżny by zmierzyć się z FINAL BOSSEM, Czy chcesz tego? (tak/nie)")
         while True:
             final_decision = input()
             if final_decision == "tak":
-                print("... Z CALEGO lochu, spływa CALY kał w którym brodziłes az do teraz, w jedno miejsce znajdujace sie przed toba...")
+                print(
+                    "... Z CALEGO lochu, spływa CALY kał w którym brodziłes az do teraz, w jedno miejsce znajdujace sie przed toba...")
                 input()
                 print("... I powstaje KAPITAN PLANETA, (to nie ta bajka - sorrki) - TO jest celowy BUG :)")
                 input()
@@ -390,23 +407,25 @@ def przejscie(HP_gracza_aktualne, EXP_gracza_aktualny, Bonus_DMG, HP_maksymalne,
                 input()
                 walka(HP_gracza_aktualne, 100, 5, EXP_gracza_aktualny, 1000000, Bonus_DMG, HP_maksymalne, flag)
                 input()
-                print("Udało Ci się pokonać Last Bossa i ukończyć prostego RPGa!!! Królowa Kału rozpada sie na miliony fragmentów ekskrementu i znika...")
+                print(
+                    "Udało Ci się pokonać Last Bossa i ukończyć prostego RPGa!!! Królowa Kału rozpada sie na miliony fragmentów ekskrementu i znika...")
                 input()
                 print("Następuje silne trzesienie ziemi, a loch zaczyna się walić...")
                 input()
-                print("Przed tobą pojawia się portal - na ten moment wydaje się jedynym rozsądnym miejscem ucieczki z lochu.")
+                print(
+                    "Przed tobą pojawia się portal - na ten moment wydaje się jedynym rozsądnym miejscem ucieczki z lochu.")
                 print("Czy chcesz przejść przez portal? (tak/nie)")
                 while True:
-                    # t = timeit(30.0, wahania)
-                    # t.start()
-                    koncowka=input()
+                    koncowka = input()
                     if koncowka == "tak":
-                        print("Przechodzisz przez portal i znadujesz sie na powierzchni, na dziedzińcu w jakimś zamku...")
+                        print(
+                            "Przechodzisz przez portal i znadujesz sie na powierzchni, na dziedzińcu w jakimś zamku...")
                         print("CONGRATULATIONS!")
                         print("Udało Ci się ukończyć prostego RPGa !!!!")
                         GAME_OVER()
                     elif koncowka == "nie":
-                        print("Zbyt długo sie wachasz czy przejsc przez portal i dostajesz spadającymi skałami w łeb i umierasz...")
+                        print(
+                            "Zbyt długo sie wachasz czy przejsc przez portal i dostajesz spadającymi skałami w łeb i umierasz...")
                         GAME_OVER()
                     else:
                         print("Wpisz 'tak' lub 'nie' ")
@@ -418,34 +437,40 @@ def przejscie(HP_gracza_aktualne, EXP_gracza_aktualny, Bonus_DMG, HP_maksymalne,
     else:
         return
 
-# def wahania():
-#     print("Zbyt długo sie wachasz czy przejsc przez portal i dostajesz spadającymi skałami w łeb i umierasz...")
-#     GAME_OVER()
 
-def spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag):
-    EXP_gracza_aktualny = EXP_gracza_aktualny
+
+# def spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag):
+def spotkanie(aktualny_status):
+    # EXP_gracza_aktualny = aktualny_status[1]
     zaszlo = random.randrange(0,101)
-    HP_gracza_aktualne = HP_gracza_aktualne
-    EXP_gracza_aktualny = EXP_gracza_aktualny
-    Level_gracza_aktualny = Level_gracza_aktualny
-    HP_maksymalne = HP_maksymalne
-    level_tab = level(EXP_gracza_aktualny, flag)
-    Level_gracza_aktualny = level_tab[0]
-    EXP_gracza_aktualny = level_tab[1]
-    HP_maksymalne = level_tab[3]
-    Bonus_DMG = level_tab[2]
-    przejscie(HP_gracza_aktualne, EXP_gracza_aktualny, Bonus_DMG, HP_maksymalne, flag)
+    HP_gracza_aktualne = aktualny_status[0]
+    EXP_gracza_aktualny = aktualny_status[1]
+    Level_gracza_aktualny = aktualny_status[2]
+    HP_maksymalne = aktualny_status[3]
+    flag = aktualny_status[5]
+    # level_tab = level(EXP_gracza_aktualny, flag)
+    level_tab = level(aktualny_status[1], aktualny_status[5])
+    # Level_gracza_aktualny = level_tab[0]
+    # EXP_gracza_aktualny = level_tab[1]
+    # HP_maksymalne = level_tab[3]
+    # Bonus_DMG = level_tab[2]
+    aktualny_status[2] = level_tab[0]
+    aktualny_status[1] = level_tab[1]
+    aktualny_status[3] = level_tab[3]
+    aktualny_status[4] = level_tab[2]
+    # przejscie(HP_gracza_aktualne, EXP_gracza_aktualny, Bonus_DMG, HP_maksymalne, flag)
+    print(aktualny_status[0],aktualny_status[1],aktualny_status[4],aktualny_status[3],aktualny_status[5])
+    przejscie(aktualny_status[0],aktualny_status[1],aktualny_status[4],aktualny_status[3],aktualny_status[5])
     if zaszlo > 33 and zaszlo <= 75:
-        print("Na swojej drodze spotykasz przeciwnika, przygotuj sie do walki !") #(",zaszlo,")")
+        print("Na swojej drodze spotykasz przeciwnika, przygotuj sie do walki !")
         losuj_przeciwnika = random.randrange(1,101)
-        # print("wylsoowales liczbe portwora dla liczby %d" % (losuj_przeciwnika))
         if losuj_przeciwnika >= 1  and losuj_przeciwnika <= 40:
             my_enemy = szczur()
             staty = my_enemy.status()
-            Staty_po_starciu = walka(HP_gracza_aktualne,staty[1],staty[2],EXP_gracza_aktualny,staty[3],Bonus_DMG,HP_maksymalne,flag)
+            # Staty_po_starciu = walka(HP_gracza_aktualne,staty[1],staty[2],EXP_gracza_aktualny,staty[3],Bonus_DMG,HP_maksymalne,flag)
+            Staty_po_starciu = walka(aktualny_status[0],staty[1],staty[2],aktualny_status[1],staty[3],aktualny_status[4],aktualny_status[3],aktualny_status[5])
             HP_po_starciu=Staty_po_starciu[0]
             EXP_gracza_aktualny=Staty_po_starciu[1]
-            #print("Aktualne twoje doswiadczenie %d" % EXP_gracza_aktualny)
             odpowiedz = porownanie_HP_HPmax(HP_po_starciu, HP_maksymalne)
             HP_po_starciu = odpowiedz[0]
             HP_maksymalne = odpowiedz[1]
@@ -453,10 +478,10 @@ def spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP
         elif losuj_przeciwnika > 40 and losuj_przeciwnika < 80:
             my_enemy = goblin()
             staty = my_enemy.status()
-            Staty_po_starciu = walka(HP_gracza_aktualne,staty[1],staty[2],EXP_gracza_aktualny,staty[3],Bonus_DMG,HP_maksymalne,flag)
+            # Staty_po_starciu = walka(HP_gracza_aktualne,staty[1],staty[2],EXP_gracza_aktualny,staty[3],Bonus_DMG,HP_maksymalne,flag)
+            Staty_po_starciu = walka(aktualny_status[0], staty[1], staty[2], aktualny_status[1], staty[3], aktualny_status[4], aktualny_status[3], aktualny_status[5])
             HP_po_starciu=Staty_po_starciu[0]
             EXP_gracza_aktualny=Staty_po_starciu[1]
-            #print("Aktualne twoje doswiadczenie %d" % EXP_gracza_aktualny)
             odpowiedz = porownanie_HP_HPmax(HP_po_starciu, HP_maksymalne)
             HP_po_starciu = odpowiedz[0]
             HP_maksymalne = odpowiedz[1]
@@ -464,10 +489,10 @@ def spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP
         elif losuj_przeciwnika == 100:
             my_enemy = towdi()
             staty = my_enemy.status()
-            Staty_po_starciu = walka(HP_gracza_aktualne,staty[1],staty[2],EXP_gracza_aktualny,staty[3],Bonus_DMG,HP_maksymalne,flag)
+            # Staty_po_starciu = walka(HP_gracza_aktualne,staty[1],staty[2],EXP_gracza_aktualny,staty[3],Bonus_DMG,HP_maksymalne,flag)
+            Staty_po_starciu = walka(aktualny_status[0], staty[1], staty[2], aktualny_status[1], staty[3], aktualny_status[4], aktualny_status[3], aktualny_status[5])
             HP_po_starciu=Staty_po_starciu[0]
             EXP_gracza_aktualny=Staty_po_starciu[1]
-            #print("Aktualne twoje doswiadczenie %d" % EXP_gracza_aktualny)
             odpowiedz = porownanie_HP_HPmax(HP_po_starciu, HP_maksymalne)
             HP_po_starciu = odpowiedz[0]
             HP_maksymalne = odpowiedz[1]
@@ -475,62 +500,68 @@ def spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP
         else:
             my_enemy = ork()
             staty = my_enemy.status()
-            Staty_po_starciu = walka(HP_gracza_aktualne,staty[1],staty[2],EXP_gracza_aktualny,staty[3],Bonus_DMG,HP_maksymalne,flag)
+            # Staty_po_starciu = walka(HP_gracza_aktualne,staty[1],staty[2],EXP_gracza_aktualny,staty[3],Bonus_DMG,HP_maksymalne,flag)
+            Staty_po_starciu = walka(aktualny_status[0], staty[1], staty[2], aktualny_status[1], staty[3], aktualny_status[4], aktualny_status[3], aktualny_status[5])
             HP_po_starciu=Staty_po_starciu[0]
             EXP_gracza_aktualny=Staty_po_starciu[1]
-            #print("Aktualne twoje doswiadczenie %d" % EXP_gracza_aktualny)
             odpowiedz = porownanie_HP_HPmax(HP_po_starciu, HP_maksymalne)
             HP_po_starciu = odpowiedz[0]
             HP_maksymalne = odpowiedz[1]
             return HP_po_starciu, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag
     elif zaszlo > 75 and zaszlo <= 100:
         jaki_mix = random.randrange(0,101)
-        #print("Okreslenie rodzaju miksturky: %d" % jaki_mix)
         if jaki_mix < 40:
-            #print("Znajdujesz małą miksturke leczącą, która leczy Cie za 2 punkty życia")
             print("Znajdujesz małą miksturke leczącą, która odrobinę poprawia twój stan zdrowia")
             input()
-            level_tab=level(EXP_gracza_aktualny, flag)
+            # level_tab=level(EXP_gracza_aktualny, flag)
+            level_tab = level(aktualny_status[1], aktualny_status[5])
             HP_maksymalne = level_tab[3]
             elixir = mikstura()
             Lecz = elixir.mala_mix()
             HP_gracza_aktualne += Lecz[1]
-            odpowiedz1 = porownanie_HP_HPmax(HP_gracza_aktualne, HP_maksymalne)
-            HP_gracza_aktualne = odpowiedz1[0]
-            HP_maksymalne = odpowiedz1[1]
-            #print("AKUTALNE ZDROWIE %d" % HP_gracza_aktualne)
-            return HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag
+            odpowiedz = porownanie_HP_HPmax(HP_gracza_aktualne, HP_maksymalne)
+            aktualny_status[0] = odpowiedz[0]
+            aktualny_status[3] = odpowiedz[1]
+            # HP_gracza_aktualne = odpowiedz1[0]
+            # HP_maksymalne = odpowiedz1[1]
+            # return HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag
+            return aktualny_status
         elif jaki_mix >= 40 and jaki_mix< 80:
-            #print("Znajdujesz miksturke leczącą która leczy Cie za 4 punkty życia")
             print("Znajdujesz miksturke leczącą, która Cie leczy")
             input()
-            level_tab=level(EXP_gracza_aktualny, flag)
+            # level_tab=level(EXP_gracza_aktualny, flag)
+            level_tab = level(aktualny_status[1], aktualny_status[5])
             HP_maksymalne = level_tab[3]
             elixir = mikstura()
             Lecz = elixir.normalna_mix()
             HP_gracza_aktualne += Lecz[1]
             odpowiedz = porownanie_HP_HPmax(HP_gracza_aktualne, HP_maksymalne)
-            HP_gracza_aktualne = odpowiedz[0]
-            HP_maksymalne = odpowiedz[1]
-            #print("AKUTALNE ZDROWIE %d" % HP_gracza_aktualne)
-            return HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag
+            aktualny_status[0] = odpowiedz[0]
+            aktualny_status[3] = odpowiedz[1]
+            # HP_gracza_aktualne = odpowiedz[0]
+            # HP_maksymalne = odpowiedz[1]
+            # return HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag
+            return aktualny_status
         else:
-            #print("Znajdujesz DUŻĄ miksturke leczącą która leczy Cie za 10 punkty życia")
             print("Znajdujesz dużą miksture leczącą, która znacząco poprawia twój stan zdrowia")
             input()
-            level_tab=level(EXP_gracza_aktualny, flag)
+            # level_tab=level(EXP_gracza_aktualny, flag)
+            level_tab = level(aktualny_status[1], aktualny_status[5])
             HP_maksymalne = level_tab[3]
             elixir = mikstura()
             Lecz = elixir.duza_mix()
             HP_gracza_aktualne += Lecz[1]
             odpowiedz = porownanie_HP_HPmax(HP_gracza_aktualne, HP_maksymalne)
-            HP_gracza_aktualne = odpowiedz[0]
-            HP_maksymalne = odpowiedz[1]
-            #print("AKUTALNE ZDROWIE %d" % HP_gracza_aktualne)
-            return HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag
+            aktualny_status[0] = odpowiedz[0]
+            aktualny_status[3] = odpowiedz[1]
+            # HP_gracza_aktualne = odpowiedz[0]
+            # HP_maksymalne = odpowiedz[1]
+            # # return HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag
+            return aktualny_status
     else:
-        print("Wchodzisz do nowego obszaru i nic sie nie dzieje")#(",zaszlo,")")
-        return HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag
+        print("Wchodzisz do nowego obszaru i nic sie nie dzieje")
+        # return HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag
+        return aktualny_status
 
 #-------------------support function--------------------------------------------------#
 
@@ -569,6 +600,7 @@ def GAME_OVER():
                 sys.exit()
         else:
             print("Wybrałes failowo, wybierz jeszcze raz")
+
 #-------------------przeciwnicy--------------------------------------------------#
 class enemy(object):
     HPmax = 100
@@ -584,7 +616,6 @@ class goblin(enemy):
         self.dmg = 1
         self.EXP = 8
         print("Spotykasz %sa !" % (self.name))
-        #print("Spotykasz %sa ktory ma %d punktow zycia oraz bije za %d, EXP za szczura to %d" % (self.name, self.HP, self.dmg, self.EXP))
     def status(self):
         return (self.name, self.HP, self.dmg, self.EXP)
 
@@ -595,7 +626,6 @@ class ork(enemy):
         self.dmg = random.randrange(2,5)
         self.EXP = 20
         print("Spotykasz %sa !" % (self.name))
-        #print ("Spotykasz %sa ktory ma %d punktow zycia oraz bije za %d, EXP za szczura to %d" % (self.name, self.HP, self.dmg, self.EXP))
     def status(self):
         return (self.name, self.HP, self.dmg, self.EXP)
 
@@ -606,7 +636,6 @@ class szczur(enemy):
         self.dmg = 1
         self.EXP = 2
         print("Spotykasz %sa !" % (self.name))
-        #print ("Spotykasz %sa ktory ma %d punktow zycia oraz bije za %d, EXP za szczura to %d" % (self.name, self.HP, self.dmg, self.EXP))
     def status(self):
         return (self.name, self.HP, self.dmg, self.EXP)
 
@@ -617,7 +646,6 @@ class towdi(enemy):
         self.dmg = random.randrange(4,11)
         self.EXP = 500
         print("Spotykasz %sa !" % (self.name))
-        #print ("Spotykasz %s ktory ma %d punktow zycia oraz bije za %d, EXP za szczura to %d" % (self.name, self.HP, self.dmg, self.EXP))
     def status(self):
         return (self.name, self.HP, self.dmg, self.EXP)
 
@@ -636,14 +664,11 @@ class mikstura(object):
     def duza_mix(self):
         return(self.duza, self.HPregen_duza)
 
-
-
 #------------------------------------walka------------------------------#
 def walka(HP_gracza,HP_potwora,dmg_potwora,EXP_gracza_aktualny,EXP_potwora,Bonus_DMG,HP_maksymalne,flag):
     if HP_potwora > 99:
         print("Rozpoczynasz walke...")
         input()
-        # print("Twoje aktualne zdrowie to: %d" % HP_gracza)
         HP_potwora_maksymalne = HP_potwora
         HP_gracza_maksymalne = HP_gracza
         while (HP_gracza >= 1):
@@ -657,8 +682,6 @@ def walka(HP_gracza,HP_potwora,dmg_potwora,EXP_gracza_aktualny,EXP_potwora,Bonus
             naloz_potwor = nakladka_klimat(HP_potwora, HP_potwora_maksymalne)
             print("Zadales przeciwnikowi obrażenia i jest %s" % naloz_potwor)
             print("Przeciwnik uderzył Cie i jesteś %s" % naloz_gracz)
-            # print("Zadales przeciwnikowi %d HP i zostalo mu" % damage_zadane,"%d zycia" % HP_potwora)
-            # print("Przeciwnik uderzył Cie za %d HP i zostalo tobie" % dmg_potwora, "%d życia" % HP_gracza)
             if HP_gracza <= 0:
                 print("GAME OVER ! ! !")
                 GAME_OVER()
@@ -680,7 +703,6 @@ def walka(HP_gracza,HP_potwora,dmg_potwora,EXP_gracza_aktualny,EXP_potwora,Bonus
                         break
                     else:
                         print("wpisz 't' lub 'n'")
-
     else:
         input()
         print("Wybierz czy chcesz walczyć czy uciekać? (walcz/uciekaj): ")
@@ -690,7 +712,6 @@ def walka(HP_gracza,HP_potwora,dmg_potwora,EXP_gracza_aktualny,EXP_potwora,Bonus
                 if akcja == "walcz":
                     print("Rozpoczynasz walke...")
                     input()
-                    #print("Twoje aktualne zdrowie to: %d" % HP_gracza)
                     HP_potwora_maksymalne = HP_potwora
                     HP_gracza_maksymalne = HP_gracza
                     while (HP_gracza >= 1):
@@ -700,13 +721,10 @@ def walka(HP_gracza,HP_potwora,dmg_potwora,EXP_gracza_aktualny,EXP_potwora,Bonus
                             damage_zadane = random.randrange(1, 3) + Bonus_DMG
                         HP_potwora = HP_potwora - damage_zadane
                         HP_gracza = HP_gracza - dmg_potwora
-                        # print(HP_gracza,HP_maksymalne,HP_potwora,HP_potwora_maksymalne)
                         naloz_gracz = nakladka_klimat(HP_gracza,HP_maksymalne)
                         naloz_potwor = nakladka_klimat(HP_potwora, HP_potwora_maksymalne)
                         print("Zadales przeciwnikowi obrażenia i jest %s" % naloz_potwor)
                         print("Przeciwnik uderzył Cie i jesteś %s" % naloz_gracz)
-                        # print("Zadales przeciwnikowi %d obrażeń i zostalo mu"% damage_zadane, "%d życia" %  HP_potwora)
-                        # print("Przeciwnik uderzył Cie za %d obrażeń i zostalo tobie" % dmg_potwora, "%d życia" % HP_gracza)
                         if HP_gracza <= 0:
                             print ("Giniesz - GAME OVER ! ! !")
                             input()
@@ -726,7 +744,6 @@ def walka(HP_gracza,HP_potwora,dmg_potwora,EXP_gracza_aktualny,EXP_potwora,Bonus
                                     break
                                 elif kontynuacja == "n":
                                     proba_ucieczki = random.randrange(1, 100)
-                                    #print("Wyrzuciles: %d na ucieczke" % proba_ucieczki)
                                     if proba_ucieczki >= 20:
                                         print("Udało Ci sie uciec!")
                                         return HP_gracza, EXP_gracza_aktualny
@@ -736,11 +753,9 @@ def walka(HP_gracza,HP_potwora,dmg_potwora,EXP_gracza_aktualny,EXP_potwora,Bonus
                                         break
                                 else:
                                     print("wpisz 't' lub 'n'")
-                    #print("Aktualne twoje doswiadczenie %d" % EXP_gracza_aktualny)
                     break
                 elif akcja == "uciekaj" or akcja == "n" or akcja == "e" or akcja == "w" or akcja == "s":
                     proba_ucieczki = random.randrange(1, 100)
-                    #print("Wyrzuciles: %d na ucieczke" % proba_ucieczki)
                     if proba_ucieczki >= 20:
                         print("Udało Ci sie uciec!")
                         return HP_gracza, EXP_gracza_aktualny
@@ -752,21 +767,18 @@ def walka(HP_gracza,HP_potwora,dmg_potwora,EXP_gracza_aktualny,EXP_potwora,Bonus
 
 #-------------------------GRA-------------------------------------------#
 
-
 print("Witaj w prostym RPGU")
 def main():
     print("Chcesz zagrac wojownikiem czy magiem ? (woj/mag):")
     staty_gracza=wybor_postaci()
-    aktualny_status = moj_status_poczatkowy(staty_gracza[0], staty_gracza[1], staty_gracza[2], staty_gracza[3], staty_gracza[4], staty_gracza[5], staty_gracza[6])
-    #print("DEBUG statystyk (dmg, hp aktualne, exp, lvl, bonus dmg, hp max, KTO?)" ,staty_gracza[0], staty_gracza[1], staty_gracza[2], staty_gracza[3], staty_gracza[4], staty_gracza[5], staty_gracza[6])
-    HP_gracza_aktualne = aktualny_status.HP_gracza
-    EXP_gracza_aktualny = aktualny_status.EXP
-    Level_gracza_aktualny = aktualny_status.level
-    Bonus_DMG = aktualny_status.Bonus_DMG
-    HP_maksymalne = aktualny_status.HP_maksymalne
-    flag = aktualny_status.flag
-    # EXP_gracza_aktualny = 474
-    # HP_gracza_aktualne = 50
+    aktualny_status = moj_status_poczatkowy(staty_gracza[0], staty_gracza[1], staty_gracza[2], staty_gracza[3], staty_gracza[4], staty_gracza[5]).status(staty_gracza[0], staty_gracza[1], staty_gracza[2], staty_gracza[3], staty_gracza[4], staty_gracza[5]) # HP, EXP, level, Bonus_DMG, HP_maksymalne, flag
+    # aktualny_status = aktualny_status.HP_gracza
+    # EXP_gracza_aktualny = aktualny_status.EXP
+    # Level_gracza_aktualny = aktualny_status.level
+    # Bonus_DMG = aktualny_status.Bonus_DMG
+    # HP_maksymalne = aktualny_status.HP_maksymalne
+    # flag = aktualny_status.flag
+    # print(aktualny_status[0])
     input()
     print ("Rozpoczynasz GRE - prostego RPGA")
     print("Czy chcesz wskoczyć do studni prowadzącej do mrocznego lochu gdzie będziesz brodził w kale po kostki do samego końca? (tak/nie)")
@@ -779,13 +791,15 @@ def main():
             print("CONGRATULATIONS!")
             break
         elif decyzja == "tak":
-            bot(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            # bot(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+            bot(aktualny_status)
         else:
             print("Wpisz poprawnie słowo 'tak' lub slowo 'nie', Chcesz tam wchodzić czy nie?!")
     GAME_OVER()
 
 main()
 
-############################### B U ! G I #########################################
-# 1. Zmienic poziom Expa do wytriggerowania final bossa lub wywolywac gso z palca
-# 2. VERY DIFICULT VERSION
+
+#---------------------BUGI---------------------------------$
+# 1. problem z walka
+# 2. problem z wywolaj status
