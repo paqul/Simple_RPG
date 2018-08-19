@@ -7,14 +7,30 @@ import sys
 def top_left(aktualny_status):
     # odpowiedz = spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
     odpowiedz = spotkanie(aktualny_status)
-    HP_gracza_aktualne = odpowiedz[0]
-    EXP_gracza_aktualny = odpowiedz[1]
-    level_tab = level(EXP_gracza_aktualny, flag)
-    Level_gracza_aktualny = level_tab[0]
-    EXP_gracza_aktualny = level_tab[1]
-    HP_maksymalne = level_tab[3]
-    Bonus_DMG = level_tab[2]
-    wywolaj_status(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+    # HP_gracza_aktualne = odpowiedz[0]
+    # EXP_gracza_aktualny = odpowiedz[1]
+    # level_tab = level(EXP_gracza_aktualny, flag)
+    # Level_gracza_aktualny = level_tab[0]
+    # EXP_gracza_aktualny = level_tab[1]
+    # HP_maksymalne = level_tab[3]
+    # Bonus_DMG = level_tab[2]
+    # wywolaj_status(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+    # HP_gracza_aktualne = odpowiedz[0]
+    # EXP_gracza_aktualny = odpowiedz[1]
+    aktualny_status[0] = odpowiedz[0]
+    aktualny_status[1] = odpowiedz[1]
+    # level_tab = level(EXP_gracza_aktualny, flag)
+    level_tab = level(aktualny_status[1], aktualny_status[5])
+    # Level_gracza_aktualny = level_tab[0]
+    # EXP_gracza_aktualny = level_tab[1]
+    # HP_maksymalne = level_tab[3]
+    # Bonus_DMG = level_tab[2]
+    aktualny_status[2] = level_tab[0]
+    aktualny_status[1] = level_tab[1]
+    aktualny_status[3] = level_tab[3]
+    aktualny_status[4] = level_tab[2]
+    # wywolaj_status(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+    wywolaj_status(aktualny_status)
     print ("Znajdujesz się w północno zachodniej czesci lochu")
     print ("Gdzie idziesz? Mozliwe wyjscia polodnie(s) i wschod(e)")
     idz = input()
@@ -33,14 +49,30 @@ def top_left(aktualny_status):
 def top(aktualny_status):
     # odpowiedz = spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
     odpowiedz = spotkanie(aktualny_status)
-    HP_gracza_aktualne = odpowiedz[0]
-    EXP_gracza_aktualny = odpowiedz[1]
-    level_tab = level(EXP_gracza_aktualny, flag)
-    Level_gracza_aktualny = level_tab[0]
-    EXP_gracza_aktualny = level_tab[1]
-    HP_maksymalne = level_tab[3]
-    Bonus_DMG = level_tab[2]
-    wywolaj_status(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+    # HP_gracza_aktualne = odpowiedz[0]
+    # EXP_gracza_aktualny = odpowiedz[1]
+    # level_tab = level(EXP_gracza_aktualny, flag)
+    # Level_gracza_aktualny = level_tab[0]
+    # EXP_gracza_aktualny = level_tab[1]
+    # HP_maksymalne = level_tab[3]
+    # Bonus_DMG = level_tab[2]
+    # wywolaj_status(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+    # HP_gracza_aktualne = odpowiedz[0]
+    # EXP_gracza_aktualny = odpowiedz[1]
+    aktualny_status[0] = odpowiedz[0]
+    aktualny_status[1] = odpowiedz[1]
+    # level_tab = level(EXP_gracza_aktualny, flag)
+    level_tab = level(aktualny_status[1], aktualny_status[5])
+    # Level_gracza_aktualny = level_tab[0]
+    # EXP_gracza_aktualny = level_tab[1]
+    # HP_maksymalne = level_tab[3]
+    # Bonus_DMG = level_tab[2]
+    aktualny_status[2] = level_tab[0]
+    aktualny_status[1] = level_tab[1]
+    aktualny_status[3] = level_tab[3]
+    aktualny_status[4] = level_tab[2]
+    # wywolaj_status(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+    wywolaj_status(aktualny_status)
     print ("Znajdujesz się w północnej czesci lochu")
     print ("Gdzie idziesz? Mozliwe wyjscia polodnie(s) i wschod(e) i zachod(w)")
     idz = input()
@@ -62,14 +94,30 @@ def top(aktualny_status):
 def top_right(aktualny_status):
     # odpowiedz = spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
     odpowiedz = spotkanie(aktualny_status)
-    HP_gracza_aktualne = odpowiedz[0]
-    EXP_gracza_aktualny = odpowiedz[1]
-    level_tab = level(EXP_gracza_aktualny, flag)
-    Level_gracza_aktualny = level_tab[0]
-    EXP_gracza_aktualny = level_tab[1]
-    HP_maksymalne = level_tab[3]
-    Bonus_DMG = level_tab[2]
-    wywolaj_status(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+    # HP_gracza_aktualne = odpowiedz[0]
+    # EXP_gracza_aktualny = odpowiedz[1]
+    # level_tab = level(EXP_gracza_aktualny, flag)
+    # Level_gracza_aktualny = level_tab[0]
+    # EXP_gracza_aktualny = level_tab[1]
+    # HP_maksymalne = level_tab[3]
+    # Bonus_DMG = level_tab[2]
+    # wywolaj_status(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+    # HP_gracza_aktualne = odpowiedz[0]
+    # EXP_gracza_aktualny = odpowiedz[1]
+    aktualny_status[0] = odpowiedz[0]
+    aktualny_status[1] = odpowiedz[1]
+    # level_tab = level(EXP_gracza_aktualny, flag)
+    level_tab = level(aktualny_status[1], aktualny_status[5])
+    # Level_gracza_aktualny = level_tab[0]
+    # EXP_gracza_aktualny = level_tab[1]
+    # HP_maksymalne = level_tab[3]
+    # Bonus_DMG = level_tab[2]
+    aktualny_status[2] = level_tab[0]
+    aktualny_status[1] = level_tab[1]
+    aktualny_status[3] = level_tab[3]
+    aktualny_status[4] = level_tab[2]
+    # wywolaj_status(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+    wywolaj_status(aktualny_status)
     print ("Znajdujesz się w północno wschodniej czesci lochu")
     print ("Gdzie idziesz? Mozliwe wyjscia polodnie(s) i zachod(w)")
     idz = input()
@@ -88,14 +136,30 @@ def top_right(aktualny_status):
 def left(aktualny_status):
     # odpowiedz = spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
     odpowiedz = spotkanie(aktualny_status)
-    HP_gracza_aktualne = odpowiedz[0]
-    EXP_gracza_aktualny = odpowiedz[1]
-    level_tab = level(EXP_gracza_aktualny, flag)
-    Level_gracza_aktualny = level_tab[0]
-    EXP_gracza_aktualny = level_tab[1]
-    HP_maksymalne = level_tab[3]
-    Bonus_DMG = level_tab[2]
-    wywolaj_status(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+    # HP_gracza_aktualne = odpowiedz[0]
+    # EXP_gracza_aktualny = odpowiedz[1]
+    # level_tab = level(EXP_gracza_aktualny, flag)
+    # Level_gracza_aktualny = level_tab[0]
+    # EXP_gracza_aktualny = level_tab[1]
+    # HP_maksymalne = level_tab[3]
+    # Bonus_DMG = level_tab[2]
+    # wywolaj_status(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+    # HP_gracza_aktualne = odpowiedz[0]
+    # EXP_gracza_aktualny = odpowiedz[1]
+    aktualny_status[0] = odpowiedz[0]
+    aktualny_status[1] = odpowiedz[1]
+    # level_tab = level(EXP_gracza_aktualny, flag)
+    level_tab = level(aktualny_status[1], aktualny_status[5])
+    # Level_gracza_aktualny = level_tab[0]
+    # EXP_gracza_aktualny = level_tab[1]
+    # HP_maksymalne = level_tab[3]
+    # Bonus_DMG = level_tab[2]
+    aktualny_status[2] = level_tab[0]
+    aktualny_status[1] = level_tab[1]
+    aktualny_status[3] = level_tab[3]
+    aktualny_status[4] = level_tab[2]
+    # wywolaj_status(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+    wywolaj_status(aktualny_status)
     print ("Znajdujesz się w zachodniej czesci lochu")
     print ("Gdzie idziesz? Mozliwe wyjscia polodnie(s) i polnoc(n) i wschod(e)")
     idz = input()
@@ -117,14 +181,20 @@ def left(aktualny_status):
 def central(aktualny_status):
     # odpowiedz = spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
     odpowiedz = spotkanie(aktualny_status)
-    HP_gracza_aktualne = odpowiedz[0]
-    EXP_gracza_aktualny = odpowiedz[1]
+    # HP_gracza_aktualne = odpowiedz[0]
+    # EXP_gracza_aktualny = odpowiedz[1]
+    aktualny_status[0] = odpowiedz[0]
+    aktualny_status[1] = odpowiedz[1]
     # level_tab = level(EXP_gracza_aktualny, flag)
     level_tab = level(aktualny_status[1], aktualny_status[5])
-    Level_gracza_aktualny = level_tab[0]
-    EXP_gracza_aktualny = level_tab[1]
-    HP_maksymalne = level_tab[3]
-    Bonus_DMG = level_tab[2]
+    # Level_gracza_aktualny = level_tab[0]
+    # EXP_gracza_aktualny = level_tab[1]
+    # HP_maksymalne = level_tab[3]
+    # Bonus_DMG = level_tab[2]
+    aktualny_status[2] = level_tab[0]
+    aktualny_status[1] = level_tab[1]
+    aktualny_status[3] = level_tab[3]
+    aktualny_status[4] = level_tab[2]
     # wywolaj_status(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
     wywolaj_status(aktualny_status)
     print ("Znajdujesz się w centrum lochu czesci lochu")
@@ -151,14 +221,30 @@ def central(aktualny_status):
 def right(aktualny_status):
     # odpowiedz = spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
     odpowiedz = spotkanie(aktualny_status)
-    HP_gracza_aktualne = odpowiedz[0]
-    EXP_gracza_aktualny = odpowiedz[1]
-    level_tab = level(EXP_gracza_aktualny, flag)
-    Level_gracza_aktualny = level_tab[0]
-    EXP_gracza_aktualny = level_tab[1]
-    HP_maksymalne = level_tab[3]
-    Bonus_DMG = level_tab[2]
-    wywolaj_status(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+    # HP_gracza_aktualne = odpowiedz[0]
+    # EXP_gracza_aktualny = odpowiedz[1]
+    # level_tab = level(EXP_gracza_aktualny, flag)
+    # Level_gracza_aktualny = level_tab[0]
+    # EXP_gracza_aktualny = level_tab[1]
+    # HP_maksymalne = level_tab[3]
+    # Bonus_DMG = level_tab[2]
+    # wywolaj_status(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+    # HP_gracza_aktualne = odpowiedz[0]
+    # EXP_gracza_aktualny = odpowiedz[1]
+    aktualny_status[0] = odpowiedz[0]
+    aktualny_status[1] = odpowiedz[1]
+    # level_tab = level(EXP_gracza_aktualny, flag)
+    level_tab = level(aktualny_status[1], aktualny_status[5])
+    # Level_gracza_aktualny = level_tab[0]
+    # EXP_gracza_aktualny = level_tab[1]
+    # HP_maksymalne = level_tab[3]
+    # Bonus_DMG = level_tab[2]
+    aktualny_status[2] = level_tab[0]
+    aktualny_status[1] = level_tab[1]
+    aktualny_status[3] = level_tab[3]
+    aktualny_status[4] = level_tab[2]
+    # wywolaj_status(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+    wywolaj_status(aktualny_status)
     print ("Znajdujesz się w wschodniej czesci lochu")
     print ("Gdzie idziesz? Mozliwe wyjscia polodnie(s) i polnoc(n) i zachod(w)")
     idz = input()
@@ -180,14 +266,30 @@ def right(aktualny_status):
 def bot_left(aktualny_status):
     # odpowiedz = spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
     odpowiedz = spotkanie(aktualny_status)
-    HP_gracza_aktualne = odpowiedz[0]
-    EXP_gracza_aktualny = odpowiedz[1]
-    level_tab = level(EXP_gracza_aktualny, flag)
-    Level_gracza_aktualny = level_tab[0]
-    EXP_gracza_aktualny = level_tab[1]
-    HP_maksymalne = level_tab[3]
-    Bonus_DMG = level_tab[2]
-    wywolaj_status(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+    # HP_gracza_aktualne = odpowiedz[0]
+    # EXP_gracza_aktualny = odpowiedz[1]
+    # level_tab = level(EXP_gracza_aktualny, flag)
+    # Level_gracza_aktualny = level_tab[0]
+    # EXP_gracza_aktualny = level_tab[1]
+    # HP_maksymalne = level_tab[3]
+    # Bonus_DMG = level_tab[2]
+    # wywolaj_status(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+    # HP_gracza_aktualne = odpowiedz[0]
+    # EXP_gracza_aktualny = odpowiedz[1]
+    aktualny_status[0] = odpowiedz[0]
+    aktualny_status[1] = odpowiedz[1]
+    # level_tab = level(EXP_gracza_aktualny, flag)
+    level_tab = level(aktualny_status[1], aktualny_status[5])
+    # Level_gracza_aktualny = level_tab[0]
+    # EXP_gracza_aktualny = level_tab[1]
+    # HP_maksymalne = level_tab[3]
+    # Bonus_DMG = level_tab[2]
+    aktualny_status[2] = level_tab[0]
+    aktualny_status[1] = level_tab[1]
+    aktualny_status[3] = level_tab[3]
+    aktualny_status[4] = level_tab[2]
+    # wywolaj_status(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+    wywolaj_status(aktualny_status)
     print ("Znajdujesz się w polodniowo zachodniej czesci lochu")
     print ("Gdzie idziesz? Mozliwe wyjscia polnoc(n) i wschod(e)")
     idz = input()
@@ -224,14 +326,30 @@ def bot(aktualny_status):
 def bot_right(aktualny_status):
     # odpowiedz = spotkanie(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
     odpowiedz = spotkanie(aktualny_status)
-    HP_gracza_aktualne = odpowiedz[0]
-    EXP_gracza_aktualny = odpowiedz[1]
-    level_tab = level(EXP_gracza_aktualny, flag)
-    Level_gracza_aktualny = level_tab[0]
-    EXP_gracza_aktualny = level_tab[1]
-    HP_maksymalne = level_tab[3]
-    Bonus_DMG = level_tab[2]
-    wywolaj_status(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+    # HP_gracza_aktualne = odpowiedz[0]
+    # EXP_gracza_aktualny = odpowiedz[1]
+    # level_tab = level(EXP_gracza_aktualny, flag)
+    # Level_gracza_aktualny = level_tab[0]
+    # EXP_gracza_aktualny = level_tab[1]
+    # HP_maksymalne = level_tab[3]
+    # Bonus_DMG = level_tab[2]
+    # wywolaj_status(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+    # HP_gracza_aktualne = odpowiedz[0]
+    # EXP_gracza_aktualny = odpowiedz[1]
+    aktualny_status[0] = odpowiedz[0]
+    aktualny_status[1] = odpowiedz[1]
+    # level_tab = level(EXP_gracza_aktualny, flag)
+    level_tab = level(aktualny_status[1], aktualny_status[5])
+    # Level_gracza_aktualny = level_tab[0]
+    # EXP_gracza_aktualny = level_tab[1]
+    # HP_maksymalne = level_tab[3]
+    # Bonus_DMG = level_tab[2]
+    aktualny_status[2] = level_tab[0]
+    aktualny_status[1] = level_tab[1]
+    aktualny_status[3] = level_tab[3]
+    aktualny_status[4] = level_tab[2]
+    # wywolaj_status(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag)
+    wywolaj_status(aktualny_status)
     print ("Znajdujesz się w polodniowo wschodniej czesci lochu")
     print ("Gdzie idziesz? Mozliwe wyjscia polnoc(n) i zachod(w)")
     idz = input()
@@ -312,12 +430,19 @@ def mage():
     flag = "mag"
     return HP, EXP, level, Bonus_DMG, HP_maksymalne, flag
 
-def wywolaj_status(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag):
+# def wywolaj_status(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag):
+def wywolaj_status(aktualny_status):
+    # print("|--Klasa--|--LVL--|--HP --|--HPmax--|--Exp --|--Damage zadawany--|")
+    # if flag == "war":
+    #     print("|--",flag,"--|--",Level_gracza_aktualny,"--|--",HP_gracza_aktualne,"--|--",HP_maksymalne,"--|--",EXP_gracza_aktualny,"--|-----", 1+Bonus_DMG,"-",4+Bonus_DMG,"-------|")
+    # elif flag == "mag":
+    #     print("|--",flag,"--|--",Level_gracza_aktualny,"--|--",HP_gracza_aktualne,"--|--",HP_maksymalne,"--|--",EXP_gracza_aktualny,"--|-----", 1+Bonus_DMG,"-",2+Bonus_DMG,"------|")
+    # print("|---------|-------|-------|---------|--------|-------------------|")
     print("|--Klasa--|--LVL--|--HP --|--HPmax--|--Exp --|--Damage zadawany--|")
-    if flag == "war":
-        print("|--",flag,"--|--",Level_gracza_aktualny,"--|--",HP_gracza_aktualne,"--|--",HP_maksymalne,"--|--",EXP_gracza_aktualny,"--|-----", 1+Bonus_DMG,"-",4+Bonus_DMG,"-------|")
-    elif flag == "mag":
-        print("|--",flag,"--|--",Level_gracza_aktualny,"--|--",HP_gracza_aktualne,"--|--",HP_maksymalne,"--|--",EXP_gracza_aktualny,"--|-----", 1+Bonus_DMG,"-",2+Bonus_DMG,"------|")
+    if aktualny_status[5] == "war":
+        print("|--", aktualny_status[5], "--|--", aktualny_status[2], "--|--", aktualny_status[0], "--|--", aktualny_status[3], "--|--", aktualny_status[1], "--|-----", 1+aktualny_status[4], "-", 4+aktualny_status[4], "-------|")
+    elif aktualny_status[5] == "mag":
+        print("|--", aktualny_status[5], "--|--", aktualny_status[2], "--|--", aktualny_status[0], "--|--", aktualny_status[3], "--|--", aktualny_status[1], "--|-----", 1+aktualny_status[4], "-", 2+aktualny_status[4], "------|")
     print("|---------|-------|-------|---------|--------|-------------------|")
     return
 
@@ -459,8 +584,7 @@ def spotkanie(aktualny_status):
     aktualny_status[3] = level_tab[3]
     aktualny_status[4] = level_tab[2]
     # przejscie(HP_gracza_aktualne, EXP_gracza_aktualny, Bonus_DMG, HP_maksymalne, flag)
-    print(aktualny_status[0],aktualny_status[1],aktualny_status[4],aktualny_status[3],aktualny_status[5])
-    przejscie(aktualny_status[0],aktualny_status[1],aktualny_status[4],aktualny_status[3],aktualny_status[5])
+    przejscie(aktualny_status[0], aktualny_status[1], aktualny_status[4], aktualny_status[3], aktualny_status[5])
     if zaszlo > 33 and zaszlo <= 75:
         print("Na swojej drodze spotykasz przeciwnika, przygotuj sie do walki !")
         losuj_przeciwnika = random.randrange(1,101)
@@ -469,45 +593,69 @@ def spotkanie(aktualny_status):
             staty = my_enemy.status()
             # Staty_po_starciu = walka(HP_gracza_aktualne,staty[1],staty[2],EXP_gracza_aktualny,staty[3],Bonus_DMG,HP_maksymalne,flag)
             Staty_po_starciu = walka(aktualny_status[0],staty[1],staty[2],aktualny_status[1],staty[3],aktualny_status[4],aktualny_status[3],aktualny_status[5])
-            HP_po_starciu=Staty_po_starciu[0]
-            EXP_gracza_aktualny=Staty_po_starciu[1]
-            odpowiedz = porownanie_HP_HPmax(HP_po_starciu, HP_maksymalne)
-            HP_po_starciu = odpowiedz[0]
-            HP_maksymalne = odpowiedz[1]
-            return HP_po_starciu, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag
+            # HP_po_starciu=Staty_po_starciu[0]
+            # EXP_gracza_aktualny=Staty_po_starciu[1]
+            # odpowiedz = porownanie_HP_HPmax(HP_po_starciu, HP_maksymalne)
+            # HP_po_starciu = odpowiedz[0]
+            # HP_maksymalne = odpowiedz[1]
+            aktualny_status[0] = Staty_po_starciu[0]
+            aktualny_status[1] = Staty_po_starciu[1]
+            odpowiedz = porownanie_HP_HPmax(aktualny_status[0], aktualny_status[3])
+            aktualny_status[0] = odpowiedz[0]
+            aktualny_status[3] = odpowiedz[1]
+            # return HP_po_starciu, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag
+            return aktualny_status
         elif losuj_przeciwnika > 40 and losuj_przeciwnika < 80:
             my_enemy = goblin()
             staty = my_enemy.status()
             # Staty_po_starciu = walka(HP_gracza_aktualne,staty[1],staty[2],EXP_gracza_aktualny,staty[3],Bonus_DMG,HP_maksymalne,flag)
             Staty_po_starciu = walka(aktualny_status[0], staty[1], staty[2], aktualny_status[1], staty[3], aktualny_status[4], aktualny_status[3], aktualny_status[5])
-            HP_po_starciu=Staty_po_starciu[0]
-            EXP_gracza_aktualny=Staty_po_starciu[1]
-            odpowiedz = porownanie_HP_HPmax(HP_po_starciu, HP_maksymalne)
-            HP_po_starciu = odpowiedz[0]
-            HP_maksymalne = odpowiedz[1]
-            return HP_po_starciu, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag
+            # HP_po_starciu=Staty_po_starciu[0]
+            # EXP_gracza_aktualny=Staty_po_starciu[1]
+            # odpowiedz = porownanie_HP_HPmax(HP_po_starciu, HP_maksymalne)
+            # HP_po_starciu = odpowiedz[0]
+            # HP_maksymalne = odpowiedz[1]
+            aktualny_status[0] = Staty_po_starciu[0]
+            aktualny_status[1] = Staty_po_starciu[1]
+            odpowiedz = porownanie_HP_HPmax(aktualny_status[0], aktualny_status[3])
+            aktualny_status[0] = odpowiedz[0]
+            aktualny_status[3] = odpowiedz[1]
+            # return HP_po_starciu, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag
+            return aktualny_status
         elif losuj_przeciwnika == 100:
             my_enemy = towdi()
             staty = my_enemy.status()
             # Staty_po_starciu = walka(HP_gracza_aktualne,staty[1],staty[2],EXP_gracza_aktualny,staty[3],Bonus_DMG,HP_maksymalne,flag)
             Staty_po_starciu = walka(aktualny_status[0], staty[1], staty[2], aktualny_status[1], staty[3], aktualny_status[4], aktualny_status[3], aktualny_status[5])
-            HP_po_starciu=Staty_po_starciu[0]
-            EXP_gracza_aktualny=Staty_po_starciu[1]
-            odpowiedz = porownanie_HP_HPmax(HP_po_starciu, HP_maksymalne)
-            HP_po_starciu = odpowiedz[0]
-            HP_maksymalne = odpowiedz[1]
-            return HP_po_starciu, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag
+            # HP_po_starciu=Staty_po_starciu[0]
+            # EXP_gracza_aktualny=Staty_po_starciu[1]
+            # odpowiedz = porownanie_HP_HPmax(HP_po_starciu, HP_maksymalne)
+            # HP_po_starciu = odpowiedz[0]
+            # HP_maksymalne = odpowiedz[1]
+            aktualny_status[0] = Staty_po_starciu[0]
+            aktualny_status[1] = Staty_po_starciu[1]
+            odpowiedz = porownanie_HP_HPmax(aktualny_status[0], aktualny_status[3])
+            aktualny_status[0] = odpowiedz[0]
+            aktualny_status[3] = odpowiedz[1]
+            # return HP_po_starciu, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag
+            return aktualny_status
         else:
             my_enemy = ork()
             staty = my_enemy.status()
             # Staty_po_starciu = walka(HP_gracza_aktualne,staty[1],staty[2],EXP_gracza_aktualny,staty[3],Bonus_DMG,HP_maksymalne,flag)
             Staty_po_starciu = walka(aktualny_status[0], staty[1], staty[2], aktualny_status[1], staty[3], aktualny_status[4], aktualny_status[3], aktualny_status[5])
-            HP_po_starciu=Staty_po_starciu[0]
-            EXP_gracza_aktualny=Staty_po_starciu[1]
-            odpowiedz = porownanie_HP_HPmax(HP_po_starciu, HP_maksymalne)
-            HP_po_starciu = odpowiedz[0]
-            HP_maksymalne = odpowiedz[1]
-            return HP_po_starciu, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag
+            # HP_po_starciu=Staty_po_starciu[0]
+            # EXP_gracza_aktualny=Staty_po_starciu[1]
+            # odpowiedz = porownanie_HP_HPmax(HP_po_starciu, HP_maksymalne)
+            # HP_po_starciu = odpowiedz[0]
+            # HP_maksymalne = odpowiedz[1]
+            aktualny_status[0] = Staty_po_starciu[0]
+            aktualny_status[1] = Staty_po_starciu[1]
+            odpowiedz = porownanie_HP_HPmax(aktualny_status[0], aktualny_status[3])
+            aktualny_status[0] = odpowiedz[0]
+            aktualny_status[3] = odpowiedz[1]
+            # return HP_po_starciu, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag
+            return aktualny_status
     elif zaszlo > 75 and zaszlo <= 100:
         jaki_mix = random.randrange(0,101)
         if jaki_mix < 40:
@@ -798,8 +946,3 @@ def main():
     GAME_OVER()
 
 main()
-
-
-#---------------------BUGI---------------------------------$
-# 1. problem z walka
-# 2. problem z wywolaj status
