@@ -182,7 +182,7 @@ def wybor_postaci():
         elif player == "asa":
             return assasin()
         else:
-            print("fail - musisz wpisac 'woj' lub 'mag' w zaleznosci czym chcesz grac")
+            print("fail - musisz wpisac 'woj' lub 'mag' lub 'asa' w zaleznosci kim chcesz grac")
             counter += 1
             if counter == 3:
                 print("Wybacz, ale jesli nie umiesz postepowac wg instukcji to nie chce z tobą wspolpracowac - Ponad 3 razy SFAILOWALES!")
@@ -573,9 +573,8 @@ def walka(HP_gracza,HP_potwora,dmg_potwora,EXP_gracza_aktualny,EXP_potwora,Bonus
 
 #-------------------------GRA-------------------------------------------#
 print("Witaj w prostym RPGU")
-
 def main():
-    print("Chcesz zagrac wojownikiem, magiem czy assassinem ? (woj/mag/asa):")
+    print("Chcesz zagrac wojownikiem(medium), magiem(hard) czy assassinem(easy) ? (woj/mag/asa):")
     staty_gracza=wybor_postaci()
     aktualny_status = moj_status_poczatkowy(staty_gracza[0], staty_gracza[1], staty_gracza[2], staty_gracza[3], staty_gracza[4], staty_gracza[5]).status(staty_gracza[0], staty_gracza[1], staty_gracza[2], staty_gracza[3], staty_gracza[4], staty_gracza[5])
     input()
