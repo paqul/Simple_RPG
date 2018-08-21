@@ -1,0 +1,598 @@
+from __future__ import print_function
+import random
+import sys
+
+#--------------------------------lokacje-----------------------------------------#
+def top_left(aktualny_status):
+    aktualny_status = spotkanie(aktualny_status)
+    aktualny_status = level(aktualny_status)
+    wywolaj_status(aktualny_status)
+    print("Znajdujesz się w północno zachodniej czesci lochu")
+    print("Gdzie idziesz? Mozliwe wyjscia polodnie(s) i wschod(e)")
+    idz = input()
+    while(idz != "e" and idz != "s"):
+        print("wybrales failowo, wybierz jeszcze raz (e/s)")
+        idz = input()
+    else:
+        if idz == 's':
+            return left(aktualny_status)
+        elif idz == "e":
+            return top(aktualny_status)
+
+def top(aktualny_status):
+    aktualny_status = spotkanie(aktualny_status)
+    aktualny_status = level(aktualny_status)
+    wywolaj_status(aktualny_status)
+    print ("Znajdujesz się w północnej czesci lochu")
+    print ("Gdzie idziesz? Mozliwe wyjscia polodnie(s) i wschod(e) i zachod(w)")
+    idz = input()
+    while(idz != "s" and idz != "e" and idz != "w"):
+        print("wybrales failowo, wybierz jeszcze raz (s/e/w)")
+        idz = input()
+    else:
+        if idz == 's':
+            return central(aktualny_status)
+        elif idz == "e":
+            return top_right(aktualny_status)
+        elif idz == "w":
+            return top_left(aktualny_status)
+
+def top_right(aktualny_status):
+    aktualny_status = spotkanie(aktualny_status)
+    aktualny_status = level(aktualny_status)
+    wywolaj_status(aktualny_status)
+    print ("Znajdujesz się w północno wschodniej czesci lochu")
+    print ("Gdzie idziesz? Mozliwe wyjscia polodnie(s) i zachod(w)")
+    idz = input()
+    while( idz != "w" and idz != "s"):
+        print("wybrales failowo, wybierz jeszcze raz (w/s)")
+        idz = input()
+    else:
+        if idz == 's':
+            return right(aktualny_status)
+        elif idz == "w":
+            return top_left(aktualny_status)
+
+def left(aktualny_status):
+    aktualny_status = spotkanie(aktualny_status)
+    aktualny_status = level(aktualny_status)
+    wywolaj_status(aktualny_status)
+    print ("Znajdujesz się w zachodniej czesci lochu")
+    print ("Gdzie idziesz? Mozliwe wyjscia polodnie(s) i polnoc(n) i wschod(e)")
+    idz = input()
+    while(idz != "n" and idz != "e" and idz != "s"):
+        print("wybrales failowo, wybierz jeszcze raz (n/e/s)")
+        idz = input()
+    else:
+        if idz == 's':
+            return bot_left(aktualny_status)
+        elif idz == "e":
+            return central(aktualny_status)
+        elif idz == "n":
+            return top_left(aktualny_status)
+
+def central(aktualny_status):
+    aktualny_status = spotkanie(aktualny_status)
+    aktualny_status = level(aktualny_status)
+    wywolaj_status(aktualny_status)
+    print ("Znajdujesz się w centrum lochu czesci lochu")
+    print ("Gdzie idziesz? Mozliwe wyjscia polodnie(s) i polnoc(n) i wschod(e) i zachod(w)")
+    idz = input()
+    while(idz != "w" and idz != "n" and idz != "e" and idz != "s"):
+        print("wybrales failowo, wybierz jeszcze raz (n/w/e/s)")
+        idz = input()
+    else:
+            if idz == "s":
+                return bot(aktualny_status)
+            elif idz == "w":
+                return left(aktualny_status)
+            elif idz == "n":
+                return  top(aktualny_status)
+            elif idz == "e":
+                return right(aktualny_status)
+
+def right(aktualny_status):
+    aktualny_status = spotkanie(aktualny_status)
+    aktualny_status = level(aktualny_status)
+    wywolaj_status(aktualny_status)
+    print ("Znajdujesz się w wschodniej czesci lochu")
+    print ("Gdzie idziesz? Mozliwe wyjscia polodnie(s) i polnoc(n) i zachod(w)")
+    idz = input()
+    while(idz != "w" and idz != "n" and idz != "s"):
+        print("wybrales failowo, wybierz jeszcze raz (n/w/s)")
+        idz = input()
+    else:
+        if idz == 's':
+            return bot_right(aktualny_status)
+        elif idz == "w":
+            return central(aktualny_status)
+        elif idz == "n":
+            return top_right(aktualny_status)
+
+def bot_left(aktualny_status):
+    aktualny_status = spotkanie(aktualny_status)
+    aktualny_status = level(aktualny_status)
+    wywolaj_status(aktualny_status)
+    print ("Znajdujesz się w polodniowo zachodniej czesci lochu")
+    print ("Gdzie idziesz? Mozliwe wyjscia polnoc(n) i wschod(e)")
+    idz = input()
+    while(idz != "e" and idz != "n"):
+        print("wybrales failowo, wybierz jeszcze raz (n/e)")
+        idz = input()
+    else:
+        if idz == 'n':
+            return left(aktualny_status)
+        elif idz == "e":
+            return bot(aktualny_status)
+
+def bot(aktualny_status):
+    print ("Znajdujesz się w polodniowej czesci lochu")
+    print ("Gdzie idziesz? Mozliwe wyjscia polnoc(n) i zachod(w) i wschod(e)")
+    idz = input()
+    while(idz != "w" and idz != "n" and idz != "e"):
+        print("wybrales failowo, wybierz jeszcze raz (n/w/e)")
+        idz = input()
+    else:
+        if idz == 'n':
+            return central(aktualny_status)
+        elif idz == "w":
+            return bot_left(aktualny_status)
+        elif idz == "e":
+            return bot_right(aktualny_status)
+
+def bot_right(aktualny_status):
+    aktualny_status = spotkanie(aktualny_status)
+    aktualny_status = level(aktualny_status)
+    wywolaj_status(aktualny_status)
+    print ("Znajdujesz się w polodniowo wschodniej czesci lochu")
+    print ("Gdzie idziesz? Mozliwe wyjscia polnoc(n) i zachod(w)")
+    idz = input()
+    while(idz != "w" and idz != "n"):
+        print("wybrales failowo, wybierz jeszcze raz (n/w)")
+        idz = input()
+    else:
+        if idz == 'n':
+            return right(aktualny_status)
+        elif idz == "w":
+            return bot(aktualny_status)
+
+#--------------------------------status-----------------------------------------#
+class moj_status_poczatkowy(object):
+    def __init__(self, HP_gracza, EXP, level, Bonus_DMG, HP_maksymalne, flag):
+        self.HP_gracza = HP_gracza
+        self.EXP = EXP
+        self.level = level
+        self.Bonus_DMG = Bonus_DMG
+        self.HP_maksymalne = HP_maksymalne
+        self.flag = str(flag)
+    def __repr__(self):
+        return "(%d ,%d ,%d, %d, %d, %s)" % (self.HP_gracza, self.EXP, self.level, self.Bonus_DMG, self.HP_maksymalne, self.flag)
+    def status(self, HP_gracza, EXP, level, Bonus_DMG, HP_maksymalne, flag):
+        status = [HP_gracza, EXP, level, Bonus_DMG, HP_maksymalne, str(flag)]
+        return status
+
+def wybor_postaci():
+    counter = 0
+    while True:
+        player = input()
+        if player == "woj":
+            return warrior()
+        elif player == "mag":
+            return mage()
+        elif player == "asa":
+            return assasin()
+        else:
+            print("fail - musisz wpisac 'woj' lub 'mag' w zaleznosci czym chcesz grac")
+            counter += 1
+            if counter == 3:
+                print("Wybacz, ale jesli nie umiesz postepowac wg instukcji to nie chce z tobą wspolpracowac - Ponad 3 razy SFAILOWALES!")
+                input()
+                GAME_OVER()
+
+def warrior():
+    print("Twoje statystyki to: ")
+    HP_maksymalne = 10
+    HP = HP_maksymalne
+    print("HP: %d /" % HP, HP_maksymalne)
+    print ("Obrazenia jakie zadajessz to 1 - 4, ponieważ masz miecz")
+    EXP = 0
+    level = 1
+    Bonus_DMG = 0
+    flag = "war"
+    return HP, EXP, level, Bonus_DMG, HP_maksymalne, flag
+
+def mage():
+    print("Twoje statystyki to: ")
+    HP_maksymalne = 4
+    HP = HP_maksymalne
+    print("HP: %d /" % HP, HP_maksymalne)
+    print("Obrazenia jakie zadajessz to 1 - 2, uzyżywając magii")
+    print("Ale ze wzrostem twojej mocy twoje czary staja sie bardziej potezne")
+    EXP = 0
+    level = 1
+    Bonus_DMG = 0
+    flag = "mag"
+    return HP, EXP, level, Bonus_DMG, HP_maksymalne, flag
+
+def assasin():
+    print("Twoje statystyki to: ")
+    HP_maksymalne = 8
+    HP = HP_maksymalne
+    print("HP: %d /" % HP, HP_maksymalne)
+    print("Obrazenia jakie zadajessz to 1 - 6, używając sztyletów")
+    print("Nigdy nie wiesz gdy kiedy możesz trafić przeciwnika krytycznie")
+    EXP = 0
+    level = 1
+    Bonus_DMG = 0
+    flag = "asa"
+    return HP, EXP, level, Bonus_DMG, HP_maksymalne, flag
+
+def wywolaj_status(aktualny_status):
+    print("|--Klasa--|--LVL--|--HP --|--HPmax--|--Exp --|--Damage zadawany--|")
+    if aktualny_status[5] == "war":
+        print("|--", aktualny_status[5], "--|--", aktualny_status[2], "--|--", aktualny_status[0], "--|--", aktualny_status[3], "--|--", aktualny_status[1], "--|-----", 1+aktualny_status[4], "-", 4+aktualny_status[4], "-------|")
+    elif aktualny_status[5] == "mag":
+        print("|--", aktualny_status[5], "--|--", aktualny_status[2], "--|--", aktualny_status[0], "--|--", aktualny_status[3], "--|--", aktualny_status[1], "--|-----", 1+aktualny_status[4], "-", 2+aktualny_status[4], "------|")
+    elif aktualny_status[5] == "asa":
+        print("|--", aktualny_status[5], "--|--", aktualny_status[2], "--|--", aktualny_status[0], "--|--", aktualny_status[3], "--|--", aktualny_status[1], "--|-----", 1 + aktualny_status[4], "-",10 + aktualny_status[4], "------|")
+    print("|---------|-------|-------|---------|--------|-------------------|")
+    return
+
+def level(aktualny_status):
+    if aktualny_status[5] == "war":
+        if aktualny_status[1] < 25:
+            aktualny_status[2:5] = 1, 10, 0
+        elif aktualny_status[1] >= 25 and aktualny_status[1] < 50:
+            aktualny_status[2:5] = 2, 15, 2
+        elif aktualny_status[1] >= 50 and aktualny_status[1] < 100:
+            aktualny_status[2:5] = 3, 22, 5
+        elif aktualny_status[1] >= 100 and aktualny_status[1] < 200:
+            aktualny_status[2:5] = 4, 30, 8
+        elif aktualny_status[1] >= 200 and aktualny_status[1] < 350:
+            aktualny_status[2:5] = 5, 50, 13
+        else:
+            aktualny_status[2:5] = 6, 100, 50
+    elif aktualny_status[5] == "mag":
+        if aktualny_status[1] < 25:
+            aktualny_status[2:5] = 1, 4, 0
+        elif aktualny_status[1] >= 25 and aktualny_status[1] < 50:
+            aktualny_status[2:5] = 2, 8, 4
+        elif aktualny_status[1] >= 50 and aktualny_status[1] < 100:
+            aktualny_status[2:5] = 3, 12, 10
+        elif aktualny_status[1] >= 100 and aktualny_status[1] < 200:
+            aktualny_status[2:5] = 4, 16, 15
+        elif aktualny_status[1] >= 200 and aktualny_status[1] < 350:
+            aktualny_status[2:5] = 5, 25, 25
+        else:
+            aktualny_status[2:5] = 6, 50, 100
+    elif aktualny_status[5] == "asa":
+        if aktualny_status[1] < 25:
+            aktualny_status[2:5] = 1, 8, 0
+        elif aktualny_status[1] >= 25 and aktualny_status[1] < 50:
+            aktualny_status[2:5] = 2, 12, 3
+        elif aktualny_status[1] >= 50 and aktualny_status[1] < 100:
+            aktualny_status[2:5] = 3, 18, 8
+        elif aktualny_status[1] >= 100 and aktualny_status[1] < 200:
+            aktualny_status[2:5] = 4, 25, 12
+        elif aktualny_status[1] >= 200 and aktualny_status[1] < 350:
+            aktualny_status[2:5] = 5, 33, 20
+        else:
+            aktualny_status[2:5] = 6, 40, 75
+    return aktualny_status
+
+#--------------------------------spotkanie -----------------------------------------#
+
+def przejscie(HP_gracza_aktualne, EXP_gracza_aktualny, Bonus_DMG, HP_maksymalne, flag):
+# def przejscie(aktualny_status[0], aktualny_status[1], aktualny_status[4], aktualny_status[3], aktualny_status[5]):
+    if EXP_gracza_aktualny >= 325:
+        print("Czujesz że jesteś już wystarczająco poteżny by zmierzyć się z FINAL BOSSEM, Czy chcesz tego? (tak/nie)")
+        while True:
+            final_decision = input()
+            if final_decision == "tak":
+                print(
+                    "... Z CALEGO lochu, spływa CALY kał w którym brodziłes az do teraz, w jedno miejsce znajdujace sie przed toba...")
+                input()
+                print("... I powstaje KAPITAN PLANETA, (to nie ta bajka - sorrki) - TO jest celowy BUG :)")
+                input()
+                print("... I powstaje FINAL BOSS - +K R Ó L O W A + K A L U !+")
+                input()
+                walka(HP_gracza_aktualne, 100, 5, EXP_gracza_aktualny, 1000000, Bonus_DMG, HP_maksymalne, flag)
+                input()
+                print(
+                    "Udało Ci się pokonać Last Bossa i ukończyć prostego RPGa!!! Królowa Kału rozpada sie na miliony fragmentów ekskrementu i znika...")
+                input()
+                print("Następuje silne trzesienie ziemi, a loch zaczyna się walić...")
+                input()
+                print(
+                    "Przed tobą pojawia się portal - na ten moment wydaje się jedynym rozsądnym miejscem ucieczki z lochu.")
+                print("Czy chcesz przejść przez portal? (tak/nie)")
+                while True:
+                    koncowka = input()
+                    if koncowka == "tak":
+                        print(
+                            "Przechodzisz przez portal i znadujesz sie na powierzchni, na dziedzińcu w jakimś zamku...")
+                        print("CONGRATULATIONS!")
+                        print("Udało Ci się ukończyć prostego RPGa !!!!")
+                        GAME_OVER()
+                    elif koncowka == "nie":
+                        print(
+                            "Zbyt długo sie wachasz czy przejsc przez portal i dostajesz spadającymi skałami w łeb i umierasz...")
+                        GAME_OVER()
+                    else:
+                        print("Wpisz 'tak' lub 'nie' ")
+                return
+            elif final_decision == "nie":
+                return
+            else:
+                print("tak czy nie ?!")
+    else:
+        return
+
+def spotkanie(aktualny_status):
+    zaszlo = random.randrange(0,101)
+    aktualny_status = level(aktualny_status)
+    przejscie(aktualny_status[0], aktualny_status[1], aktualny_status[4], aktualny_status[3], aktualny_status[5])
+    if zaszlo > 33 and zaszlo <= 75:
+        print("Na swojej drodze spotykasz przeciwnika, przygotuj sie do walki !")
+        losuj_przeciwnika = random.randrange(1,101)
+        if losuj_przeciwnika >= 1  and losuj_przeciwnika <= 40:
+            my_enemy = szczur()
+        elif losuj_przeciwnika > 40 and losuj_przeciwnika < 80:
+            my_enemy = goblin()
+        elif losuj_przeciwnika == 100:
+            my_enemy = towdi()
+        else:
+            my_enemy = ork()
+        staty = my_enemy.status()
+        Staty_po_starciu = walka(aktualny_status[0], staty[1], staty[2], aktualny_status[1], staty[3], aktualny_status[4], aktualny_status[3], aktualny_status[5])
+        aktualny_status[0] = Staty_po_starciu[0]
+        aktualny_status[1] = Staty_po_starciu[1]
+        del my_enemy
+        return aktualny_status
+    elif zaszlo > 75 and zaszlo <= 100:
+        jaki_mix = random.randrange(0,101)
+        aktualny_status = level(aktualny_status)
+        elixir = mikstura()
+        if jaki_mix < 40:
+            print("Znajdujesz małą miksturke leczącą, która odrobinę poprawia twój stan zdrowia")
+            Lecz = elixir.mala_mix()
+        elif jaki_mix >= 40 and jaki_mix< 80:
+            print("Znajdujesz miksturke leczącą, która Cie leczy")
+            Lecz = elixir.normalna_mix()
+        else:
+            print("Znajdujesz dużą miksture leczącą, która znacząco poprawia twój stan zdrowia")
+            Lecz = elixir.duza_mix()
+        input()
+        aktualny_status[0] += Lecz[1]
+        odpowiedz = porownanie_HP_HPmax(aktualny_status[0], aktualny_status[3])
+        aktualny_status[0] = odpowiedz[0]
+        aktualny_status[3] = odpowiedz[1]
+        del elixir
+        return aktualny_status
+    else:
+        print("Wchodzisz do nowego obszaru i nic sie nie dzieje")
+        input()
+        return aktualny_status
+
+#-------------------support function--------------------------------------------------#
+def nakladka_klimat(HP, HP_max):
+    dic = ["Pełnia zdrowia","Lekko ranny","Średnio ranny","Ciężko ranny","Prawie martwy","Martwy"]
+    if HP == HP_max:
+        return dic[0]
+    elif HP < HP_max and HP >= 0.75*HP_max:
+        return dic[1]
+    elif HP < 0.75*HP_max and HP >= 0.5*HP_max:
+        return dic[2]
+    elif HP< 0.5*HP_max and HP>= 0.25*HP_max:
+        return dic[3]
+    elif HP < 0.25*HP_max and HP >= 1:
+        return dic[4]
+    else:
+        return dic[5]
+
+def porownanie_HP_HPmax(HP_akt, HP_max):
+    if HP_akt >= HP_max:
+        HP_akt = HP_max
+    return HP_akt, HP_max
+
+def GAME_OVER():
+    while True:
+        print("Czy chcesz zagrac jeszcze raz? (tak/nie): ")
+        ostatni_wybor = input()
+        if ostatni_wybor == "tak":
+            return main()
+        elif ostatni_wybor == "nie":
+            while True:
+                print("Game Over")
+                sys.exit()
+        else:
+            print("Wybrałes failowo, wybierz jeszcze raz")
+
+#-------------------przeciwnicy--------------------------------------------------#
+class enemy(object):
+    def __init__(self, HP, dmg):
+        self.HP = HP
+        self.dmg = dmg
+
+class goblin(enemy):
+    def __init__(self):
+        self.name = "goblin"
+        self.HP = 4
+        self.dmg = 1
+        self.EXP = 8
+        print("Spotykasz %sa !" % (self.name))
+    def status(self):
+        return (self.name, self.HP, self.dmg, self.EXP)
+
+class ork(enemy):
+    def __init__(self):
+        self.name = "ork"
+        self.HP = 8
+        self.dmg = random.randrange(2,5)
+        self.EXP = 20
+        print("Spotykasz %sa !" % (self.name))
+    def status(self):
+        return (self.name, self.HP, self.dmg, self.EXP)
+
+class szczur(enemy):
+    def __init__(self):
+        self.name = "szczur"
+        self.HP = 2
+        self.dmg = 1
+        self.EXP = 2
+        print("Spotykasz %sa !" % (self.name))
+    def status(self):
+        return (self.name, self.HP, self.dmg, self.EXP)
+
+class towdi(enemy):
+    def __init__(self):
+        self.name = "Tołdi Kału tzw. wierny sługus Last Bossa"
+        self.HP = 50
+        self.dmg = random.randrange(4,11)
+        self.EXP = 500
+        print("Spotykasz %sa !" % (self.name))
+    def status(self):
+        return (self.name, self.HP, self.dmg, self.EXP)
+
+class mikstura(object):
+    def __init__(self):
+        self.mala = "mala"
+        self.HPregen_mala = 2
+        self.normalna = "normalna"
+        self.HPregen_normalna = 4
+        self.duza = "duza"
+        self.HPregen_duza = 10
+    def mala_mix(self):
+        return(self.mala, self.HPregen_mala)
+    def normalna_mix(self):
+        return(self.normalna, self.HPregen_normalna)
+    def duza_mix(self):
+        return(self.duza, self.HPregen_duza)
+
+#------------------------------------walka------------------------------#
+def walka(HP_gracza,HP_potwora,dmg_potwora,EXP_gracza_aktualny,EXP_potwora,Bonus_DMG,HP_maksymalne,flag):
+    if HP_potwora > 99:
+        print("Rozpoczynasz walke...")
+        input()
+        HP_potwora_maksymalne = HP_potwora
+        while HP_gracza >= 1:
+            if flag == "war":
+                damage_zadane = random.randrange(1, 5) + Bonus_DMG
+            elif flag == "mag":
+                damage_zadane = random.randrange(1, 3) + Bonus_DMG
+            elif flag == "asa":
+                damage_zadane = random.randrange(1, 7) + Bonus_DMG
+            HP_potwora = HP_potwora - damage_zadane
+            HP_gracza = HP_gracza - dmg_potwora
+            naloz_gracz = nakladka_klimat(HP_gracza, HP_maksymalne)
+            naloz_potwor = nakladka_klimat(HP_potwora, HP_potwora_maksymalne)
+            print("Zadales przeciwnikowi obrażenia i jest %s" % naloz_potwor)
+            print("Przeciwnik uderzył Cie i jesteś %s" % naloz_gracz)
+            if HP_gracza <= 0:
+                print("GAME OVER ! ! !")
+                GAME_OVER()
+                break
+            elif HP_potwora <= 0:
+                print("Wygrales walke!")
+                HP_po_walce = HP_gracza
+                EXP_gracza_aktualny += EXP_potwora
+                return HP_po_walce, EXP_gracza_aktualny
+            else:
+                print("Czy chcesz kontynuować walkę ? (t/n)")
+                while True:
+                    kontynuacja = input()
+                    if kontynuacja == "t":
+                        break
+                    elif kontynuacja == "n":
+                        print("Nie możesz uciec last bossowi, musisz walczyć do końca!!")
+                        break
+                    else:
+                        print("wpisz 't' lub 'n'")
+    else:
+        input()
+        print("Wybierz czy chcesz walczyć czy uciekać? (walcz/uciekaj): ")
+        while True:
+            akcja = input()
+            while akcja == ("uciekaj") or akcja == ("walcz") or akcja == ("n") or akcja == ("s") or akcja == ("e") or akcja == ("w"):
+                if akcja == "walcz":
+                    print("Rozpoczynasz walke...")
+                    input()
+                    HP_potwora_maksymalne = HP_potwora
+                    while (HP_gracza >= 1):
+                        if flag == "war":
+                            damage_zadane = random.randrange(1, 5) + Bonus_DMG
+                        elif flag == "mag":
+                            damage_zadane = random.randrange(1, 3) + Bonus_DMG
+                        elif flag == "asa":
+                            damage_zadane = random.randrange(1, 11) + Bonus_DMG
+                        HP_potwora = HP_potwora - damage_zadane
+                        HP_gracza = HP_gracza - dmg_potwora
+                        naloz_gracz = nakladka_klimat(HP_gracza,HP_maksymalne)
+                        naloz_potwor = nakladka_klimat(HP_potwora, HP_potwora_maksymalne)
+                        print("Zadales przeciwnikowi obrażenia i jest %s" % naloz_potwor)
+                        print("Przeciwnik uderzył Cie i jesteś %s" % naloz_gracz)
+                        if HP_gracza <= 0:
+                            print ("Giniesz - GAME OVER ! ! !")
+                            input()
+                            GAME_OVER()
+                            break
+                        elif HP_potwora <= 0:
+                            print("Wygrales walke!")
+                            input()
+                            HP_po_walce = HP_gracza
+                            EXP_gracza_aktualny += EXP_potwora
+                            return HP_po_walce, EXP_gracza_aktualny
+                        else:
+                            print("Czy chcesz kontynuować walkę ? (t/n)")
+                            while True:
+                                kontynuacja = input()
+                                if kontynuacja == "t":
+                                    break
+                                elif kontynuacja == "n":
+                                    proba_ucieczki = random.randrange(1, 101)
+                                    if proba_ucieczki >= 20:
+                                        print("Udało Ci sie uciec!")
+                                        return HP_gracza, EXP_gracza_aktualny
+                                    else:
+                                        print("Wrog odciol Ci drogę!")
+                                        kontynuacja == "t"
+                                        break
+                                else:
+                                    print("wpisz 't' lub 'n'")
+                    break
+                elif akcja == "uciekaj" or akcja == "n" or akcja == "e" or akcja == "w" or akcja == "s":
+                    proba_ucieczki = random.randrange(1, 100)
+                    if proba_ucieczki >= 20:
+                        print("Udało Ci sie uciec!")
+                        return HP_gracza, EXP_gracza_aktualny
+                    else:
+                        print("Wrog odciol Ci drogę!")
+                        akcja = "walcz"
+            else:
+                print("Wpisz poprawnie 'walcz' lub 'uciekaj'")
+
+#-------------------------GRA-------------------------------------------#
+print("Witaj w prostym RPGU")
+
+def main():
+    print("Chcesz zagrac wojownikiem, magiem czy assassinem ? (woj/mag/asa):")
+    staty_gracza=wybor_postaci()
+    aktualny_status = moj_status_poczatkowy(staty_gracza[0], staty_gracza[1], staty_gracza[2], staty_gracza[3], staty_gracza[4], staty_gracza[5]).status(staty_gracza[0], staty_gracza[1], staty_gracza[2], staty_gracza[3], staty_gracza[4], staty_gracza[5])
+    input()
+    print ("Rozpoczynasz GRE - prostego RPGA")
+    print("Czy chcesz wskoczyć do studni prowadzącej do mrocznego lochu gdzie będziesz brodził w kale po kostki do samego końca? (tak/nie)")
+    while True:
+        decyzja = input()
+        if decyzja == "nie":
+            print("Jestes rozsadnym czlowiekiem, nie ma sensu sie wkurzać i męczyć...")
+            input()
+            print("Może nie udało Ci się pokonać Last Bossa, ale udało Ci się ukończyć prostego RPGa bez stesów i większego wysiłku")
+            print("CONGRATULATIONS!")
+            break
+        elif decyzja == "tak":
+            bot(aktualny_status)
+        else:
+            print("Wpisz poprawnie słowo 'tak' lub slowo 'nie', Chcesz tam wchodzić czy nie?!")
+    GAME_OVER()
+
+main()
