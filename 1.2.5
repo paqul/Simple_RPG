@@ -171,13 +171,6 @@ class moj_status_poczatkowy(object):
         status = [HP_gracza, EXP, level, Bonus_DMG, HP_maksymalne, str(flag)]
         return status
 
-class moj_status(moj_status_poczatkowy):
-    def __init__(self, HP_gracza, EXP):
-        self.HP_gracza = HP_gracza
-        self.EXP = EXP
-    def get_status(self):
-        return self.HP_gracza
-
 def wybor_postaci():
     counter = 0
     while True:
@@ -186,6 +179,8 @@ def wybor_postaci():
             return warrior()
         elif player == "mag":
             return mage()
+        elif player == "asa":
+            return assasin()
         else:
             print("fail - musisz wpisac 'woj' lub 'mag' w zaleznosci czym chcesz grac")
             counter += 1
@@ -219,13 +214,27 @@ def mage():
     flag = "mag"
     return HP, EXP, level, Bonus_DMG, HP_maksymalne, flag
 
-# def wywolaj_status(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag):
+def assasin():
+    print("Twoje statystyki to: ")
+    HP_maksymalne = 8
+    HP = HP_maksymalne
+    print("HP: %d /" % HP, HP_maksymalne)
+    print("Obrazenia jakie zadajessz to 1 - 6, używając sztyletów")
+    print("Nigdy nie wiesz gdy kiedy możesz trafić przeciwnika krytycznie")
+    EXP = 0
+    level = 1
+    Bonus_DMG = 0
+    flag = "asa"
+    return HP, EXP, level, Bonus_DMG, HP_maksymalne, flag
+
 def wywolaj_status(aktualny_status):
     print("|--Klasa--|--LVL--|--HP --|--HPmax--|--Exp --|--Damage zadawany--|")
     if aktualny_status[5] == "war":
         print("|--", aktualny_status[5], "--|--", aktualny_status[2], "--|--", aktualny_status[0], "--|--", aktualny_status[3], "--|--", aktualny_status[1], "--|-----", 1+aktualny_status[4], "-", 4+aktualny_status[4], "-------|")
     elif aktualny_status[5] == "mag":
         print("|--", aktualny_status[5], "--|--", aktualny_status[2], "--|--", aktualny_status[0], "--|--", aktualny_status[3], "--|--", aktualny_status[1], "--|-----", 1+aktualny_status[4], "-", 2+aktualny_status[4], "------|")
+    elif aktualny_status[5] == "asa":
+        print("|--", aktualny_status[5], "--|--", aktualny_status[2], "--|--", aktualny_status[0], "--|--", aktualny_status[3], "--|--", aktualny_status[1], "--|-----", 1 + aktualny_status[4], "-",10 + aktualny_status[4], "------|")
     print("|---------|-------|-------|---------|--------|-------------------|")
     return
 
@@ -256,6 +265,19 @@ def level(aktualny_status):
             aktualny_status[2:5] = 5, 25, 25
         else:
             aktualny_status[2:5] = 6, 50, 100
+    elif aktualny_status[5] == "asa":
+        if aktualny_status[1] < 25:
+            aktualny_status[2:5] = 1, 8, 0
+        elif aktualny_status[1] >= 25 and aktualny_status[1] < 50:
+            aktualny_status[2:5] = 2, 12, 3
+        elif aktualny_status[1] >= 50 and aktualny_status[1] < 100:
+            aktualny_status[2:5] = 3, 18, 8
+        elif aktualny_status[1] >= 100 and aktualny_status[1] < 200:
+            aktualny_status[2:5] = 4, 25, 12
+        elif aktualny_status[1] >= 200 and aktualny_status[1] < 350:
+            aktualny_status[2:5] = 5, 33, 20
+        else:
+            aktualny_status[2:5] = 6, 40, 75
     return aktualny_status
 
 #--------------------------------spotkanie -----------------------------------------#
@@ -308,7 +330,6 @@ def przejscie(HP_gracza_aktualne, EXP_gracza_aktualny, Bonus_DMG, HP_maksymalne,
 
 def spotkanie(aktualny_status):
     zaszlo = random.randrange(0,101)
-    # HP_gracza_aktualne = aktualny_status[0]
     aktualny_status = level(aktualny_status)
     przejscie(aktualny_status[0], aktualny_status[1], aktualny_status[4], aktualny_status[3], aktualny_status[5])
     if zaszlo > 33 and zaszlo <= 75:
@@ -326,9 +347,9 @@ def spotkanie(aktualny_status):
         Staty_po_starciu = walka(aktualny_status[0], staty[1], staty[2], aktualny_status[1], staty[3], aktualny_status[4], aktualny_status[3], aktualny_status[5])
         aktualny_status[0] = Staty_po_starciu[0]
         aktualny_status[1] = Staty_po_starciu[1]
+        del my_enemy
         return aktualny_status
     elif zaszlo > 75 and zaszlo <= 100:
-        # def wywolaj_status(HP_gracza_aktualne, EXP_gracza_aktualny, Level_gracza_aktualny, HP_maksymalne, Bonus_DMG, flag):
         jaki_mix = random.randrange(0,101)
         aktualny_status = level(aktualny_status)
         elixir = mikstura()
@@ -346,6 +367,7 @@ def spotkanie(aktualny_status):
         odpowiedz = porownanie_HP_HPmax(aktualny_status[0], aktualny_status[3])
         aktualny_status[0] = odpowiedz[0]
         aktualny_status[3] = odpowiedz[1]
+        del elixir
         return aktualny_status
     else:
         print("Wchodzisz do nowego obszaru i nic sie nie dzieje")
@@ -453,12 +475,13 @@ def walka(HP_gracza,HP_potwora,dmg_potwora,EXP_gracza_aktualny,EXP_potwora,Bonus
         print("Rozpoczynasz walke...")
         input()
         HP_potwora_maksymalne = HP_potwora
-        HP_gracza_maksymalne = HP_gracza
-        while (HP_gracza >= 1):
+        while HP_gracza >= 1:
             if flag == "war":
                 damage_zadane = random.randrange(1, 5) + Bonus_DMG
             elif flag == "mag":
                 damage_zadane = random.randrange(1, 3) + Bonus_DMG
+            elif flag == "asa":
+                damage_zadane = random.randrange(1, 7) + Bonus_DMG
             HP_potwora = HP_potwora - damage_zadane
             HP_gracza = HP_gracza - dmg_potwora
             naloz_gracz = nakladka_klimat(HP_gracza, HP_maksymalne)
@@ -495,12 +518,13 @@ def walka(HP_gracza,HP_potwora,dmg_potwora,EXP_gracza_aktualny,EXP_potwora,Bonus
                     print("Rozpoczynasz walke...")
                     input()
                     HP_potwora_maksymalne = HP_potwora
-                    HP_gracza_maksymalne = HP_gracza
                     while (HP_gracza >= 1):
                         if flag == "war":
                             damage_zadane = random.randrange(1, 5) + Bonus_DMG
                         elif flag == "mag":
                             damage_zadane = random.randrange(1, 3) + Bonus_DMG
+                        elif flag == "asa":
+                            damage_zadane = random.randrange(1, 11) + Bonus_DMG
                         HP_potwora = HP_potwora - damage_zadane
                         HP_gracza = HP_gracza - dmg_potwora
                         naloz_gracz = nakladka_klimat(HP_gracza,HP_maksymalne)
@@ -548,14 +572,12 @@ def walka(HP_gracza,HP_potwora,dmg_potwora,EXP_gracza_aktualny,EXP_potwora,Bonus
                 print("Wpisz poprawnie 'walcz' lub 'uciekaj'")
 
 #-------------------------GRA-------------------------------------------#
-
 print("Witaj w prostym RPGU")
 
 def main():
-    print("Chcesz zagrac wojownikiem czy magiem ? (woj/mag):")
+    print("Chcesz zagrac wojownikiem, magiem czy assassinem ? (woj/mag/asa):")
     staty_gracza=wybor_postaci()
     aktualny_status = moj_status_poczatkowy(staty_gracza[0], staty_gracza[1], staty_gracza[2], staty_gracza[3], staty_gracza[4], staty_gracza[5]).status(staty_gracza[0], staty_gracza[1], staty_gracza[2], staty_gracza[3], staty_gracza[4], staty_gracza[5])
-    # HP, EXP, level, Bonus_DMG, HP_maksymalne, flag
     input()
     print ("Rozpoczynasz GRE - prostego RPGA")
     print("Czy chcesz wskoczyć do studni prowadzącej do mrocznego lochu gdzie będziesz brodził w kale po kostki do samego końca? (tak/nie)")
@@ -574,6 +596,3 @@ def main():
     GAME_OVER()
 
 main()
-
-#-------------------- BUGI ----------------------#
-#poprawić funkcje "walka"
