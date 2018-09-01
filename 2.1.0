@@ -1,7 +1,8 @@
 from __future__ import print_function
 import random
 import sys
-
+# import tkinter
+import os
 #--------------------------------lokacje-----------------------------------------#
 def top_left(aktualny_status):
     aktualny_status = spotkanie(aktualny_status)
@@ -203,7 +204,7 @@ def warrior():
 
 def mage():
     print("Twoje statystyki to: ")
-    HP_maksymalne = 4
+    HP_maksymalne = 1
     HP = HP_maksymalne
     print("HP: %d /" % HP, HP_maksymalne)
     print("Obrazenia jakie zadajessz to 1 - 2, uzyżywając magii")
@@ -395,12 +396,28 @@ def porownanie_HP_HPmax(HP_akt, HP_max):
         HP_akt = HP_max
     return HP_akt, HP_max
 
+def trofea_fun(HP_max):
+    if HP_max == 2:
+        trofea_text = "\nPokonales szczura"
+    elif HP_max == 4:
+        trofea_text = "\nPokonales goblina"
+    elif HP_max == 8:
+        trofea_text = "\nPokonales orka"
+    elif HP_max == 50:
+        trofea_text = "\nPokonales minibossa"
+    else:
+        trofea_text = "\nPokonales Last Bossa"
+
+    trofea = open("trofea_File.txt", "a")
+    trofea.write(trofea_text)
+    trofea.close()
+
 def GAME_OVER():
     while True:
         print("Czy chcesz zagrac jeszcze raz? (tak/nie): ")
         ostatni_wybor = input()
         if ostatni_wybor == "tak":
-            return main()
+            return Window.main(True)
         elif ostatni_wybor == "nie":
             while True:
                 print("Game Over")
@@ -494,6 +511,7 @@ def walka(HP_gracza,HP_potwora,dmg_potwora,EXP_gracza_aktualny,EXP_potwora,Bonus
                 break
             elif HP_potwora <= 0:
                 print("Wygrales walke!")
+                trofea_fun(HP_potwora_maksymalne)
                 HP_po_walce = HP_gracza
                 EXP_gracza_aktualny += EXP_potwora
                 return HP_po_walce, EXP_gracza_aktualny
@@ -538,6 +556,7 @@ def walka(HP_gracza,HP_potwora,dmg_potwora,EXP_gracza_aktualny,EXP_potwora,Bonus
                             break
                         elif HP_potwora <= 0:
                             print("Wygrales walke!")
+                            trofea_fun(HP_potwora_maksymalne)
                             input()
                             HP_po_walce = HP_gracza
                             EXP_gracza_aktualny += EXP_potwora
@@ -571,27 +590,131 @@ def walka(HP_gracza,HP_potwora,dmg_potwora,EXP_gracza_aktualny,EXP_potwora,Bonus
             else:
                 print("Wpisz poprawnie 'walcz' lub 'uciekaj'")
 
-#-------------------------GRA-------------------------------------------#
-print("Witaj w prostym RPGU")
-def main():
-    print("Chcesz zagrac wojownikiem(medium), magiem(hard) czy assassinem(easy) ? (woj/mag/asa):")
-    staty_gracza=wybor_postaci()
-    aktualny_status = moj_status_poczatkowy(staty_gracza[0], staty_gracza[1], staty_gracza[2], staty_gracza[3], staty_gracza[4], staty_gracza[5]).status(staty_gracza[0], staty_gracza[1], staty_gracza[2], staty_gracza[3], staty_gracza[4], staty_gracza[5])
-    input()
-    print ("Rozpoczynasz GRE - prostego RPGA")
-    print("Czy chcesz wskoczyć do studni prowadzącej do mrocznego lochu gdzie będziesz brodził w kale po kostki do samego końca? (tak/nie)")
-    while True:
-        decyzja = input()
-        if decyzja == "nie":
-            print("Jestes rozsadnym czlowiekiem, nie ma sensu sie wkurzać i męczyć...")
-            input()
-            print("Może nie udało Ci się pokonać Last Bossa, ale udało Ci się ukończyć prostego RPGa bez stesów i większego wysiłku")
-            print("CONGRATULATIONS!")
-            break
-        elif decyzja == "tak":
-            bot(aktualny_status)
-        else:
-            print("Wpisz poprawnie słowo 'tak' lub slowo 'nie', Chcesz tam wchodzić czy nie?!")
-    GAME_OVER()
+#------------------------------grafika----------------------------------#
 
-main()
+import tkinter
+from tkinter import messagebox
+
+class Window(tkinter.Frame):
+
+    def __init__(self, master=None):
+        tkinter.Frame.__init__(self, master) # daje mozliwosc wywolania  okien
+        self.master = master
+
+        self.init_window3()
+        self.init_window()
+        self.init_window2()
+        self.init_image()
+
+    def init_window(self):
+
+        self.master.title("Simple RPG")
+        labelframe1 = tkinter.LabelFrame(text="Action", relief="raised", height=10, width=10)
+
+        MainMenu = tkinter.Menu(self.master)    # dodanie głownego menu do okna
+        self.master.config(menu=MainMenu)       # konfiguracja glownjego menu w oknie
+
+
+        file = tkinter.Menu(MainMenu)
+        MainMenu.add_cascade(label='File', menu=file)
+        file.add_command(label='Start Game', command=self.main)  # , command=self.main)
+        file.add_command(label='Save - not work')
+        file.add_command(label='Exit', command=self.client_exit)
+
+        edit = tkinter.Menu(MainMenu)
+        MainMenu.add_cascade(label='Edit', menu=edit)
+        edit.add_command(label='Undo', state="disabled")
+
+        about = tkinter.Menu(MainMenu)
+        MainMenu.add_cascade(label='About', menu=about)
+        about.add_command(label='About',  command=self.about_x)
+
+        north = tkinter.Button(labelframe1, text="\'NORTH\'", fg="blue", height=4, width=25, bd=4)
+        north.place(x=170, y=10)
+
+        south = tkinter.Button(labelframe1, text="\'SOUTH\'", fg="blue", cursor="dot", height=4, width=25, bd=4)
+        south.place(x=170, y=310)
+
+        east = tkinter.Button(labelframe1, text="\'EAST\'", fg="blue", height=10, width=10, bd=4)
+        east.place(x=20, y=110)
+
+        west = tkinter.Button(labelframe1, text="\'WEST\'", fg="blue", height=10, width=10, bd=4)
+        west.place(x=420, y=110)
+
+        walcz = tkinter.Button(labelframe1, text="\'FIGHT!\'", fg="red", height=10, width=10, bd=4)
+        walcz.place(x=170, y=110)
+
+        uciekaj = tkinter.Button(labelframe1, text="\'RUN AWAY\'", fg="green", height=10, width=10, bd=4)
+        uciekaj.place(x=270, y=110)
+
+        labelframe1.pack(side=tkinter.LEFT, fill=tkinter.BOTH, expand=1, anchor=tkinter.CENTER)
+
+    def init_window2(self):
+
+        labelframe2 = tkinter.LabelFrame(text="Map", relief="flat", height=10, width=10)
+        labelframe2.pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1)
+        img = tkinter.PhotoImage(file="Pusta_Mapa.png").zoom(x=4, y=4)
+        imgLabel = tkinter.Label(image=img, relief="flat")
+        imgLabel.image = img
+        imgLabel.pack(side=tkinter.BOTTOM, fill=tkinter.BOTH, expand=1, padx=50, pady=20)
+
+    def init_image(self):
+        pass
+
+    def init_window3(self):
+
+        labelframe3 = tkinter.LabelFrame(text="Event", relief="raised", height=350, width=100)
+        zmienna = tkinter.StringVar()
+        zmienna.set("That WORKS!!!!!!!!!!!!!!!!!!!!!!! \n That WORKS VERY WELL :D  TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST\n :D")
+        frame3 = tkinter.Message(labelframe3, textvariable=zmienna, width=500)
+        labelframe3.pack(side=tkinter.BOTTOM, fill=tkinter.X, expand=0)
+        frame3.pack(padx=150, pady=130)
+
+    def client_exit(self):
+        answer=messagebox.askquestion("Game Over ?", 'Are U sure?')
+        if answer == "yes":
+            exit()
+
+    def about_x(self):
+        messagebox.showinfo("Simple RPG - Creator: Paqul", "This is Interface to my first Text RPG Game \n Have Fun ^^")
+
+# -------------------------GRA-------------------------------------------#
+    def main(self):
+        print("Witaj w prostym RPGU")
+        try:
+            os.remove("trofea_File.txt")
+        except:
+            pass
+        finally:
+            print("Chcesz zagrac wojownikiem(medium), magiem(hard) czy assassinem(easy) ? (woj/mag/asa):")
+            staty_gracza = wybor_postaci()
+            aktualny_status = moj_status_poczatkowy(staty_gracza[0], staty_gracza[1], staty_gracza[2],staty_gracza[3], staty_gracza[4], staty_gracza[5]).status(staty_gracza[0], staty_gracza[1], staty_gracza[2], staty_gracza[3], staty_gracza[4],staty_gracza[5])
+            input()
+            print("Rozpoczynasz GRE - prostego RPGA")
+            print("Czy chcesz wskoczyć do studni prowadzącej do mrocznego lochu gdzie będziesz brodził w kale po kostki do samego końca? (tak/nie)")
+            while True:
+                decyzja = input()
+                if decyzja == "nie":
+                    print("Jestes rozsadnym czlowiekiem, nie ma sensu sie wkurzać i męczyć...")
+                    input()
+                    print("Może nie udało Ci się pokonać Last Bossa, ale udało Ci się ukończyć prostego RPGa bez stesów i większego wysiłku")
+                    print("CONGRATULATIONS!")
+                    break
+                elif decyzja == "tak":
+                    bot(aktualny_status)
+                else:
+                    print("Wpisz poprawnie słowo 'tak' lub slowo 'nie', Chcesz tam wchodzić czy nie?!")
+            GAME_OVER()
+
+
+
+#======================inicjalizacja okna===============================#
+
+okno = tkinter.Tk()
+okno.resizable(width=False, height=False)
+okno.geometry("1024x768")
+
+app = Window(okno)
+
+# main()
+okno.mainloop()
