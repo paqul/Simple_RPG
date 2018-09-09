@@ -90,14 +90,18 @@ class Window(tkinter.Frame):
 
     def __init__(self, master=None):
         tkinter.Frame.__init__(self, master) # daje mozliwosc wywolania  okien
-        zmienna = tkinter.StringVar()
+        self.zmienna = tkinter.StringVar(value='Start the Game')
+        # zmienna.set('start')
         self.master = master
-        # text=None
 
-        self.init_window3()
+        labelframe3 = tkinter.LabelFrame(text="Event", relief="raised", height=350, width=100)
+        frame3 = tkinter.Message(labelframe3, textvariable=self.zmienna,  width=500)
+        labelframe3.pack(side=tkinter.TOP, fill=tkinter.X, expand=0)
+        frame3.pack(padx=150, pady=130)
         self.init_window()
         self.init_window2()
-        zmienna.set('sdsdsd')
+
+
 
 
     def init_window(self):
@@ -138,7 +142,7 @@ class Window(tkinter.Frame):
         walcz = tkinter.Button(labelframe1, text="\'FIGHT!\'", fg="red", height=10, width=10, bd=4)
         walcz.place(x=170, y=110)
 
-        uciekaj = tkinter.Button(labelframe1, text="\'RUN AWAY\'", fg="green", height=10, width=10, bd=4)
+        uciekaj = tkinter.Button(labelframe1, text="\'RUN AWAY\'", fg="green", height=10, width=10, bd=4, command=self.mage)
         uciekaj.place(x=270, y=110)
 
         labelframe1.pack(side=tkinter.LEFT, fill=tkinter.BOTH, expand=1, anchor=tkinter.CENTER)
@@ -153,21 +157,19 @@ class Window(tkinter.Frame):
         imgLabel.pack(side=tkinter.BOTTOM, fill=tkinter.BOTH, expand=1, padx=50, pady=20)
 
 
-    def init_window3(self):
+    def init_window3(self, zmienna):
 
         labelframe3 = tkinter.LabelFrame(text="Event", relief="raised", height=350, width=100)
-        # zmienna = tkinter.StringVar()
-        # zmienna.set('START')
-        # frame3 = tkinter.Message(labelframe3, textvariable=zmienna, width=500)
+        frame3 = tkinter.Message(labelframe3, textvariable=zmienna, width=500)
         labelframe3.pack(side=tkinter.BOTTOM, fill=tkinter.X, expand=0)
-        # frame3.pack(padx=150, pady=130)
+        frame3.pack(padx=150, pady=130)
 
     def init_text(self, x):
 
         labelframe3 = tkinter.LabelFrame(text="Event", relief="raised", height=350, width=100)
         zmienna = tkinter.StringVar()
         zmienna.set(x)
-        frame3 = tkinter.Message(labelframe3, textvariable=zmienna, width=500)
+        frame3 = tkinter.Message(self.init_window3, textvariable=zmienna, width=500)
         labelframe3.pack(side=tkinter.BOTTOM, fill=tkinter.X, expand=0)
         frame3.pack(padx=150, pady=130)
 
@@ -182,6 +184,7 @@ class Window(tkinter.Frame):
         messagebox.showinfo("Simple RPG - Creator: Paqul", "This is Interface to my first Text RPG Game \n Have Fun ^^")
 
     # -------------------------GRA-------------------------------------------#
+
     def main(self):
         try:
             os.remove("trofea_File.txt")
@@ -189,7 +192,8 @@ class Window(tkinter.Frame):
             pass
         finally:
             print("Chcesz zagrac wojownikiem(medium), magiem(hard) czy assassinem(easy) ? (woj/mag/asa):")
-            self.init_text("TEST")
+            self.zmienna.set("Select your character")
+
             staty_gracza = self.wybor_postaci()
             aktualny_status = moj_status_poczatkowy(staty_gracza[0], staty_gracza[1], staty_gracza[2], staty_gracza[3],
                                                     staty_gracza[4], staty_gracza[5]).status(staty_gracza[0],
@@ -199,54 +203,65 @@ class Window(tkinter.Frame):
                                                                                              staty_gracza[4],
                                                                                              staty_gracza[5])
             input()
-            print("Rozpoczynasz GRE - prostego RPGA")
-            # app.init_window3(tkinter.Message(textvariable="Chcesz zagrac wojownikiem(medium), magiem(hard) czy assassinem(easy) ? (woj/mag/asa):", width=500))
-            print(
-                "Czy chcesz wskoczyć do studni prowadzącej do mrocznego lochu gdzie będziesz brodził w kale po kostki do samego końca? (tak/nie)")
-            while True:
-                decyzja = input()
-                if decyzja == "nie":
-                    print("Jestes rozsadnym czlowiekiem, nie ma sensu sie wkurzać i męczyć...")
-                    input()
-                    print(
-                        "Może nie udało Ci się pokonać Last Bossa, ale udało Ci się ukończyć prostego RPGa bez stesów i większego wysiłku")
-                    print("CONGRATULATIONS!")
-                    break
-                elif decyzja == "tak":
-                    self.bot(aktualny_status)
-                else:
-                    print("Wpisz poprawnie słowo 'tak' lub slowo 'nie', Chcesz tam wchodzić czy nie?!")
-            self.GAME_OVER()
+            # print("Rozpoczynasz GRE - prostego RPGA")
+            # # app.init_window3(tkinter.Message(textvariable="Chcesz zagrac wojownikiem(medium), magiem(hard) czy assassinem(easy) ? (woj/mag/asa):", width=500))
+            # print(
+            #     "Czy chcesz wskoczyć do studni prowadzącej do mrocznego lochu gdzie będziesz brodził w kale po kostki do samego końca? (tak/nie)")
+            # while True:
+            #     decyzja = input()
+            #     if decyzja == "nie":
+            #         print("Jestes rozsadnym czlowiekiem, nie ma sensu sie wkurzać i męczyć...")
+            #         input()
+            #         print(
+            #             "Może nie udało Ci się pokonać Last Bossa, ale udało Ci się ukończyć prostego RPGa bez stesów i większego wysiłku")
+            #         print("CONGRATULATIONS!")
+            #         break
+            #     elif decyzja == "tak":
+            #         self.bot(aktualny_status)
+            #     else:
+            #         print("Wpisz poprawnie słowo 'tak' lub slowo 'nie', Chcesz tam wchodzić czy nie?!")
+            # self.GAME_OVER()
 
     def wybor_postaci(self):
-        counter = 0
-        while True:
-            player = input()
-            if player == "woj":
-                return self.warrior()
-            elif player == "mag":
-                return self.mage()
-            elif player == "asa":
-                return self.assasin()
-            else:
-                print("fail - musisz wpisac 'woj' lub 'mag' lub 'asa' w zaleznosci kim chcesz grac")
-                counter += 1
-                if counter == 3:
-                    print(
-                        "Wybacz, ale jesli nie umiesz postepowac wg instukcji to nie chce z tobą wspolpracowac - Ponad 3 razy SFAILOWALES!")
-                    input()
-                    self.GAME_OVER()
+        global wojownik, czarodziej, zabojca
+        wojownik = tkinter.Button(text="\'Warrior\'", fg="blue", height=2, width=10, bd=4, command=self.warrior)
+        wojownik.place(x=10, y=20)
+
+        czarodziej = tkinter.Button(text="\'Mage\'", fg="red", height=2, width=10, bd=4, command=self.mage)
+        czarodziej.place(x=470, y=20)
+
+        zabojca = tkinter.Button(text="\'Assassin\'", fg="green", height=2, width=10, bd=4, command=self.assasin)
+        zabojca.place(x=920, y=20)
+        # counter = 0
+        # while True:
+        #     player = input()
+        #     if player == "woj":
+        #         return self.warrior()
+        #     elif player == "mag":
+        #         return self.mage()
+        #     elif player == "asa":
+        #         return self.assasin()
+        #     else:
+        #         print("fail - musisz wpisac 'woj' lub 'mag' lub 'asa' w zaleznosci kim chcesz grac")
+        #         counter += 1
+        #         if counter == 3:
+        #             print(
+        #                 "Wybacz, ale jesli nie umiesz postepowac wg instukcji to nie chce z tobą wspolpracowac - Ponad 3 razy SFAILOWALES!")
+        #             input()
+        #             self.GAME_OVER()
 
     def warrior(self):
         print("Twoje statystyki to: ")
         HP_maksymalne = 10
-        HP = HP_maksymalne
+        HP = int(HP_maksymalne)
         print("HP: %d /" % HP, HP_maksymalne)
         print("Obrazenia jakie zadajessz to 1 - 4, ponieważ masz miecz")
         EXP = 0
         level = 1
         Bonus_DMG = 0
         flag = "war"
+        wojownik.destroy(), czarodziej.destroy(), zabojca.destroy()
+        self.zmienna.set("Your statistic: \nHP: %d / %d \nYour damage is 1 - 4, because You have SWORD!" % (HP, HP_maksymalne))
         return HP, EXP, level, Bonus_DMG, HP_maksymalne, flag
 
     def mage(self):
@@ -260,6 +275,8 @@ class Window(tkinter.Frame):
         level = 1
         Bonus_DMG = 0
         flag = "mag"
+        wojownik.destroy(), czarodziej.destroy(), zabojca.destroy()
+        self.zmienna.set("Your statistic: \nHP: %d / %d \nYour damage is 1 - 2, using magic!\nWith grow up your power, your spells became more powerful" % (HP, HP_maksymalne))
         return HP, EXP, level, Bonus_DMG, HP_maksymalne, flag
 
     def assasin(self):
@@ -273,6 +290,8 @@ class Window(tkinter.Frame):
         level = 1
         Bonus_DMG = 0
         flag = "asa"
+        wojownik.destroy(), czarodziej.destroy(), zabojca.destroy()
+        self.zmienna.set("Your statistic: \nHP: %d / %d \nYour damage is 1 - 6, using daggers!\nYou never know when You can critically hit enemy " % (HP, HP_maksymalne))
         return HP, EXP, level, Bonus_DMG, HP_maksymalne, flag
 
     def wywolaj_status(self, aktualny_status):
@@ -746,6 +765,6 @@ okno.resizable(width=False, height=False)
 okno.geometry("1024x768")
 
 app = Window(okno)
-app.init_text("Testowo")
+
 
 okno.mainloop()
