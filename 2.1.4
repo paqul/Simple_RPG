@@ -200,10 +200,10 @@ class Window(tkinter.Frame):
     def main2(self):
         global wskocz, niewskakuj, wojownik, czarodziej, zabojca
         wskocz = tkinter.Button(text='Yes! - Jump into', fg='blue', width=20, command=(self.main2))
-        wskocz.place(x=460, y=250)
+        wskocz.place(x=445, y=250)
 
-        niewskakuj = tkinter.Button(text="NO! - Don't do that!", fg='green', width=20, command=(self.ropocznij_lub_cofnij))
-        niewskakuj.place(x=460, y=275)
+        niewskakuj = tkinter.Button(text="NO! - Don't do that!", fg='green', width=20, command=(self.main_alternative))
+        niewskakuj.place(x=445, y=275)
 
         Rozpocznij.destroy(), Cofnij.destroy(), wojownik.destroy(), czarodziej.destroy(), zabojca.destroy()
 
@@ -225,6 +225,23 @@ class Window(tkinter.Frame):
         #     else:
         #         print("Wpisz poprawnie słowo 'tak' lub slowo 'nie', Chcesz tam wchodzić czy nie?!")
         # self.GAME_OVER()
+    def main_alternative(self):
+        global dalej_1
+        self.zmienna.set("You are smart human,\nthere is no point in getting angry and getting tired ...\nMaybe you don't defeat last boss, \nbut you finished this simple RPG game without stresses and big effort")
+
+        dalej_1 = tkinter.Button(text='Next', fg='black', width=20, command=self.main_alternative_2)
+        dalej_1.place(x=445, y=275)
+
+        wskocz.destroy(), niewskakuj.destroy()
+
+    def main_alternative_2(self):
+        global dalej_2
+        self.zmienna.set("CONGRATULATIONS!")
+
+        dalej_2 = tkinter.Button(text='THE END', fg='black', width=20, command=self.GAME_OVER_alternative)
+        dalej_2.place(x=445, y=175)
+
+        dalej_1.destroy()
 
     def wybor_postaci(self):
         global wojownik, czarodziej, zabojca
@@ -333,10 +350,10 @@ class Window(tkinter.Frame):
         global Rozpocznij, Cofnij
 
         Rozpocznij = tkinter.Button(text='BEGIN', fg='blue', width=20, command=(self.main2))
-        Rozpocznij.place(x=460, y=50)
+        Rozpocznij.place(x=445, y=50)
 
         Cofnij = tkinter.Button(text='Undo', fg='green', width=20, command=(self.wybor_postaci2))
-        Cofnij.place(x=460, y=75)
+        Cofnij.place(x=445, y=75)
 
         wojownik.destroy(), czarodziej.destroy(), zabojca.destroy()
 
@@ -651,6 +668,27 @@ class Window(tkinter.Frame):
                     sys.exit()
             else:
                 print("Wybrałes failowo, wybierz jeszcze raz")
+
+    def GAME_OVER_alternative(self):
+            self.zmienna.set("CONGRATULATIONS!")
+
+            ostatni_wybor_1 = tkinter.Button(text='YES', fg='black', width=20, command=self.main)
+            ostatni_wybor_1.place(x=345, y=175)
+
+            ostatni_wybor_2 = tkinter.Button(text='NO', fg='black', width=20, command=sys.exit)
+            ostatni_wybor_2.place(x=520, y=175)
+
+            dalej_2.destroy()
+            # print("Czy chcesz zagrac jeszcze raz? (tak/nie): ")
+            # ostatni_wybor = input()
+            # if ostatni_wybor == "tak":
+            #     return self.main()
+            # elif ostatni_wybor == "nie":
+            #     while True:
+            #         print("Game Over")
+            #         sys.exit()
+            # else:
+            #     print("Wybrałes failowo, wybierz jeszcze raz")
 
     # --------------------------------lokacje-----------------------------------------#
     def top_left(self, aktualny_status):
