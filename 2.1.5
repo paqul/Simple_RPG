@@ -86,7 +86,7 @@ class mikstura(object):
 #------------------------------grafika----------------------------------#
 
 class Window(tkinter.Frame):
-
+    global aktualny_status
     def __init__(self, master=None):
         tkinter.Frame.__init__(self, master) # daje mozliwosc wywolania  okien
         self.zmienna = tkinter.StringVar(value='Start the Game')
@@ -100,7 +100,10 @@ class Window(tkinter.Frame):
         self.init_window()
         self.init_window2()
 
+        aktualny_status=[]
+
     def init_window(self):
+        global north, south, east, west, walcz, uciekaj
 
         self.master.title("Simple RPG")
         labelframe1 = tkinter.LabelFrame(text="Action", relief="raised", height=10, width=10)
@@ -123,22 +126,22 @@ class Window(tkinter.Frame):
         MainMenu.add_cascade(label='About', menu=about)
         about.add_command(label='About',  command=self.about_x)
 
-        north = tkinter.Button(labelframe1, text="\'NORTH\'", fg="blue", height=4, width=25, bd=4)
+        north = tkinter.Button(labelframe1, text="\'NORTH\'", fg="blue", height=4, width=25, bd=4, state="disabled")
         north.place(x=170, y=10)
 
-        south = tkinter.Button(labelframe1, text="\'SOUTH\'", fg="blue", cursor="dot", height=4, width=25, bd=4)
+        south = tkinter.Button(labelframe1, text="\'SOUTH\'", fg="blue", cursor="dot", height=4, width=25, bd=4, state="disabled")
         south.place(x=170, y=310)
 
-        east = tkinter.Button(labelframe1, text="\'EAST\'", fg="blue", height=10, width=10, bd=4)
+        east = tkinter.Button(labelframe1, text="\'EAST\'", fg="blue", height=10, width=10, bd=4, state="disabled")
         east.place(x=20, y=110)
 
-        west = tkinter.Button(labelframe1, text="\'WEST\'", fg="blue", height=10, width=10, bd=4)
+        west = tkinter.Button(labelframe1, text="\'WEST\'", fg="blue", height=10, width=10, bd=4, state="disabled")
         west.place(x=420, y=110)
 
-        walcz = tkinter.Button(labelframe1, text="\'FIGHT!\'", fg="red", height=10, width=10, bd=4)
+        walcz = tkinter.Button(labelframe1, text="\'FIGHT!\'", fg="red", height=10, width=10, bd=4, state="disabled")
         walcz.place(x=170, y=110)
 
-        uciekaj = tkinter.Button(labelframe1, text="\'RUN AWAY\'", fg="green", height=10, width=10, bd=4, command=self.mage)
+        uciekaj = tkinter.Button(labelframe1, text="\'RUN AWAY\'", fg="green", height=10, width=10, bd=4, state="disabled", command=self.mage)
         uciekaj.place(x=270, y=110)
 
         labelframe1.pack(side=tkinter.LEFT, fill=tkinter.BOTH, expand=1, anchor=tkinter.CENTER)
@@ -183,6 +186,7 @@ class Window(tkinter.Frame):
 
     def main(self):
         try:
+            ostatni_wybor_1_al.destroy(), ostatni_wybor_2_al.destroy()
             os.remove("trofea_File.txt")
         except:
             pass
@@ -199,7 +203,7 @@ class Window(tkinter.Frame):
 
     def main2(self):
         global wskocz, niewskakuj, wojownik, czarodziej, zabojca
-        wskocz = tkinter.Button(text='Yes! - Jump into', fg='blue', width=20, command=(self.main2))
+        wskocz = tkinter.Button(text='Yes! - Jump into', fg='blue', width=20, command=(self.bot))
         wskocz.place(x=445, y=250)
 
         niewskakuj = tkinter.Button(text="NO! - Don't do that!", fg='green', width=20, command=(self.main_alternative))
@@ -310,7 +314,6 @@ class Window(tkinter.Frame):
         return aktualny_status
 
     def mage(self):
-        counter_przycisk = 0
         print("Twoje statystyki to: ")
         HP_maksymalne = 4
         HP = HP_maksymalne
@@ -323,10 +326,10 @@ class Window(tkinter.Frame):
         flag = "mag"
         wojownik.destroy(), czarodziej.destroy(), zabojca.destroy()
         self.zmienna.set("Your statistic: \nHP: %d / %d \nYour damage is 1 - 2, using magic!\nWith grow up your power, your spells became more powerful" % (HP, HP_maksymalne))
-        aktualny_status = moj_status_poczatkowy(HP, EXP, level, Bonus_DMG, HP_maksymalne, flag).status(HP, EXP, level, Bonus_DMG, HP_maksymalne, flag)
-        print(aktualny_status)
-        self.ropocznij_lub_cofnij()
-        return HP, EXP, level, Bonus_DMG, HP_maksymalne, flag
+        self.aktualny_status = moj_status_poczatkowy(HP, EXP, level, Bonus_DMG, HP_maksymalne, flag).status(HP, EXP, level, Bonus_DMG, HP_maksymalne, flag)
+        print(self.aktualny_status)
+        self.ropocznij_lub_cofnij(self.aktualny_status)
+        # return aktualny_status
 
     def assasin(self):
         print("Twoje statystyki to: ")
@@ -343,10 +346,10 @@ class Window(tkinter.Frame):
         self.zmienna.set("Your statistic: \nHP: %d / %d \nYour damage is 1 - 6, using daggers!\nYou never know when You can critically hit enemy " % (HP, HP_maksymalne))
         aktualny_status = moj_status_poczatkowy(HP, EXP, level, Bonus_DMG, HP_maksymalne, flag).status(HP, EXP, level, Bonus_DMG, HP_maksymalne, flag)
         print(aktualny_status)
-        self.ropocznij_lub_cofnij()
-        return HP, EXP, level, Bonus_DMG, HP_maksymalne, flag
+        self.ropocznij_lub_cofnij(self.aktualny_status)
+        return aktualny_status #HP, EXP, level, Bonus_DMG, HP_maksymalne, flag
 
-    def ropocznij_lub_cofnij(self):
+    def ropocznij_lub_cofnij(self, aktualany_status):
         global Rozpocznij, Cofnij
 
         Rozpocznij = tkinter.Button(text='BEGIN', fg='blue', width=20, command=(self.main2))
@@ -356,6 +359,7 @@ class Window(tkinter.Frame):
         Cofnij.place(x=445, y=75)
 
         wojownik.destroy(), czarodziej.destroy(), zabojca.destroy()
+        return self.aktualany_status
 
 
 
@@ -670,15 +674,16 @@ class Window(tkinter.Frame):
                 print("Wybrałes failowo, wybierz jeszcze raz")
 
     def GAME_OVER_alternative(self):
-            self.zmienna.set("CONGRATULATIONS!")
+        global ostatni_wybor_1_al, ostatni_wybor_2_al
+        self.zmienna.set("CONGRATULATIONS!\nDo You want play one more time?")
 
-            ostatni_wybor_1 = tkinter.Button(text='YES', fg='black', width=20, command=self.main)
-            ostatni_wybor_1.place(x=345, y=175)
+        ostatni_wybor_1_al = tkinter.Button(text='YES', fg='black', width=20, command=self.main)
+        ostatni_wybor_1_al.place(x=345, y=195)
 
-            ostatni_wybor_2 = tkinter.Button(text='NO', fg='black', width=20, command=sys.exit)
-            ostatni_wybor_2.place(x=520, y=175)
+        ostatni_wybor_2_al = tkinter.Button(text='NO', fg='black', width=20, command=sys.exit)
+        ostatni_wybor_2_al.place(x=520, y=195)
 
-            dalej_2.destroy()
+        dalej_2.destroy()
             # print("Czy chcesz zagrac jeszcze raz? (tak/nie): ")
             # ostatni_wybor = input()
             # if ostatni_wybor == "tak":
@@ -851,6 +856,5 @@ okno.resizable(width=False, height=False)
 okno.geometry("1024x768")
 
 app = Window(okno)
-
 
 okno.mainloop()
