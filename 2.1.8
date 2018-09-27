@@ -129,7 +129,7 @@ class Window(tkinter.Frame):
         north = tkinter.Button(labelframe1, text="\'NORTH\'", fg="blue", height=4, width=25, bd=4, state="disabled")
         north.place(x=170, y=10)
 
-        south = tkinter.Button(labelframe1, text="\'SOUTH\'", fg="blue", cursor="dot", height=4, width=25, bd=4, state="disabled")
+        south = tkinter.Button(labelframe1, text="\'SOUTH\'", fg="blue", height=4, width=25, bd=4, state="disabled")
         south.place(x=170, y=310)
 
         east = tkinter.Button(labelframe1, text="\'EAST\'", fg="blue", height=10, width=10, bd=4, state="disabled")
@@ -706,127 +706,198 @@ class Window(tkinter.Frame):
             #     print("Wybrałes failowo, wybierz jeszcze raz")
 
     # --------------------------------lokacje-----------------------------------------#
-    def top_left(self, aktualny_status):
-        aktualny_status = self.spotkanie(aktualny_status)
-        aktualny_status = self.level(aktualny_status)
-        self.wywolaj_status(aktualny_status)
-        print("Znajdujesz się w północno zachodniej czesci lochu")
-        print("Gdzie idziesz? Mozliwe wyjscia polodnie(s) i wschod(e)")
-        idz = input()
-        while (idz != "e" and idz != "s"):
-            print("wybrales failowo, wybierz jeszcze raz (e/s)")
-            idz = input()
-        else:
-            if idz == 's':
-                return self.left(aktualny_status)
-            elif idz == "e":
-                return self.top(aktualny_status)
+    def top_left(self):
+        self.zmienna.set("You are in north-west part of dungeon\nWhere will You go? You can go on South and East\n%s" % self.wywolaj_status())
 
-    def top(self, aktualny_status):
-        aktualny_status = self.spotkanie(aktualny_status)
-        aktualny_status = self.level(aktualny_status)
-        self.wywolaj_status(aktualny_status)
-        print("Znajdujesz się w północnej czesci lochu")
-        print("Gdzie idziesz? Mozliwe wyjscia polodnie(s) i wschod(e) i zachod(w)")
-        idz = input()
-        while (idz != "s" and idz != "e" and idz != "w"):
-            print("wybrales failowo, wybierz jeszcze raz (s/e/w)")
-            idz = input()
-        else:
-            if idz == 's':
-                return self.central(aktualny_status)
-            elif idz == "e":
-                return self.top_right(aktualny_status)
-            elif idz == "w":
-                return self.top_left(aktualny_status)
+        north.configure(state="disabled")
+        east.configure(state="normal", command=self.top)
+        west.configure(state="disabled")
+        south.configure(state="normal", command=self.left)
 
-    def top_right(self, aktualny_status):
-        aktualny_status = self.spotkanie(aktualny_status)
-        aktualny_status = self.level(aktualny_status)
-        self.wywolaj_status(aktualny_status)
-        print("Znajdujesz się w północno wschodniej czesci lochu")
-        print("Gdzie idziesz? Mozliwe wyjscia polodnie(s) i zachod(w)")
-        idz = input()
-        while (idz != "w" and idz != "s"):
-            print("wybrales failowo, wybierz jeszcze raz (w/s)")
-            idz = input()
-        else:
-            if idz == 's':
-                return self.right(aktualny_status)
-            elif idz == "w":
-                return self.top_left(aktualny_status)
+        img = tkinter.PhotoImage(file="Mapa_NW.png").zoom(x=4, y=4)
+        imgLabel.image = img
+        imgLabel.configure(image=img)
+        # aktualny_status = self.spotkanie(aktualny_status)
+        # aktualny_status = self.level(aktualny_status)
+        # self.wywolaj_status(aktualny_status)
+        # print("Znajdujesz się w północno zachodniej czesci lochu")
+        # print("Gdzie idziesz? Mozliwe wyjscia polodnie(s) i wschod(e)")
+        # idz = input()
+        # while (idz != "e" and idz != "s"):
+        #     print("wybrales failowo, wybierz jeszcze raz (e/s)")
+        #     idz = input()
+        # else:
+        #     if idz == 's':
+        #         return self.left(aktualny_status)
+        #     elif idz == "e":
+        #         return self.top(aktualny_status)
 
-    def left(self, aktualny_status):
-        aktualny_status = self.spotkanie(aktualny_status)
-        aktualny_status = self.level(aktualny_status)
-        self.wywolaj_status(aktualny_status)
-        print("Znajdujesz się w zachodniej czesci lochu")
-        print("Gdzie idziesz? Mozliwe wyjscia polodnie(s) i polnoc(n) i wschod(e)")
-        idz = input()
-        while (idz != "n" and idz != "e" and idz != "s"):
-            print("wybrales failowo, wybierz jeszcze raz (n/e/s)")
-            idz = input()
-        else:
-            if idz == 's':
-                return self.bot_left(aktualny_status)
-            elif idz == "e":
-                return self.central(aktualny_status)
-            elif idz == "n":
-                return self.top_left(aktualny_status)
+    def top(self):
+        self.zmienna.set("You are in north part of dungeon\nWhere will You go? You can go on South and West and East\n%s" % self.wywolaj_status())
 
-    def central(self, aktualny_status):
-        aktualny_status = self.spotkanie(aktualny_status)
-        aktualny_status = self.level(aktualny_status)
-        self.wywolaj_status(aktualny_status)
-        print("Znajdujesz się w centrum lochu czesci lochu")
-        print("Gdzie idziesz? Mozliwe wyjscia polodnie(s) i polnoc(n) i wschod(e) i zachod(w)")
-        idz = input()
-        while (idz != "w" and idz != "n" and idz != "e" and idz != "s"):
-            print("wybrales failowo, wybierz jeszcze raz (n/w/e/s)")
-            idz = input()
-        else:
-            if idz == "s":
-                return self.bot(aktualny_status)
-            elif idz == "w":
-                return self.left(aktualny_status)
-            elif idz == "n":
-                return self.top(aktualny_status)
-            elif idz == "e":
-                return self.right(aktualny_status)
+        north.configure(state="disabled")
+        east.configure(state="normal", command=self.top_right)
+        west.configure(state="normal", command=self.top_left)
+        south.configure(state="normal", command=self.central)
 
-    def right(self, aktualny_status):
-        aktualny_status = self.spotkanie(aktualny_status)
-        aktualny_status = self.level(aktualny_status)
-        self.wywolaj_status(aktualny_status)
-        print("Znajdujesz się w wschodniej czesci lochu")
-        print("Gdzie idziesz? Mozliwe wyjscia polodnie(s) i polnoc(n) i zachod(w)")
-        idz = input()
-        while (idz != "w" and idz != "n" and idz != "s"):
-            print("wybrales failowo, wybierz jeszcze raz (n/w/s)")
-            idz = input()
-        else:
-            if idz == 's':
-                return self.bot_right(aktualny_status)
-            elif idz == "w":
-                return self.central(aktualny_status)
-            elif idz == "n":
-                return self.top_right(aktualny_status)
+        img = tkinter.PhotoImage(file="Mapa_N.png").zoom(x=4, y=4)
+        imgLabel.image = img
+        imgLabel.configure(image=img)
+        # aktualny_status = self.spotkanie(aktualny_status)
+        # aktualny_status = self.level(aktualny_status)
+        # self.wywolaj_status(aktualny_status)
+        # print("Znajdujesz się w północnej czesci lochu")
+        # print("Gdzie idziesz? Mozliwe wyjscia polodnie(s) i wschod(e) i zachod(w)")
+        # idz = input()
+        # while (idz != "s" and idz != "e" and idz != "w"):
+        #     print("wybrales failowo, wybierz jeszcze raz (s/e/w)")
+        #     idz = input()
+        # else:
+        #     if idz == 's':
+        #         return self.central(aktualny_status)
+        #     elif idz == "e":
+        #         return self.top_right(aktualny_status)
+        #     elif idz == "w":
+        #         return self.top_left(aktualny_status)
 
-    def bot_left(self, aktualny_status):
-        aktualny_status = self.spotkanie(aktualny_status)
-        aktualny_status = self.level(aktualny_status)
-        self.wywolaj_status(aktualny_status)
-        print("Znajdujesz się w polodniowo zachodniej czesci lochu")
-        print("Gdzie idziesz? Mozliwe wyjscia polnoc(n) i wschod(e)")
-        idz = input()
-        while (idz != "e" and idz != "n"):
-            print("wybrales failowo, wybierz jeszcze raz (n/e)")
-            idz = input()
-        else:
-            if idz == 'n':
-                return self.left(aktualny_status)
-            elif idz == "e":
-                return self.bot(aktualny_status)
+    def top_right(self):
+        self.zmienna.set("You are in north-east part of dungeon\nWhere will You go? You can go on South and West\n%s" % self.wywolaj_status())
+
+        north.configure(state="disabled")
+        east.configure(state="disabled")
+        west.configure(state="normal", command=self.top)
+        south.configure(state="normal", command=self.right)
+
+        img = tkinter.PhotoImage(file="Mapa_NE.png").zoom(x=4, y=4)
+        imgLabel.image = img
+        imgLabel.configure(image=img)
+        # aktualny_status = self.spotkanie(aktualny_status)
+        # aktualny_status = self.level(aktualny_status)
+        # self.wywolaj_status(aktualny_status)
+        # print("Znajdujesz się w północno wschodniej czesci lochu")
+        # print("Gdzie idziesz? Mozliwe wyjscia polodnie(s) i zachod(w)")
+        # idz = input()
+        # while (idz != "w" and idz != "s"):
+        #     print("wybrales failowo, wybierz jeszcze raz (w/s)")
+        #     idz = input()
+        # else:
+        #     if idz == 's':
+        #         return self.right(aktualny_status)
+        #     elif idz == "w":
+        #         return self.top_left(aktualny_status)
+
+    def left(self):
+        self.zmienna.set("You are in west part of dungeon\nWhere will You go? You can go on North and South and East\n%s" % self.wywolaj_status())
+
+        north.configure(state="normal", command=self.top_left)
+        east.configure(state="normal", command=self.central)
+        west.configure(state="disabled")
+        south.configure(state="normal", command=self.bot_left)
+
+        img = tkinter.PhotoImage(file="Mapa_W.png").zoom(x=4, y=4)
+        imgLabel.image = img
+        imgLabel.configure(image=img)
+        # aktualny_status = self.spotkanie(aktualny_status)
+        # aktualny_status = self.level(aktualny_status)
+        # self.wywolaj_status(aktualny_status)
+        # print("Znajdujesz się w zachodniej czesci lochu")
+        # print("Gdzie idziesz? Mozliwe wyjscia polodnie(s) i polnoc(n) i wschod(e)")
+        # idz = input()
+        # while (idz != "n" and idz != "e" and idz != "s"):
+        #     print("wybrales failowo, wybierz jeszcze raz (n/e/s)")
+        #     idz = input()
+        # else:
+        #     if idz == 's':
+        #         return self.bot_left(aktualny_status)
+        #     elif idz == "e":
+        #         return self.central(aktualny_status)
+        #     elif idz == "n":
+        #         return self.top_left(aktualny_status)
+
+    def central(self):
+        self.zmienna.set("You are in central part of dungeon\nWhere will You go? You can go on North and South and East and West\n%s" % self.wywolaj_status())
+
+        north.configure(state="normal", command=self.top)
+        east.configure(state="normal", command=self.right)
+        west.configure(state="normal", command=self.left)
+        south.configure(state="normal", command=self.bot)
+
+        img = tkinter.PhotoImage(file="Mapa_CENTER.png").zoom(x=4, y=4)
+        imgLabel.image = img
+        imgLabel.configure(image=img)
+        # aktualny_status = self.spotkanie(aktualny_status)
+        # aktualny_status = self.level(aktualny_status)
+        # self.wywolaj_status(aktualny_status)
+        # print("Znajdujesz się w centrum lochu czesci lochu")
+        # print("Gdzie idziesz? Mozliwe wyjscia polodnie(s) i polnoc(n) i wschod(e) i zachod(w)")
+        # idz = input()
+        # while (idz != "w" and idz != "n" and idz != "e" and idz != "s"):
+        #     print("wybrales failowo, wybierz jeszcze raz (n/w/e/s)")
+        #     idz = input()
+        # else:
+        #     if idz == "s":
+        #         return self.bot(aktualny_status)
+        #     elif idz == "w":
+        #         return self.left(aktualny_status)
+        #     elif idz == "n":
+        #         return self.top(aktualny_status)
+        #     elif idz == "e":
+        #         return self.right(aktualny_status)
+
+    def right(self):
+        self.zmienna.set("You are in east part of dungeon\nWhere will You go? You can go on North and South and West\n%s" % self.wywolaj_status())
+
+        north.configure(state="normal", command=self.top_right)
+        east.configure(state="disabled")
+        west.configure(state="normal", command=self.central)
+        south.configure(state="normal", command=self.bot_right)
+
+        img = tkinter.PhotoImage(file="Mapa_E.png").zoom(x=4, y=4)
+        imgLabel.image = img
+        imgLabel.configure(image=img)
+        # aktualny_status = self.spotkanie(aktualny_status)
+        # aktualny_status = self.level(aktualny_status)
+        # self.wywolaj_status(aktualny_status)
+        # print("Znajdujesz się w wschodniej czesci lochu")
+        # print("Gdzie idziesz? Mozliwe wyjscia polodnie(s) i polnoc(n) i zachod(w)")
+        # idz = input()
+        # while (idz != "w" and idz != "n" and idz != "s"):
+        #     print("wybrales failowo, wybierz jeszcze raz (n/w/s)")
+        #     idz = input()
+        # else:
+        #     if idz == 's':
+        #         return self.bot_right(aktualny_status)
+        #     elif idz == "w":
+        #         return self.central(aktualny_status)
+        #     elif idz == "n":
+        #         return self.top_right(aktualny_status)
+
+    def bot_left(self):
+        self.zmienna.set("You are in south-west part of dungeon\nWhere will You go? You can go on North and East\n%s" % self.wywolaj_status())
+
+        north.configure(state="normal", command=self.left)
+        east.configure(state="normal", command=self.bot)
+        west.configure(state="disabled")
+        south.configure(state="disabled")
+
+
+        img = tkinter.PhotoImage(file="Mapa_SW.png").zoom(x=4, y=4)
+        imgLabel.image = img
+        imgLabel.configure(image=img)
+        # aktualny_status = self.spotkanie(aktualny_status)
+        # aktualny_status = self.level(aktualny_status)
+        # self.wywolaj_status(aktualny_status)
+        # print("Znajdujesz się w polodniowo zachodniej czesci lochu")
+        # print("Gdzie idziesz? Mozliwe wyjscia polnoc(n) i wschod(e)")
+        # idz = input()
+        # while (idz != "e" and idz != "n"):
+        #     print("wybrales failowo, wybierz jeszcze raz (n/e)")
+        #     idz = input()
+        # else:
+        #     if idz == 'n':
+        #         return self.left(aktualny_status)
+        #     elif idz == "e":
+        #         return self.bot(aktualny_status)
 
     def bot(self):
         try:
@@ -837,6 +908,7 @@ class Window(tkinter.Frame):
             north.configure(state="normal", command=self.central)
             east.configure(state="normal", command=self.bot_right)
             west.configure(state="normal", command=self.bot_left)
+            south.configure(state="disabled")
 
             img = tkinter.PhotoImage(file="Mapa_S.png").zoom(x=4, y=4)
             imgLabel.image = img
@@ -849,6 +921,7 @@ class Window(tkinter.Frame):
         north.configure(state="normal", command=self.right)
         west.configure(state="normal", command=self.bot)
         east.configure(state="disabled")
+        south.configure(state="disabled")
 
         img = tkinter.PhotoImage(file="Mapa_SE.png").zoom(x=4, y=4)
         imgLabel.image = img
