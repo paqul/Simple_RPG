@@ -501,9 +501,11 @@ class Window(tkinter.Frame):
                 else:
                     my_enemy = ork()
                     przeciwnik = ("Spotkales orka!")
-                self.zmienna.set("Na swojej drodze spotykasz przeciwnika, przygotuj sie do walki !\n%s" % przeciwnik)
-                global staty
-                staty = my_enemy.status()
+                self.zmienna.set("Na swojej drodze spotykasz przeciwnika, przygotuj sie do walki !\n%s\nWybierz czy chcesz walczyć czy uciekać? " % przeciwnik)
+                # global self.staty
+                self.staty = my_enemy.status()
+                print(self.aktualny_status)
+                print(self.staty)
 
                 walcz.configure(state="normal", command=self.walka)
                 uciekaj.configure(state="normal", command=self.GAME_OVER)
@@ -512,7 +514,7 @@ class Window(tkinter.Frame):
             # aktualny_status[0] = Staty_po_starciu[0]
             # aktualny_status[1] = Staty_po_starciu[1]
             # del my_enemy
-            return aktualny_status
+            return self.aktualny_status
         # elif zaszlo > 75 and zaszlo <= 100:
         #     jaki_mix = random.randrange(0, 101)
         #     aktualny_status = self.level(aktualny_status)
@@ -535,84 +537,90 @@ class Window(tkinter.Frame):
         #     return aktualny_status
         else:
             self.zmienna.set("Wchodzisz do nowego obszaru i nic sie nie dzieje")
-            return aktualny_status
+            return self.aktualny_status
 
     # ------------------------------------walka------------------------------#
-    def walka(self, HP_gracza, HP_potwora, dmg_potwora, EXP_gracza_aktualny, EXP_potwora, Bonus_DMG, HP_maksymalne, flag):
-        if HP_potwora > 99:
+    # def walka(self, HP_gracza, HP_potwora, dmg_potwora, EXP_gracza_aktualny, EXP_potwora, Bonus_DMG, HP_maksymalne, flag):
+    def walka(self):
+
+        # walcz.configure(state="normal", command=self.walka)
+        # uciekaj.configure(state="normal", command=self.GAME_OVER)
+
+        if self.staty[1] > 99:
             print("Rozpoczynasz walke...")
-            input()
-            HP_potwora_maksymalne = HP_potwora
-            while HP_gracza >= 1:
-                if flag == "war":
-                    damage_zadane = random.randrange(1, 5) + Bonus_DMG
-                elif flag == "mag":
-                    damage_zadane = random.randrange(1, 3) + Bonus_DMG
-                elif flag == "asa":
-                    damage_zadane = random.randrange(1, 7) + Bonus_DMG
-                HP_potwora = HP_potwora - damage_zadane
-                HP_gracza = HP_gracza - dmg_potwora
-                naloz_gracz = self.nakladka_klimat(HP_gracza, HP_maksymalne)
-                naloz_potwor = self.nakladka_klimat(HP_potwora, HP_potwora_maksymalne)
-                print("Zadales przeciwnikowi obrażenia i jest %s" % naloz_potwor)
-                print("Przeciwnik uderzył Cie i jesteś %s" % naloz_gracz)
-                if HP_gracza <= 0:
-                    print("GAME OVER ! ! !")
-                    self.GAME_OVER()
-                    break
-                elif HP_potwora <= 0:
-                    print("Wygrales walke!")
-                    self.trofea_fun(HP_potwora_maksymalne)
-                    HP_po_walce = HP_gracza
-                    EXP_gracza_aktualny += EXP_potwora
-                    return HP_po_walce, EXP_gracza_aktualny
-                else:
-                    print("Czy chcesz kontynuować walkę ? (t/n)")
-                    while True:
-                        kontynuacja = input()
-                        if kontynuacja == "t":
-                            break
-                        elif kontynuacja == "n":
-                            print("Nie możesz uciec last bossowi, musisz walczyć do końca!!")
-                            break
-                        else:
-                            print("wpisz 't' lub 'n'")
+            # input()
+            # HP_potwora_maksymalne = HP_potwora
+            # while HP_gracza >= 1:
+            #     if flag == "war":
+            #         damage_zadane = random.randrange(1, 5) + Bonus_DMG
+            #     elif flag == "mag":
+            #         damage_zadane = random.randrange(1, 3) + Bonus_DMG
+            #     elif flag == "asa":
+            #         damage_zadane = random.randrange(1, 7) + Bonus_DMG
+            #     HP_potwora = HP_potwora - damage_zadane
+            #     HP_gracza = HP_gracza - dmg_potwora
+            #     naloz_gracz = self.nakladka_klimat(HP_gracza, HP_maksymalne)
+            #     naloz_potwor = self.nakladka_klimat(HP_potwora, HP_potwora_maksymalne)
+            #     print("Zadales przeciwnikowi obrażenia i jest %s" % naloz_potwor)
+            #     print("Przeciwnik uderzył Cie i jesteś %s" % naloz_gracz)
+            #     if HP_gracza <= 0:
+            #         print("GAME OVER ! ! !")
+            #         self.GAME_OVER()
+            #         break
+            #     elif HP_potwora <= 0:
+            #         print("Wygrales walke!")
+            #         self.trofea_fun(HP_potwora_maksymalne)
+            #         HP_po_walce = HP_gracza
+            #         EXP_gracza_aktualny += EXP_potwora
+            #         return HP_po_walce, EXP_gracza_aktualny
+            #     else:
+            #         print("Czy chcesz kontynuować walkę ? (t/n)")
+            #         while True:
+            #             kontynuacja = input()
+            #             if kontynuacja == "t":
+            #                 break
+            #             elif kontynuacja == "n":
+            #                 print("Nie możesz uciec last bossowi, musisz walczyć do końca!!")
+            #                 break
+            #             else:
+            #                 print("wpisz 't' lub 'n'")
         else:
-            input()
-            print("Wybierz czy chcesz walczyć czy uciekać? (walcz/uciekaj): ")
-            while True:
-                akcja = input()
-                while akcja == ("uciekaj") or akcja == ("walcz") or akcja == ("n") or akcja == ("s") or akcja == (
-                "e") or akcja == ("w"):
-                    if akcja == "walcz":
+            # input()
+            # print("Wybierz czy chcesz walczyć czy uciekać? (walcz/uciekaj): ")
+            # while True:
+            #     akcja = input()
+            #     while akcja == ("uciekaj") or akcja == ("walcz") or akcja == ("n") or akcja == ("s") or akcja == (
+            #     "e") or akcja == ("w"):
+            #         if akcja == "walcz":
                         print("Rozpoczynasz walke...")
-                        input()
-                        HP_potwora_maksymalne = HP_potwora
-                        while (HP_gracza >= 1):
-                            if flag == "war":
-                                damage_zadane = random.randrange(1, 5) + Bonus_DMG
-                            elif flag == "mag":
-                                damage_zadane = random.randrange(1, 3) + Bonus_DMG
-                            elif flag == "asa":
-                                damage_zadane = random.randrange(1, 7) + Bonus_DMG
+                        HP_potwora_maksymalne = self.staty[1]
+                        HP_potwora = self.staty[1]
+                        while (self.aktualny_status[0] >= 1):
+                            if self.aktualny_status[5] == "war":
+                                damage_zadane = random.randrange(1, 5) + self.aktualny_status[3]
+                            elif self.aktualny_status[5] == "mag":
+                                damage_zadane = random.randrange(1, 3) + self.aktualny_status[3]
+                            elif self.aktualny_status[5] == "asa":
+                                damage_zadane = random.randrange(1, 7) + self.aktualny_status[3]
+                            print(damage_zadane, HP_potwora)
                             HP_potwora = HP_potwora - damage_zadane
-                            HP_gracza = HP_gracza - dmg_potwora
-                            naloz_gracz = self.nakladka_klimat(HP_gracza, HP_maksymalne)
+                            print(HP_potwora)
+                            self.aktualny_status[0] = self.aktualny_status[0] - self.staty[2]
+                            naloz_gracz = self.nakladka_klimat(self.aktualny_status[0], self.aktualny_status[4])
                             naloz_potwor = self.nakladka_klimat(HP_potwora, HP_potwora_maksymalne)
                             print("Zadales przeciwnikowi obrażenia i jest %s" % naloz_potwor)
                             print("Przeciwnik uderzył Cie i jesteś %s" % naloz_gracz)
-                            if HP_gracza <= 0:
+                            if self.aktualny_status[0] <= 0:
                                 print("Giniesz - GAME OVER ! ! !")
-                                input()
+                                # input()
                                 self.GAME_OVER()
                                 break
-                            elif HP_potwora <= 0:
+                            elif self.staty[1] <= 0:
                                 print("Wygrales walke!")
                                 # trofea_fun(HP_potwora_maksymalne)
-                                input()
-                                HP_po_walce = HP_gracza
-                                EXP_gracza_aktualny += EXP_potwora
-                                return HP_po_walce, EXP_gracza_aktualny
+                                HP_po_walce = self.aktualny_status[0]
+                                self.aktualny_status[1] += self.staty[3]
+                                return HP_po_walce, self.aktualny_status[1]
                             else:
                                 print("Czy chcesz kontynuować walkę ? (t/n)")
                                 while True:
@@ -620,29 +628,134 @@ class Window(tkinter.Frame):
                                     if kontynuacja == "t":
                                         break
                                     elif kontynuacja == "n":
-                                        proba_ucieczki = random.randrange(1, 101)
-                                        if proba_ucieczki >= 20:
-                                            print("Udało Ci sie uciec!")
-                                            return HP_gracza, EXP_gracza_aktualny
-                                        else:
-                                            print("Wrog odciol Ci drogę!")
-                                            kontynuacja == "t"
-                                            break
-                                    else:
-                                        print("wpisz 't' lub 'n'")
-                        break
-                    elif akcja == "uciekaj" or akcja == "n" or akcja == "e" or akcja == "w" or akcja == "s":
-                        proba_ucieczki = random.randrange(1, 100)
-                        if proba_ucieczki >= 20:
-                            print("Udało Ci sie uciec!")
-                            return HP_gracza, EXP_gracza_aktualny
-                        else:
-                            print("Wrog odciol Ci drogę!")
-                            akcja = "walcz"
-                else:
-                    print("Wpisz poprawnie 'walcz' lub 'uciekaj'")
+                                        self.proba_ucieczki()
+                                    # else:
+                                    #     print("wpisz 't' lub 'n'")
+                #         break
+                #     elif akcja == "uciekaj" or akcja == "n" or akcja == "e" or akcja == "w" or akcja == "s":
+                #         proba_ucieczki = random.randrange(1, 100)
+                #         if proba_ucieczki >= 20:
+                #             print("Udało Ci sie uciec!")
+                #             return aktualny_status[0], aktualny_status[1]
+                #         else:
+                #             print("Wrog odciol Ci drogę!")
+                #             akcja = "walcz"
+                # else:
+                #     print("Wpisz poprawnie 'walcz' lub 'uciekaj'")
+    # def walka(self, HP_gracza, HP_potwora, dmg_potwora, EXP_gracza_aktualny, EXP_potwora, Bonus_DMG, HP_maksymalne, flag):
+    #     if HP_potwora > 99:
+    #         print("Rozpoczynasz walke...")
+    #         input()
+    #         HP_potwora_maksymalne = HP_potwora
+    #         while HP_gracza >= 1:
+    #             if flag == "war":
+    #                 damage_zadane = random.randrange(1, 5) + Bonus_DMG
+    #             elif flag == "mag":
+    #                 damage_zadane = random.randrange(1, 3) + Bonus_DMG
+    #             elif flag == "asa":
+    #                 damage_zadane = random.randrange(1, 7) + Bonus_DMG
+    #             HP_potwora = HP_potwora - damage_zadane
+    #             HP_gracza = HP_gracza - dmg_potwora
+    #             naloz_gracz = self.nakladka_klimat(HP_gracza, HP_maksymalne)
+    #             naloz_potwor = self.nakladka_klimat(HP_potwora, HP_potwora_maksymalne)
+    #             print("Zadales przeciwnikowi obrażenia i jest %s" % naloz_potwor)
+    #             print("Przeciwnik uderzył Cie i jesteś %s" % naloz_gracz)
+    #             if HP_gracza <= 0:
+    #                 print("GAME OVER ! ! !")
+    #                 self.GAME_OVER()
+    #                 break
+    #             elif HP_potwora <= 0:
+    #                 print("Wygrales walke!")
+    #                 self.trofea_fun(HP_potwora_maksymalne)
+    #                 HP_po_walce = HP_gracza
+    #                 EXP_gracza_aktualny += EXP_potwora
+    #                 return HP_po_walce, EXP_gracza_aktualny
+    #             else:
+    #                 print("Czy chcesz kontynuować walkę ? (t/n)")
+    #                 while True:
+    #                     kontynuacja = input()
+    #                     if kontynuacja == "t":
+    #                         break
+    #                     elif kontynuacja == "n":
+    #                         print("Nie możesz uciec last bossowi, musisz walczyć do końca!!")
+    #                         break
+    #                     else:
+    #                         print("wpisz 't' lub 'n'")
+    #     else:
+    #         input()
+    #         print("Wybierz czy chcesz walczyć czy uciekać? (walcz/uciekaj): ")
+    #         while True:
+    #             akcja = input()
+    #             while akcja == ("uciekaj") or akcja == ("walcz") or akcja == ("n") or akcja == ("s") or akcja == (
+    #             "e") or akcja == ("w"):
+    #                 if akcja == "walcz":
+    #                     print("Rozpoczynasz walke...")
+    #                     input()
+    #                     HP_potwora_maksymalne = HP_potwora
+    #                     while (HP_gracza >= 1):
+    #                         if flag == "war":
+    #                             damage_zadane = random.randrange(1, 5) + Bonus_DMG
+    #                         elif flag == "mag":
+    #                             damage_zadane = random.randrange(1, 3) + Bonus_DMG
+    #                         elif flag == "asa":
+    #                             damage_zadane = random.randrange(1, 7) + Bonus_DMG
+    #                         HP_potwora = HP_potwora - damage_zadane
+    #                         HP_gracza = HP_gracza - dmg_potwora
+    #                         naloz_gracz = self.nakladka_klimat(HP_gracza, HP_maksymalne)
+    #                         naloz_potwor = self.nakladka_klimat(HP_potwora, HP_potwora_maksymalne)
+    #                         print("Zadales przeciwnikowi obrażenia i jest %s" % naloz_potwor)
+    #                         print("Przeciwnik uderzył Cie i jesteś %s" % naloz_gracz)
+    #                         if HP_gracza <= 0:
+    #                             print("Giniesz - GAME OVER ! ! !")
+    #                             input()
+    #                             self.GAME_OVER()
+    #                             break
+    #                         elif HP_potwora <= 0:
+    #                             print("Wygrales walke!")
+    #                             # trofea_fun(HP_potwora_maksymalne)
+    #                             input()
+    #                             HP_po_walce = HP_gracza
+    #                             EXP_gracza_aktualny += EXP_potwora
+    #                             return HP_po_walce, EXP_gracza_aktualny
+    #                         else:
+    #                             print("Czy chcesz kontynuować walkę ? (t/n)")
+    #                             while True:
+    #                                 kontynuacja = input()
+    #                                 if kontynuacja == "t":
+    #                                     break
+    #                                 elif kontynuacja == "n":
+    #                                     proba_ucieczki = random.randrange(1, 101)
+    #                                     if proba_ucieczki >= 20:
+    #                                         print("Udało Ci sie uciec!")
+    #                                         return HP_gracza, EXP_gracza_aktualny
+    #                                     else:
+    #                                         print("Wrog odciol Ci drogę!")
+    #                                         kontynuacja == "t"
+    #                                         break
+    #                                 else:
+    #                                     print("wpisz 't' lub 'n'")
+    #                     break
+    #                 elif akcja == "uciekaj" or akcja == "n" or akcja == "e" or akcja == "w" or akcja == "s":
+    #                     proba_ucieczki = random.randrange(1, 100)
+    #                     if proba_ucieczki >= 20:
+    #                         print("Udało Ci sie uciec!")
+    #                         return HP_gracza, EXP_gracza_aktualny
+    #                     else:
+    #                         print("Wrog odciol Ci drogę!")
+    #                         akcja = "walcz"
+    #             else:
+    #                 print("Wpisz poprawnie 'walcz' lub 'uciekaj'")
 
     # -------------------support function--------------------------------------------------#
+    def proba_ucieczki(self):
+        proba_ucieczki = random.randrange(1, 101)
+        if proba_ucieczki >= 20:
+            print("Udało Ci sie uciec!")
+            # return self.aktualny_status[0], self.aktualny_status[1]
+        else:
+            print("Wrog odciol Ci drogę!")
+            # kontynuacja == "t" tu musi byc odwolanie do walki
+
     def nakladka_klimat(self, HP, HP_max):
         dic = ["Pełnia zdrowia", "Lekko ranny", "Średnio ranny", "Ciężko ranny", "Prawie martwy", "Martwy"]
         if HP == HP_max:
