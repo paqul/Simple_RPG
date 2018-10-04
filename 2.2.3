@@ -624,6 +624,13 @@ class Window(tkinter.Frame):
                             # trofea_fun(HP_potwora_maksymalne)
                             HP_po_walce = self.aktualny_status[0]
                             self.aktualny_status[1] += self.staty[3]
+                            walcz.configure(state="disabled")
+                            uciekaj.configure(state="disabled")
+                            #----------------to musi isc gdzies do funkcji---------------#
+                            north.configure(state="normal", command=self.right)
+                            west.configure(state="normal", command=self.bot)
+                            east.configure(state="disabled")
+                            south.configure(state="disabled")
                             return HP_po_walce, self.aktualny_status[1], self.HP_potwora
                             # else:
                             #     print("Czy chcesz kontynuować walkę ? (t/n)")
