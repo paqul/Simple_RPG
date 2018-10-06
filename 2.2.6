@@ -359,7 +359,7 @@ class Window(tkinter.Frame):
         # return self.aktualany_status
 
     # def wywolaj_status(self, aktualny_status):
-    #     print("|--Klasa--|--LVL--|--HP --|--HPmax--|--Exp --|--Damage zadawany--|")
+    #     print("|--Class--|--LVL--|--HP --|--HPmax--|--Exp --|--Damage zadawany--|")
     #     if aktualny_status[5] == "war":
     #         print("|--", aktualny_status[5], "--|--", aktualny_status[2], "--|--", aktualny_status[0], "--|--",
     #               aktualny_status[3], "--|--", aktualny_status[1], "--|-----", 1 + aktualny_status[4], "-",
@@ -377,11 +377,11 @@ class Window(tkinter.Frame):
 
     def wywolaj_status(self):
         if self.aktualny_status[5] == "war":
-            x = ("|--Klasa--|--LVL--|--HP --|--HPmax--|--Exp --|-- Damage --|\n|-- %s --|--- %d ---|-- %2.1d --|---- %2.1d ----|-- %3.1d ---|-- %3.1d - %3.1d ---|\n|---------|--------|--------|------------|--------|--------------|" % (self.aktualny_status[5], self.aktualny_status[2], self.aktualny_status[0], self.aktualny_status[4], self.aktualny_status[1], 1 + self.aktualny_status[3], 4 + self.aktualny_status[3]))
+            x = ("|--Class--|--LVL--|--HP --|--HPmax--|--Exp --|-- Damage --|\n|-- %s --|--- %d ---|-- %2.1d --|---- %2.1d ----|-- %3.1d ---|-- %3.1d - %3.1d ---|\n|---------|--------|--------|------------|--------|--------------|" % (self.aktualny_status[5], self.aktualny_status[2], self.aktualny_status[0], self.aktualny_status[4], self.aktualny_status[1], 1 + self.aktualny_status[3], 4 + self.aktualny_status[3]))
         elif self.aktualny_status[5] == "mag":
-            x = ("|--Klasa--|--LVL--|--HP --|--HPmax--|--Exp --|-- Damage --|\n|-- %s --|--- %d ---|-- %2.1d --|---- %2.1d ----|-- %3.1d ---|-- %3.1d - %3.1d ---|\n|---------|--------|--------|------------|--------|--------------|" % (self.aktualny_status[5], self.aktualny_status[2], self.aktualny_status[0], self.aktualny_status[4], self.aktualny_status[1], 1 + self.aktualny_status[3], 2 + self.aktualny_status[3]))
+            x = ("|--Class--|--LVL--|--HP --|--HPmax--|--Exp --|-- Damage --|\n|-- %s --|--- %d ---|-- %2.1d --|---- %2.1d ----|-- %3.1d ---|-- %3.1d - %3.1d ---|\n|---------|--------|--------|------------|--------|--------------|" % (self.aktualny_status[5], self.aktualny_status[2], self.aktualny_status[0], self.aktualny_status[4], self.aktualny_status[1], 1 + self.aktualny_status[3], 2 + self.aktualny_status[3]))
         elif self.aktualny_status[5] == "asa":
-            x = ("|--Klasa--|--LVL--|--HP --|--HPmax--|--Exp --|-- Damage --|\n|-- %s --|--- %d ---|-- %2.1d --|---- %2.1d ----|-- %3.1d ---|-- %3.1d - %3.1d ---|\n|---------|--------|--------|------------|--------|--------------|" % (self.aktualny_status[5], self.aktualny_status[2], self.aktualny_status[0], self.aktualny_status[4], self.aktualny_status[1], 1 + self.aktualny_status[3], 6 + self.aktualny_status[3]))
+            x = ("|--Class--|--LVL--|--HP --|--HPmax--|--Exp --|-- Damage --|\n|-- %s --|--- %d ---|-- %2.1d --|---- %2.1d ----|-- %3.1d ---|-- %3.1d - %3.1d ---|\n|---------|--------|--------|------------|--------|--------------|" % (self.aktualny_status[5], self.aktualny_status[2], self.aktualny_status[0], self.aktualny_status[4], self.aktualny_status[1], 1 + self.aktualny_status[3], 6 + self.aktualny_status[3]))
         return x
 
 
@@ -491,24 +491,24 @@ class Window(tkinter.Frame):
                 losuj_przeciwnika = random.randrange(1, 101)
                 if losuj_przeciwnika >= 1 and losuj_przeciwnika <= 40:
                     my_enemy = szczur()
-                    przeciwnik = ("Spotkales szczura!")
+                    przeciwnik = ("You came across a rat!")
                 elif losuj_przeciwnika > 40 and losuj_przeciwnika < 80:
                     my_enemy = goblin()
-                    przeciwnik = ("Spotkales goblina!")
+                    przeciwnik = ("You came across a goblin!")
                 elif losuj_przeciwnika == 100:
                     my_enemy = towdi()
-                    przeciwnik = ("Spotkales wiernego slugusa LAST BOSSA!")
+                    przeciwnik = ("You came across a faithful LAST BOSS slugus!")
                 else:
                     my_enemy = ork()
-                    przeciwnik = ("Spotkales orka!")
-                self.zmienna.set("Na swojej drodze spotykasz przeciwnika, przygotuj sie do walki !\n%s\nWybierz czy chcesz walczyć czy uciekać? " % przeciwnik)
+                    przeciwnik = ("You came across a orc!")
+                self.zmienna.set("On your way, meet an opponent, get ready to fight !\n%s\nChoose whether you want to fight or run?\n%s " % (przeciwnik, self.wywolaj_status()))
                 # global self.staty
                 self.staty = my_enemy.status()
                 print(self.aktualny_status)
                 print(self.staty)
                 # global self.HP_potwora
                 self.HP_potwora=self.staty[1]
-                print("Rozpoczynasz walke...")
+                # print("Rozpoczynasz walke...")
 
                 walcz.configure(state="normal", command=self.walka)
                 uciekaj.configure(state="normal", command=self.proba_ucieczki)
@@ -523,22 +523,24 @@ class Window(tkinter.Frame):
             # aktualny_status = self.level(aktualny_status)
             elixir = mikstura()
             if jaki_mix < 40:
-                print("Znajdujesz małą miksturke leczącą, która odrobinę poprawia twój stan zdrowia")
+                # print("Znajdujesz małą miksturke leczącą, która odrobinę poprawia twój stan zdrowia")
+                mikstura_tekst = "You find a small healing mixture that slightly improves your health"
                 Lecz = elixir.mala_mix()
             elif jaki_mix >= 40 and jaki_mix < 80:
-                print("Znajdujesz miksturke leczącą, która Cie leczy")
+                mikstura_tekst = "You find a healing mixture that heals you"
                 Lecz = elixir.normalna_mix()
             else:
-                print("Znajdujesz dużą miksture leczącą, która znacząco poprawia twój stan zdrowia")
+                mikstura_tekst = "You find a large healing mixture that significantly improves your health"
                 Lecz = elixir.duza_mix()
             self.aktualny_status[0] += Lecz[1]
             odpowiedz = self.porownanie_HP_HPmax(self.aktualny_status[0], self.aktualny_status[4])
             self.aktualny_status[0] = odpowiedz[0]
             self.aktualny_status[4] = odpowiedz[1]
             del elixir
+            self.zmienna.set("%s\n%s" % (mikstura_tekst, self.wywolaj_status()))
             return self.aktualny_status
         else:
-            self.zmienna.set("Wchodzisz do nowego obszaru i nic sie nie dzieje\n%s" % self.wywolaj_status())
+            self.zmienna.set("You enter a new area and nothing happens\n%s" % self.wywolaj_status())
             return self.aktualny_status
 
     # ------------------------------------walka------------------------------#
@@ -613,12 +615,14 @@ class Window(tkinter.Frame):
                         naloz_potwor = self.nakladka_klimat(self.HP_potwora, self.staty[1])
                         print("Zadales przeciwnikowi obrażenia i jest %s" % naloz_potwor)
                         print("Przeciwnik uderzył Cie i jesteś %s" % naloz_gracz)
+                        self.zmienna.set("You deal damage to the opponent and he is %s\nEnemy hit you and you are %s\nThe battle continues\n%s" % (naloz_potwor, naloz_gracz, self.wywolaj_status()))
                         if self.aktualny_status[0] <= 0:
                             print("Giniesz - GAME OVER ! ! !")
                             # input()
                             self.GAME_OVER()
-                            # break
+                            return self.aktualny_status
                         elif self.HP_potwora <= 0:
+                            self.zmienna.set("You deal damage to the opponent and he is %s\nEnemy hit you and you are %s\nYou win the battle\n%s" % (naloz_potwor, naloz_gracz, self.wywolaj_status()))
                             print("Wygrales walke!")
                             # trofea_fun(HP_potwora_maksymalne)
                             HP_po_walce = self.aktualny_status[0]
@@ -778,7 +782,7 @@ class Window(tkinter.Frame):
             # kontynuacja == "t" tu musi byc odwolanie do walki
 
     def nakladka_klimat(self, HP, HP_max):
-        dic = ["Pełnia zdrowia", "Lekko ranny", "Średnio ranny", "Ciężko ranny", "Prawie martwy", "Martwy"]
+        dic = ["full health", "slightly injured", "average injured", "badly injured", "almost dead", "dead"]
         if HP == HP_max:
             return dic[0]
         elif HP < HP_max and HP >= 0.75 * HP_max:
@@ -815,13 +819,14 @@ class Window(tkinter.Frame):
 
     def GAME_OVER(self):
         global ostatni_wybor_1, ostatni_wybor_2
-        self.zmienna.set("GAME OVER!!!\nDo You want play one more time?")
+        self.aktualny_status[0] = 0
+        self.zmienna.set("%s\nGAME OVER!!!\nDo You want play one more time?" % self.wywolaj_status())
 
         ostatni_wybor_1 = tkinter.Button(text='YES', fg='black', width=20, command=self.main)
-        ostatni_wybor_1.place(x=345, y=195)
+        ostatni_wybor_1.place(x=345, y=225)
 
         ostatni_wybor_2 = tkinter.Button(text='NO', fg='black', width=20, command=sys.exit)
-        ostatni_wybor_2.place(x=520, y=195)
+        ostatni_wybor_2.place(x=520, y=225)
 
         walcz.configure(state="disabled")
         uciekaj.configure(state="disabled")
