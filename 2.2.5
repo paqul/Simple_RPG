@@ -387,46 +387,46 @@ class Window(tkinter.Frame):
 
 
     def level(self, aktualny_status):
-        if aktualny_status[5] == "war":
-            if aktualny_status[1] < 25:
-                aktualny_status[2:5] = 1, 10, 0
-            elif aktualny_status[1] >= 25 and aktualny_status[1] < 50:
-                aktualny_status[2:5] = 2, 15, 2
-            elif aktualny_status[1] >= 50 and aktualny_status[1] < 100:
-                aktualny_status[2:5] = 3, 22, 5
-            elif aktualny_status[1] >= 100 and aktualny_status[1] < 200:
-                aktualny_status[2:5] = 4, 30, 8
-            elif aktualny_status[1] >= 200 and aktualny_status[1] < 350:
-                aktualny_status[2:5] = 5, 50, 13
+        if self.aktualny_status[5] == "war":
+            if self.aktualny_status[1] < 25:
+                self.aktualny_status[2:5] = 1, 0, 10
+            elif self.aktualny_status[1] >= 25 and self.aktualny_status[1] < 50:
+                self.aktualny_status[2:5] = 2, 2, 15
+            elif self.aktualny_status[1] >= 50 and self.aktualny_status[1] < 100:
+                self.aktualny_status[2:5] = 3, 5, 22
+            elif self.aktualny_status[1] >= 100 and self.aktualny_status[1] < 200:
+                self.aktualny_status[2:5] = 4, 8, 30
+            elif self.aktualny_status[1] >= 200 and self.aktualny_status[1] < 350:
+                self.aktualny_status[2:5] = 5, 13, 50
             else:
-                aktualny_status[2:5] = 6, 100, 50
-        elif aktualny_status[5] == "mag":
-            if aktualny_status[1] < 25:
-                aktualny_status[2:5] = 1, 4, 0
-            elif aktualny_status[1] >= 25 and aktualny_status[1] < 50:
-                aktualny_status[2:5] = 2, 8, 4
-            elif aktualny_status[1] >= 50 and aktualny_status[1] < 100:
-                aktualny_status[2:5] = 3, 12, 10
-            elif aktualny_status[1] >= 100 and aktualny_status[1] < 200:
-                aktualny_status[2:5] = 4, 16, 15
-            elif aktualny_status[1] >= 200 and aktualny_status[1] < 350:
-                aktualny_status[2:5] = 5, 25, 25
+                self.aktualny_status[2:5] = 6, 50, 100
+        elif self.aktualny_status[5] == "mag":
+            if self.aktualny_status[1] < 25:
+                self.aktualny_status[2:5] = 1, 0, 4
+            elif self.aktualny_status[1] >= 25 and self.aktualny_status[1] < 50:
+                self.aktualny_status[2:5] = 2, 4, 8
+            elif self.aktualny_status[1] >= 50 and self.aktualny_status[1] < 100:
+                self.aktualny_status[2:5] = 3, 10, 12
+            elif self.aktualny_status[1] >= 100 and self.aktualny_status[1] < 200:
+                self.aktualny_status[2:5] = 4, 15, 16
+            elif self.aktualny_status[1] >= 200 and self.aktualny_status[1] < 350:
+                self.aktualny_status[2:5] = 5, 25, 25
             else:
-                aktualny_status[2:5] = 6, 50, 100
-        elif aktualny_status[5] == "asa":
-            if aktualny_status[1] < 25:
-                aktualny_status[2:5] = 1, 8, 0
-            elif aktualny_status[1] >= 25 and aktualny_status[1] < 50:
-                aktualny_status[2:5] = 2, 12, 3
-            elif aktualny_status[1] >= 50 and aktualny_status[1] < 100:
-                aktualny_status[2:5] = 3, 18, 8
-            elif aktualny_status[1] >= 100 and aktualny_status[1] < 200:
-                aktualny_status[2:5] = 4, 25, 12
-            elif aktualny_status[1] >= 200 and aktualny_status[1] < 350:
-                aktualny_status[2:5] = 5, 33, 20
+                self.aktualny_status[2:5] = 6, 100, 50
+        elif self.aktualny_status[5] == "asa":
+            if self.aktualny_status[1] < 25:
+                self.aktualny_status[2:5] = 1, 0, 8
+            elif self.aktualny_status[1] >= 25 and self.aktualny_status[1] < 50:
+                self.aktualny_status[2:5] = 2, 3, 12
+            elif self.aktualny_status[1] >= 50 and self.aktualny_status[1] < 100:
+                self.aktualny_status[2:5] = 3, 8, 18
+            elif self.aktualny_status[1] >= 100 and self.aktualny_status[1] < 200:
+                self.aktualny_status[2:5] = 4, 12, 25
+            elif self.aktualny_status[1] >= 200 and self.aktualny_status[1] < 350:
+                self.aktualny_status[2:5] = 5, 20, 33
             else:
-                aktualny_status[2:5] = 6, 40, 75
-        return aktualny_status
+                self.aktualny_status[2:5] = 6, 75, 40
+        return self.aktualny_status
 
     # --------------------------------spotkanie -----------------------------------------#
 
@@ -479,9 +479,9 @@ class Window(tkinter.Frame):
 
     def spotkanie(self, aktualny_status):
         zaszlo = random.randrange(0, 101)
-        # aktualny_status = self.level(aktualny_status)
+        self.aktualny_status = self.level(aktualny_status)
         # self.przejscie(aktualny_status[0], aktualny_status[1], aktualny_status[4], aktualny_status[3], aktualny_status[5])
-        if zaszlo > 0 and zaszlo <= 80: #if zaszlo > 33 and zaszlo <= 75:
+        if zaszlo > 0 and zaszlo <= 50: #if zaszlo > 33 and zaszlo <= 75:
             try:
                 north.configure(state="disabled")
                 south.configure(state="disabled")
@@ -511,33 +511,32 @@ class Window(tkinter.Frame):
                 print("Rozpoczynasz walke...")
 
                 walcz.configure(state="normal", command=self.walka)
-                uciekaj.configure(state="normal", command=self.GAME_OVER)
+                uciekaj.configure(state="normal", command=self.proba_ucieczki)
 
             # Staty_po_starciu = self.walka(aktualny_status[0], staty[1], staty[2], aktualny_status[1], staty[3], aktualny_status[4], aktualny_status[3], aktualny_status[5])
             # aktualny_status[0] = Staty_po_starciu[0]
             # aktualny_status[1] = Staty_po_starciu[1]
             # del my_enemy
             return self.aktualny_status
-        # elif zaszlo > 75 and zaszlo <= 100:
-        #     jaki_mix = random.randrange(0, 101)
-        #     aktualny_status = self.level(aktualny_status)
-        #     elixir = mikstura()
-        #     if jaki_mix < 40:
-        #         print("Znajdujesz małą miksturke leczącą, która odrobinę poprawia twój stan zdrowia")
-        #         Lecz = elixir.mala_mix()
-        #     elif jaki_mix >= 40 and jaki_mix < 80:
-        #         print("Znajdujesz miksturke leczącą, która Cie leczy")
-        #         Lecz = elixir.normalna_mix()
-        #     else:
-        #         print("Znajdujesz dużą miksture leczącą, która znacząco poprawia twój stan zdrowia")
-        #         Lecz = elixir.duza_mix()
-        #     input()
-        #     aktualny_status[0] += Lecz[1]
-        #     odpowiedz = self.porownanie_HP_HPmax(aktualny_status[0], aktualny_status[3])
-        #     aktualny_status[0] = odpowiedz[0]
-        #     aktualny_status[3] = odpowiedz[1]
-        #     del elixir
-        #     return aktualny_status
+        elif zaszlo > 50 and zaszlo <= 100: # 75 - 100
+            jaki_mix = random.randrange(0, 101)
+            # aktualny_status = self.level(aktualny_status)
+            elixir = mikstura()
+            if jaki_mix < 40:
+                print("Znajdujesz małą miksturke leczącą, która odrobinę poprawia twój stan zdrowia")
+                Lecz = elixir.mala_mix()
+            elif jaki_mix >= 40 and jaki_mix < 80:
+                print("Znajdujesz miksturke leczącą, która Cie leczy")
+                Lecz = elixir.normalna_mix()
+            else:
+                print("Znajdujesz dużą miksture leczącą, która znacząco poprawia twój stan zdrowia")
+                Lecz = elixir.duza_mix()
+            self.aktualny_status[0] += Lecz[1]
+            odpowiedz = self.porownanie_HP_HPmax(self.aktualny_status[0], self.aktualny_status[4])
+            self.aktualny_status[0] = odpowiedz[0]
+            self.aktualny_status[4] = odpowiedz[1]
+            del elixir
+            return self.aktualny_status
         else:
             self.zmienna.set("Wchodzisz do nowego obszaru i nic sie nie dzieje\n%s" % self.wywolaj_status())
             return self.aktualny_status
@@ -627,6 +626,7 @@ class Window(tkinter.Frame):
                             walcz.configure(state="disabled")
                             uciekaj.configure(state="disabled")
                             self.konfiguracja()
+                            del self.staty
                             return HP_po_walce, self.aktualny_status[1], self.HP_potwora
                             # else:
                             #     print("Czy chcesz kontynuować walkę ? (t/n)")
@@ -768,9 +768,13 @@ class Window(tkinter.Frame):
         proba_ucieczki = random.randrange(1, 101)
         if proba_ucieczki >= 20:
             print("Udało Ci sie uciec!")
+            walcz.configure(state="disabled")
+            uciekaj.configure(state="disabled")
+            self.konfiguracja()
             # return self.aktualny_status[0], self.aktualny_status[1]
         else:
             print("Wrog odciol Ci drogę!")
+            self.walka()
             # kontynuacja == "t" tu musi byc odwolanie do walki
 
     def nakladka_klimat(self, HP, HP_max):
@@ -871,6 +875,9 @@ class Window(tkinter.Frame):
         img = tkinter.PhotoImage(file="Mapa_NW.png").zoom(x=4, y=4)
         imgLabel.image = img
         imgLabel.configure(image=img)
+
+        print(self.aktualny_status)
+        self.aktualny_status = self.spotkanie(self.aktualny_status)
         # aktualny_status = self.spotkanie(aktualny_status)
         # aktualny_status = self.level(aktualny_status)
         # self.wywolaj_status(aktualny_status)
@@ -895,6 +902,9 @@ class Window(tkinter.Frame):
         img = tkinter.PhotoImage(file="Mapa_N.png").zoom(x=4, y=4)
         imgLabel.image = img
         imgLabel.configure(image=img)
+
+        print(self.aktualny_status)
+        self.aktualny_status = self.spotkanie(self.aktualny_status)
         # aktualny_status = self.spotkanie(aktualny_status)
         # aktualny_status = self.level(aktualny_status)
         # self.wywolaj_status(aktualny_status)
@@ -921,6 +931,9 @@ class Window(tkinter.Frame):
         img = tkinter.PhotoImage(file="Mapa_NE.png").zoom(x=4, y=4)
         imgLabel.image = img
         imgLabel.configure(image=img)
+
+        print(self.aktualny_status)
+        self.aktualny_status = self.spotkanie(self.aktualny_status)
         # aktualny_status = self.spotkanie(aktualny_status)
         # aktualny_status = self.level(aktualny_status)
         # self.wywolaj_status(aktualny_status)
