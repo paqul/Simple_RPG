@@ -58,9 +58,17 @@ class towdi(enemy):
     def __init__(self):
         self.name = "Tołdi Kału tzw. wierny sługus Last Bossa"
         self.HP = 50
-        self.dmg = random.randrange(4,11)
+        self.dmg = random.randrange(4, 11)
         self.EXP = 500
-        print("Spotykasz %sa !" % (self.name))
+    def status(self):
+        return (self.name, self.HP, self.dmg, self.EXP)
+
+class LAST_BOSS(object):
+    def __init__(self):
+        self.name = "The Queen of feces"
+        self.HP = 100
+        self.dmg = random.randrange(5, 11)
+        self.EXP = 1000000
     def status(self):
         return (self.name, self.HP, self.dmg, self.EXP)
 
@@ -94,6 +102,7 @@ class Window(tkinter.Frame):
         self.frame3.pack(padx=150, pady=130)
         self.init_window()
         self.init_window2()
+
 
 
 
@@ -188,6 +197,7 @@ class Window(tkinter.Frame):
         except:
             pass
         finally:
+            self.frame3.configure(fg="black")
             print("Chcesz zagrac wojownikiem(medium), magiem(hard) czy assassinem(easy) ? (woj/mag/asa):")
             self.wybor_postaci()
             # self.ropocznij_lub_cofnij()
@@ -200,6 +210,7 @@ class Window(tkinter.Frame):
 
     def main2(self):
         global wskocz, niewskakuj, wojownik, czarodziej, zabojca
+        self.frame3.configure(fg="black")
         wskocz = tkinter.Button(text='Yes! - Jump into', fg='blue', width=20, command=(self.bot))
         wskocz.place(x=445, y=250)
 
@@ -257,7 +268,6 @@ class Window(tkinter.Frame):
         zabojca = tkinter.Button(text="\'Assassin\'", fg="green", height=2, width=10, bd=4, command=self.assasin)
         zabojca.place(x=920, y=20)
 
-
         # Rozpocznij.destroy(), Cofnij.destroy()
 
     def wybor_postaci2(self):
@@ -275,23 +285,6 @@ class Window(tkinter.Frame):
 
         Rozpocznij.destroy(), Cofnij.destroy()
 
-        # counter = 0
-        # while True:
-        #     player = input()
-        #     if player == "woj":
-        #         return self.warrior()
-        #     elif player == "mag":
-        #         return self.mage()
-        #     elif player == "asa":
-        #         return self.assasin()
-        #     else:
-        #         print("fail - musisz wpisac 'woj' lub 'mag' lub 'asa' w zaleznosci kim chcesz grac")
-        #         counter += 1
-        #         if counter == 3:
-        #             print(
-        #                 "Wybacz, ale jesli nie umiesz postepowac wg instukcji to nie chce z tobą wspolpracowac - Ponad 3 razy SFAILOWALES!")
-        #             input()
-        #             self.GAME_OVER()
 
     def warrior(self):
         print("Twoje statystyki to: ")
@@ -342,6 +335,8 @@ class Window(tkinter.Frame):
         wojownik.destroy(), czarodziej.destroy(), zabojca.destroy()
         self.zmienna.set("Your statistic: \nHP: %d / %d \nYour damage is 1 - 6, using daggers!\nYou never know when You can critically hit enemy " % (HP, HP_maksymalne))
         self.aktualny_status = moj_status_poczatkowy(HP, EXP, level, Bonus_DMG, HP_maksymalne, flag).status(HP, EXP, level, Bonus_DMG, HP_maksymalne, flag)
+        self.aktualny_status[1] = 324
+        self.aktualny_status[0] = 324
         print(self.aktualny_status)
         self.ropocznij_lub_cofnij()
         # return aktualny_status #HP, EXP, level, Bonus_DMG, HP_maksymalne, flag
@@ -358,23 +353,6 @@ class Window(tkinter.Frame):
         wojownik.destroy(), czarodziej.destroy(), zabojca.destroy()
         # return self.aktualany_status
 
-    # def wywolaj_status(self, aktualny_status):
-    #     print("|--Class--|--LVL--|--HP --|--HPmax--|--Exp --|--Damage zadawany--|")
-    #     if aktualny_status[5] == "war":
-    #         print("|--", aktualny_status[5], "--|--", aktualny_status[2], "--|--", aktualny_status[0], "--|--",
-    #               aktualny_status[3], "--|--", aktualny_status[1], "--|-----", 1 + aktualny_status[4], "-",
-    #               4 + aktualny_status[4], "-------|")
-    #     elif aktualny_status[5] == "mag":
-    #         print("|--", aktualny_status[5], "--|--", aktualny_status[2], "--|--", aktualny_status[0], "--|--",
-    #               aktualny_status[3], "--|--", aktualny_status[1], "--|-----", 1 + aktualny_status[4], "-",
-    #               2 + aktualny_status[4], "------|")
-    #     elif aktualny_status[5] == "asa":
-    #         print("|--", aktualny_status[5], "--|--", aktualny_status[2], "--|--", aktualny_status[0], "--|--",
-    #               aktualny_status[3], "--|--", aktualny_status[1], "--|-----", 1 + aktualny_status[4], "-",
-    #               6 + aktualny_status[4], "------|")
-    #     print("|---------|-------|-------|---------|--------|-------------------|")
-    #     return
-
     def wywolaj_status(self):
         if self.aktualny_status[5] == "war":
             x = ("|--Class--|--LVL--|--HP --|--HPmax--|--Exp --|-- Damage --|\n|-- %s --|--- %d ---|-- %2.1d --|---- %2.1d ----|-- %3.1d ---|-- %3.1d - %3.1d ---|\n|---------|--------|--------|------------|--------|--------------|" % (self.aktualny_status[5], self.aktualny_status[2], self.aktualny_status[0], self.aktualny_status[4], self.aktualny_status[1], 1 + self.aktualny_status[3], 4 + self.aktualny_status[3]))
@@ -383,7 +361,6 @@ class Window(tkinter.Frame):
         elif self.aktualny_status[5] == "asa":
             x = ("|--Class--|--LVL--|--HP --|--HPmax--|--Exp --|-- Damage --|\n|-- %s --|--- %d ---|-- %2.1d --|---- %2.1d ----|-- %3.1d ---|-- %3.1d - %3.1d ---|\n|---------|--------|--------|------------|--------|--------------|" % (self.aktualny_status[5], self.aktualny_status[2], self.aktualny_status[0], self.aktualny_status[4], self.aktualny_status[1], 1 + self.aktualny_status[3], 6 + self.aktualny_status[3]))
         return x
-
 
 
     def level(self, aktualny_status):
@@ -433,55 +410,93 @@ class Window(tkinter.Frame):
     def przejscie(self, HP_gracza_aktualne, EXP_gracza_aktualny, Bonus_DMG, HP_maksymalne, flag):
         # def przejscie(aktualny_status[0], aktualny_status[1], aktualny_status[4], aktualny_status[3], aktualny_status[5]):
         if EXP_gracza_aktualny >= 325:
-            print(
-                "Czujesz że jesteś już wystarczająco poteżny by zmierzyć się z FINAL BOSSEM, Czy chcesz tego? (tak/nie)")
-            while True:
-                final_decision = input()
-                if final_decision == "tak":
-                    print(
-                        "... Z CALEGO lochu, spływa CALY kał w którym brodziłes az do teraz, w jedno miejsce znajdujace sie przed toba...")
-                    input()
-                    print("... I powstaje KAPITAN PLANETA, (to nie ta bajka - sorrki) - TO jest celowy BUG :)")
-                    input()
-                    print("... I powstaje FINAL BOSS - +K R Ó L O W A + K A L U !+")
-                    input()
-                    self.walka(HP_gracza_aktualne, 100, 5, EXP_gracza_aktualny, 1000000, Bonus_DMG, HP_maksymalne, flag)
-                    input()
-                    print(
-                        "Udało Ci się pokonać Last Bossa i ukończyć prostego RPGa!!! Królowa Kału rozpada sie na miliony fragmentów ekskrementu i znika...")
-                    input()
-                    print("Następuje silne trzesienie ziemi, a loch zaczyna się walić...")
-                    input()
-                    print(
-                        "Przed tobą pojawia się portal - na ten moment wydaje się jedynym rozsądnym miejscem ucieczki z lochu.")
-                    print("Czy chcesz przejść przez portal? (tak/nie)")
-                    while True:
-                        koncowka = input()
-                        if koncowka == "tak":
-                            print(
-                                "Przechodzisz przez portal i znadujesz sie na powierzchni, na dziedzińcu w jakimś zamku...")
-                            print("CONGRATULATIONS!")
-                            print("Udało Ci się ukończyć prostego RPGa !!!!")
-                            self.GAME_OVER()
-                        elif koncowka == "nie":
-                            print(
-                                "Zbyt długo sie wachasz czy przejsc przez portal i dostajesz spadającymi skałami w łeb i umierasz...")
-                            self.GAME_OVER()
-                        else:
-                            print("Wpisz 'tak' lub 'nie' ")
-                    return
-                elif final_decision == "nie":
-                    return
-                else:
-                    print("tak czy nie ?!")
+            self.frame3.configure(fg="black")
+            self.zmienna.set("You feel that you are already powerful enough to face FINAL BOSS, Do you want it?")
+
+            self.lastboss1 = tkinter.Button(text='YES', fg='black', width=20, command=self.LAST_BOSS_1)
+            self.lastboss1.place(x=345, y=225)
+
+            self.lastboss2 = tkinter.Button(text='NO', fg='black', width=20, command=self.LAST_BOOS_NO)
+            self.lastboss2.place(x=520, y=225)
+
+            north.configure(state="disabled")
+            east.configure(state="disabled")
+            west.configure(state="disabled")
+            south.configure(state="disabled")
+
+            # print("Czujesz że jesteś już wystarczająco poteżny by zmierzyć się z FINAL BOSSEM, Czy chcesz tego? (tak/nie)")
+            # while True:
+            #     final_decision = input()
+            #     if final_decision == "tak":
+            #         print(
+            #             "... Z CALEGO lochu, spływa CALY kał w którym brodziłes az do teraz, w jedno miejsce znajdujace sie przed toba...")
+            #         input()
+            #         print("... I powstaje KAPITAN PLANETA, (to nie ta bajka - sorrki) - TO jest celowy BUG :)")
+            #         input()
+            #         print("... I powstaje FINAL BOSS - +K R Ó L O W A + K A L U !+")
+            #         input()
+            #         self.walka(HP_gracza_aktualne, 100, 5, EXP_gracza_aktualny, 1000000, Bonus_DMG, HP_maksymalne, flag)
+            #         input()
+            #         print(
+            #             "Udało Ci się pokonać Last Bossa i ukończyć prostego RPGa!!! Królowa Kału rozpada sie na miliony fragmentów ekskrementu i znika...")
+            #         input()
+            #         print("Następuje silne trzesienie ziemi, a loch zaczyna się walić...")
+            #         input()
+            #         print(
+            #             "Przed tobą pojawia się portal - na ten moment wydaje się jedynym rozsądnym miejscem ucieczki z lochu.")
+            #         print("Czy chcesz przejść przez portal? (tak/nie)")
+            #         while True:
+            #             koncowka = input()
+            #             if koncowka == "tak":
+            #                 print(
+            #                     "Przechodzisz przez portal i znadujesz sie na powierzchni, na dziedzińcu w jakimś zamku...")
+            #                 print("CONGRATULATIONS!")
+            #                 print("Udało Ci się ukończyć prostego RPGa !!!!")
+            #                 self.GAME_OVER()
+            #             elif koncowka == "nie":
+            #                 print(
+            #                     "Zbyt długo sie wachasz czy przejsc przez portal i dostajesz spadającymi skałami w łeb i umierasz...")
+            #                 self.GAME_OVER()
+            #             else:
+            #                 print("Wpisz 'tak' lub 'nie' ")
+            #         return
+            #     elif final_decision == "nie":
+            #         return
+            #     else:
+            #         print("tak czy nie ?!")
         else:
             return
+
+    def LAST_BOOS_NO(self):
+        self.lastboss1.destroy(), self.lastboss2.destroy()
+        self.konfiguracja()
+        self.zmienna.set("You are in central part of dungeon\nWhere will You go? You can go on North and South and East and West\n%s" % self.wywolaj_status())
+
+    def LAST_BOSS_1(self):
+        self.lastboss1.destroy(), self.lastboss2.destroy()
+        self.zmienna.set("... FROM THE WHOLE Dungeon, flows ALL the feces in which you wade until now, in one place in front of you ...")
+        self.Next_1_button = tkinter.Button(text='NEXT', fg='black', width=20, command=self.LAST_BOSS_2)
+        self.Next_1_button.place(x=445, y=225)
+
+    def LAST_BOSS_2(self):
+        self.zmienna.set("... and FINAL BOSS are formed + T H E + Q U E E N + O F + F E C E S !+")
+        self.Next_1_button.configure(command=self.LAST_BOSS_3)
+
+    def LAST_BOSS_3(self):
+        self.zmienna.set("You can't run away, You must FIGHT!")
+        my_enemy = LAST_BOSS()
+        self.staty = my_enemy.status()
+        self.HP_potwora = self.staty[1]
+        self.walka()
+        self.Next_1_button.destroy()
+
+        walcz.configure(state="normal")
+
 
     def spotkanie(self, aktualny_status):
         zaszlo = random.randrange(0, 101)
         self.aktualny_status = self.level(aktualny_status)
-        # self.przejscie(aktualny_status[0], aktualny_status[1], aktualny_status[4], aktualny_status[3], aktualny_status[5])
-        if zaszlo > 0 and zaszlo <= 50: #if zaszlo > 33 and zaszlo <= 75:
+        if zaszlo > 0 and zaszlo <= 25: #if zaszlo > 33 and zaszlo <= 75:
             self.frame3.configure(fg="red")
             try:
                 north.configure(state="disabled")
@@ -519,7 +534,7 @@ class Window(tkinter.Frame):
             # aktualny_status[1] = Staty_po_starciu[1]
             # del my_enemy
             return self.aktualny_status
-        elif zaszlo > 50 and zaszlo <= 100: # 75 - 100
+        elif zaszlo > 98 and zaszlo <= 100: # 75 - 100
             jaki_mix = random.randrange(0, 101)
             # aktualny_status = self.level(aktualny_status)
             elixir = mikstura()
@@ -544,6 +559,7 @@ class Window(tkinter.Frame):
         else:
             self.frame3.configure(fg="black")
             self.zmienna.set("You enter a new area and nothing happens\n%s" % self.wywolaj_status())
+            # return self.przejscie(self.aktualny_status[0], self.aktualny_status[1], self.aktualny_status[3], self.aktualny_status[4], self.aktualny_status[5])
             return self.aktualny_status
 
     # ------------------------------------walka------------------------------#
@@ -558,12 +574,40 @@ class Window(tkinter.Frame):
             # input()
             # HP_potwora_maksymalne = HP_potwora
             # while HP_gracza >= 1:
-            #     if flag == "war":
-            #         damage_zadane = random.randrange(1, 5) + Bonus_DMG
-            #     elif flag == "mag":
-            #         damage_zadane = random.randrange(1, 3) + Bonus_DMG
-            #     elif flag == "asa":
-            #         damage_zadane = random.randrange(1, 7) + Bonus_DMG
+            if self.aktualny_status[5] == "war":
+                damage_zadane = random.randrange(1, 5) + self.aktualny_status[3]
+            elif self.aktualny_status[5] == "mag":
+                damage_zadane = random.randrange(1, 3) + self.aktualny_status[3]
+            elif self.aktualny_status[5] == "asa":
+                damage_zadane = random.randrange(1, 7) + self.aktualny_status[3]
+            print(damage_zadane, self.staty[1])
+            self.HP_potwora = self.HP_potwora - damage_zadane
+            print(self.HP_potwora)
+            print(self.staty[1])
+            self.aktualny_status[0] = self.aktualny_status[0] - self.staty[2]
+            naloz_gracz = self.nakladka_klimat(self.aktualny_status[0], self.aktualny_status[4])
+            naloz_potwor = self.nakladka_klimat(self.HP_potwora, self.staty[1])
+            print("Zadales przeciwnikowi obrażenia i jest %s" % naloz_potwor)
+            print("Przeciwnik uderzył Cie i jesteś %s" % naloz_gracz)
+            self.zmienna.set("LAST BOSS FIGHT!!!!! %s\nEnemy hit you and you are %s\nThe battle continues\n%s" % (naloz_potwor, naloz_gracz, self.wywolaj_status()))
+            if self.aktualny_status[0] <= 0:
+                print("Giniesz - GAME OVER ! ! !")
+                # input()
+                self.GAME_OVER()
+                return self.aktualny_status
+            elif self.HP_potwora <= 0:
+                self.zmienna.set(
+                    "You deal damage to the opponent and he is %s\nEnemy hit you and you are %s\nYou win the battle\n%s" % (
+                    naloz_potwor, naloz_gracz, self.wywolaj_status()))
+                print("Wygrales walke!")
+                # trofea_fun(HP_potwora_maksymalne)
+                HP_po_walce = self.aktualny_status[0]
+                self.aktualny_status[1] += self.staty[3]
+                walcz.configure(state="disabled")
+                uciekaj.configure(state="disabled")
+                self.konfiguracja()
+                del self.staty
+                return HP_po_walce, self.aktualny_status[1], self.HP_potwora
             #     HP_potwora = HP_potwora - damage_zadane
             #     HP_gracza = HP_gracza - dmg_potwora
             #     naloz_gracz = self.nakladka_klimat(HP_gracza, HP_maksymalne)
@@ -774,6 +818,8 @@ class Window(tkinter.Frame):
     def proba_ucieczki(self):
         proba_ucieczki = random.randrange(1, 101)
         if proba_ucieczki >= 20:
+            self.frame3.configure(fg="green")
+            self.zmienna.set( "You ran away from enemy\n%s" % (self.wywolaj_status()))
             print("Udało Ci sie uciec!")
             walcz.configure(state="disabled")
             uciekaj.configure(state="disabled")
@@ -995,6 +1041,7 @@ class Window(tkinter.Frame):
         img = tkinter.PhotoImage(file="Mapa_CENTER.png").zoom(x=4, y=4)
         imgLabel.image = img
         imgLabel.configure(image=img)
+        self.przejscie(self.aktualny_status[0], self.aktualny_status[1], self.aktualny_status[3],self.aktualny_status[4], self.aktualny_status[5])
         # aktualny_status = self.spotkanie(aktualny_status)
         # aktualny_status = self.level(aktualny_status)
         # self.wywolaj_status(aktualny_status)
