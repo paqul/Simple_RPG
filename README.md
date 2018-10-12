@@ -1,4 +1,4 @@
-# Simple_RPG
+# Simple_RPG_second_relase
 My first text game in python
 
 First version possible to play for second relase
