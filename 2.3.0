@@ -106,19 +106,18 @@ class Window(tkinter.Frame):
     def init_window(self):
         global north, south, east, west, walcz, uciekaj
 
-        self.zmX=2
         self.master.title("Simple RPG")
         labelframe1 = tkinter.LabelFrame(text="Action", relief="raised", height=10, width=10)
 
         MainMenu = tkinter.Menu(self.master)    # dodanie głownego menu do okna
-        self.master.config(menu=MainMenu)       # konfiguracja glownjego menu w oknie
+        self.master.config(menu=MainMenu)       # konfiguracja glownego menu w oknie
 
 
-        file = tkinter.Menu(MainMenu)
-        MainMenu.add_cascade(label='File', menu=file)
-        file.add_command(label='Start Game', command=self.main)  # , command=self.main)
-        file.add_command(label='Save - not work')
-        file.add_command(label='Exit', command=self.client_exit)
+        self.file = tkinter.Menu(MainMenu)
+        MainMenu.add_cascade(label='File', menu=self.file)
+        self.file.add_command(label='Start Game', command=self.pre_main)  # , command=self.main)
+        self.file.add_command(label='Save - not work')
+        self.file.add_command(label='Exit', command=self.client_exit)
 
         edit = tkinter.Menu(MainMenu)
         MainMenu.add_cascade(label='Edit', menu=edit)
@@ -159,24 +158,6 @@ class Window(tkinter.Frame):
         imgLabel.pack(side=tkinter.BOTTOM, fill=tkinter.BOTH, expand=1, padx=50, pady=20)
 
 
-    # def init_window3(self, zmienna):
-    #
-    #     labelframe3 = tkinter.LabelFrame(text="Event", relief="raised", height=350, width=100)
-    #     frame3 = tkinter.Message(labelframe3, fg="blue", textvariable=zmienna, width=500)
-    #     labelframe3.pack(side=tkinter.BOTTOM, fill=tkinter.X, expand=0)
-    #     frame3.pack(padx=150, pady=130)
-
-    # def init_text(self, x):
-    #
-    #     labelframe3 = tkinter.LabelFrame(text="Event", relief="raised", height=350, width=100)
-    #     zmienna = tkinter.StringVar()
-    #     zmienna.set(x)
-    #     frame3 = tkinter.Message(self.init_window3, textvariable=zmienna, width=500)
-    #     labelframe3.pack(side=tkinter.BOTTOM, fill=tkinter.X, expand=0)
-    #     frame3.pack(padx=150, pady=130)
-
-
-
     def client_exit(self):
         answer=messagebox.askquestion("Game Over ?", 'Are U sure?')
         if answer == "yes":
@@ -187,9 +168,12 @@ class Window(tkinter.Frame):
 
     # -------------------------GRA-------------------------------------------#
 
+    def pre_main(self):
+        self.file.delete(1)
+        self.main()
+
     def main(self):
         try:
-            ostatni_wybor_1_win.destroy(), ostatni_wybor_2_win.destroy()
             ostatni_wybor_1.destroy(), ostatni_wybor_2.destroy(), ostatni_wybor_1_al.destroy(), ostatni_wybor_2_al.destroy(),
             os.remove("trofea_File.txt")
         except:
@@ -198,12 +182,6 @@ class Window(tkinter.Frame):
             self.frame3.configure(fg="black")
             print("Chcesz zagrac wojownikiem(medium), magiem(hard) czy assassinem(easy) ? (woj/mag/asa):")
             self.wybor_postaci()
-            # self.ropocznij_lub_cofnij()
-            # self.zmienna.set("Select your character")
-
-            # staty_gracza = self.wybor_postaci()
-            # aktualny_status = moj_status_poczatkowy(staty_gracza[0], staty_gracza[1], staty_gracza[2], staty_gracza[3], staty_gracza[4], staty_gracza[5]).status(staty_gracza[0], staty_gracza[1], staty_gracza[2], staty_gracza[3], staty_gracza[4], staty_gracza[5])
-            # input()
 
 
     def main2(self):
@@ -217,24 +195,9 @@ class Window(tkinter.Frame):
 
         Rozpocznij.destroy(), Cofnij.destroy(), wojownik.destroy(), czarodziej.destroy(), zabojca.destroy()
 
-        print("Rozpoczynasz GRE - prostego RPGA")
         self.zmienna.set("You Start The Game - Simple RPG\nDo You want jump into the well leading to the Dark Dungeon, where you will wade in the feces until the very end(yes/no)?")
-        # # app.init_window3(tkinter.Message(textvariable="Chcesz zagrac wojownikiem(medium), magiem(hard) czy assassinem(easy) ? (woj/mag/asa):", width=500))
-        # # print("Czy chcesz wskoczyć do studni prowadzącej do mrocznego lochu gdzie będziesz brodził w kale po kostki do samego końca? (tak/nie)")
-        # while 0:
-        #     decyzja = input()
-        #     if decyzja == "nie":
-        #         print("Jestes rozsadnym czlowiekiem, nie ma sensu sie wkurzać i męczyć...")
-        #         input()
-        #         print("Może nie udało Ci się pokonać Last Bossa, ale udało Ci się ukończyć prostego RPGa bez stesów i większego wysiłku")
-        #         print("CONGRATULATIONS!")
-        #         break
-        #     elif decyzja == "tak":
-        #         pass
-        #         # self.bot(aktualny_status)
-        #     else:
-        #         print("Wpisz poprawnie słowo 'tak' lub slowo 'nie', Chcesz tam wchodzić czy nie?!")
-        # self.GAME_OVER()
+
+
     def main_alternative(self):
         global dalej_1
         self.zmienna.set("You are smart human,\nthere is no point in getting angry and getting tired ...\nMaybe you don't defeat last boss, \nbut you finished this simple RPG game without stresses and big effort")
@@ -271,7 +234,6 @@ class Window(tkinter.Frame):
             zabojca = tkinter.Button(text="\'Assassin\'", fg="green", height=2, width=10, bd=4, command=self.assasin)
             zabojca.place(x=920, y=20)
 
-            # Rozpocznij.destroy(), Cofnij.destroy()
 
     def wybor_postaci2(self):
         global wojownik, czarodziej, zabojca
@@ -304,7 +266,6 @@ class Window(tkinter.Frame):
         self.aktualny_status = moj_status_poczatkowy(HP, EXP, level, Bonus_DMG, HP_maksymalne, flag).status(HP, EXP, level, Bonus_DMG, HP_maksymalne, flag)
         print(self.aktualny_status)
         self.ropocznij_lub_cofnij()
-        # return aktualny_status
 
     def mage(self):
         print("Twoje statystyki to: ")
@@ -322,7 +283,6 @@ class Window(tkinter.Frame):
         self.aktualny_status = moj_status_poczatkowy(HP, EXP, level, Bonus_DMG, HP_maksymalne, flag).status(HP, EXP, level, Bonus_DMG, HP_maksymalne, flag)
         print(self.aktualny_status)
         self.ropocznij_lub_cofnij()
-        # return aktualny_status
 
     def assasin(self):
         print("Twoje statystyki to: ")
@@ -342,7 +302,6 @@ class Window(tkinter.Frame):
         self.aktualny_status[0] = 324
         print(self.aktualny_status)
         self.ropocznij_lub_cofnij()
-        # return aktualny_status #HP, EXP, level, Bonus_DMG, HP_maksymalne, flag
 
     def ropocznij_lub_cofnij(self):
         global Rozpocznij, Cofnij
@@ -354,7 +313,6 @@ class Window(tkinter.Frame):
         Cofnij.place(x=445, y=75)
 
         wojownik.destroy(), czarodziej.destroy(), zabojca.destroy()
-        # return self.aktualany_status
 
     def wywolaj_status(self):
         if self.aktualny_status[5] == "war":
@@ -366,7 +324,7 @@ class Window(tkinter.Frame):
         return x
 
 
-    def level(self, aktualny_status):
+    def level(self):
         if self.aktualny_status[5] == "war":
             if self.aktualny_status[1] < 25:
                 self.aktualny_status[2:5] = 1, 0, 10
@@ -427,46 +385,6 @@ class Window(tkinter.Frame):
             west.configure(state="disabled")
             south.configure(state="disabled")
 
-            # print("Czujesz że jesteś już wystarczająco poteżny by zmierzyć się z FINAL BOSSEM, Czy chcesz tego? (tak/nie)")
-            # while True:
-            #     final_decision = input()
-            #     if final_decision == "tak":
-            #         print(
-            #             "... Z CALEGO lochu, spływa CALY kał w którym brodziłes az do teraz, w jedno miejsce znajdujace sie przed toba...")
-            #         input()
-            #         print("... I powstaje KAPITAN PLANETA, (to nie ta bajka - sorrki) - TO jest celowy BUG :)")
-            #         input()
-            #         print("... I powstaje FINAL BOSS - +K R Ó L O W A + K A L U !+")
-            #         input()
-            #         self.walka(HP_gracza_aktualne, 100, 5, EXP_gracza_aktualny, 1000000, Bonus_DMG, HP_maksymalne, flag)
-            #         input()
-            #         print(
-            #             "Udało Ci się pokonać Last Bossa i ukończyć prostego RPGa!!! Królowa Kału rozpada sie na miliony fragmentów ekskrementu i znika...")
-            #         input()
-            #         print("Następuje silne trzesienie ziemi, a loch zaczyna się walić...")
-            #         input()
-            #         print(
-            #             "Przed tobą pojawia się portal - na ten moment wydaje się jedynym rozsądnym miejscem ucieczki z lochu.")
-            #         print("Czy chcesz przejść przez portal? (tak/nie)")
-            #         while True:
-            #             koncowka = input()
-            #             if koncowka == "tak":
-            #                 print(
-            #                     "Przechodzisz przez portal i znadujesz sie na powierzchni, na dziedzińcu w jakimś zamku...")
-            #                 print("CONGRATULATIONS!")
-            #                 print("Udało Ci się ukończyć prostego RPGa !!!!")
-            #                 self.GAME_OVER()
-            #             elif koncowka == "nie":
-            #                 print(
-            #                     "Zbyt długo sie wachasz czy przejsc przez portal i dostajesz spadającymi skałami w łeb i umierasz...")
-            #                 self.GAME_OVER()
-            #             else:
-            #                 print("Wpisz 'tak' lub 'nie' ")
-            #         return
-            #     elif final_decision == "nie":
-            #         return
-            #     else:
-            #         print("tak czy nie ?!")
         else:
             return
 
@@ -495,10 +413,50 @@ class Window(tkinter.Frame):
 
         walcz.configure(state="normal")
 
+    def LAST_BOSS_dead(self):
+        global end_game_1, end_game_2
+        self.zmienna.set("You managed to beat Last Boss and finish a simple RPG !!! \nThe Queen of Feces breaks up into millions of fragments of excrement and disappears\nHere start a strong earthquake, and the dungeon starts banging ...\nA portal appears in front of you, \nat this moment it seems to be the only reasonable place to escape from the dungeon.\nDo you want to go through the portal?")
+        end_game_1 = tkinter.Button(text='YES', fg='black', width=20, command=self.zamek)
+        end_game_1.place(x=345, y=250)
 
-    def spotkanie(self, aktualny_status):
+        end_game_2 = tkinter.Button(text='NO', fg='black', width=20, command=self.nie_zamek)
+        end_game_2.place(x=520, y=250)
+
+    def nie_zamek(self):
+        global dead_button
+        end_game_1.destroy(), end_game_2.destroy()
+        self.zmienna.set("Earthquake destroys the dungeon\nYou don't go through by portal, and portal are closing\nand massive rock hits you in your head and you are dead!\nyour dead body disappear under debris")
+        dead_button = tkinter.Button(text='You are dead', fg="white", bg="black", width=60, command=self.GAME_OVER)
+        dead_button.place(x=300, y=225)
+
+    def zamek(self):
+        global finish_button
+        end_game_1.destroy(), end_game_2.destroy()
+        self.zmienna.set("After go through by portal, You are at the castle's courtyard,\nYOU FINISHED THE SIMPLE RPG WITH 100% SUCCESS!")
+        finish_button = tkinter.Button(text='Last button in this game', fg="black", bg="white", width=60, command=self.GAME_OVER_win)
+        finish_button.place(x=300, y=225)
+
+    # def GAME_OVER(self):
+    #     global ostatni_wybor_1, ostatni_wybor_2
+    #     self.aktualny_status[0] = 0
+    #     self.zmienna.set("%s\nGAME OVER!!!\nDo You want play one more time?" % self.wywolaj_status())
+    #
+    #     ostatni_wybor_1 = tkinter.Button(text='YES', fg='black', width=20, command=self.main)
+    #     ostatni_wybor_1.place(x=345, y=225)
+    #
+    #     ostatni_wybor_2 = tkinter.Button(text='NO', fg='black', width=20, command=sys.exit)
+    #     ostatni_wybor_2.place(x=520, y=225)
+    #
+    #     walcz.configure(state="disabled")
+    #     uciekaj.configure(state="disabled")
+    #
+    #     img = tkinter.PhotoImage(file="Pusta_Mapa.png").zoom(x=4, y=4)
+    #     imgLabel.image = img
+    #     imgLabel.configure(image=img)
+
+    def spotkanie(self):
         zaszlo = random.randrange(0, 101)
-        self.aktualny_status = self.level(aktualny_status)
+        self.aktualny_status = self.level()
         if zaszlo > 0 and zaszlo <= 25: #if zaszlo > 33 and zaszlo <= 75:
             self.frame3.configure(fg="red")
             try:
@@ -531,12 +489,8 @@ class Window(tkinter.Frame):
 
                 walcz.configure(state="normal", command=self.walka)
                 uciekaj.configure(state="normal", command=self.proba_ucieczki)
+                return self.aktualny_status
 
-            # Staty_po_starciu = self.walka(aktualny_status[0], staty[1], staty[2], aktualny_status[1], staty[3], aktualny_status[4], aktualny_status[3], aktualny_status[5])
-            # aktualny_status[0] = Staty_po_starciu[0]
-            # aktualny_status[1] = Staty_po_starciu[1]
-            # del my_enemy
-            return self.aktualny_status
         elif zaszlo > 98 and zaszlo <= 100: # 75 - 100
             jaki_mix = random.randrange(0, 101)
             # aktualny_status = self.level(aktualny_status)
@@ -564,6 +518,7 @@ class Window(tkinter.Frame):
             self.zmienna.set("You enter a new area and nothing happens\n%s" % self.wywolaj_status())
             # return self.przejscie(self.aktualny_status[0], self.aktualny_status[1], self.aktualny_status[3], self.aktualny_status[4], self.aktualny_status[5])
             return self.aktualny_status
+        return self.aktualny_status
 
     # ------------------------------------walka------------------------------#
     # def walka(self, HP_gracza, HP_potwora, dmg_potwora, EXP_gracza_aktualny, EXP_potwora, Bonus_DMG, HP_maksymalne, flag):
@@ -573,10 +528,6 @@ class Window(tkinter.Frame):
         # uciekaj.configure(state="normal", command=self.GAME_OVER)
 
         if self.staty[1] > 99:
-            print("Rozpoczynasz walke...")
-            # input()
-            # HP_potwora_maksymalne = HP_potwora
-            # while HP_gracza >= 1:
             if self.aktualny_status[5] == "war":
                 damage_zadane = random.randrange(1, 5) + self.aktualny_status[3]
             elif self.aktualny_status[5] == "mag":
@@ -592,26 +543,24 @@ class Window(tkinter.Frame):
             naloz_potwor = self.nakladka_klimat(self.HP_potwora, self.staty[1])
             print("Zadales przeciwnikowi obrażenia i jest %s" % naloz_potwor)
             print("Przeciwnik uderzył Cie i jesteś %s" % naloz_gracz)
-            self.zmienna.set("LAST BOSS FIGHT!!!!! %s\nEnemy hit you and you are %s\nThe battle continues\n%s" % (naloz_potwor, naloz_gracz, self.wywolaj_status()))
+            self.zmienna.set("You deal damage to the LAST BOSS and he is %s\nEnemy hit you and you are %s\nThe battle continues\n%s" % (naloz_potwor, naloz_gracz, self.wywolaj_status()))
             if self.aktualny_status[0] <= 0:
                 print("Giniesz - GAME OVER ! ! !")
                 # input()
                 self.GAME_OVER()
                 return self.aktualny_status
             elif self.HP_potwora <= 0:
-                self.zmienna.set(
-                    "You deal damage to the opponent and he is %s\nEnemy hit you and you are %s\nYou win the battle\n%s" % (
-                    naloz_potwor, naloz_gracz, self.wywolaj_status()))
+                self.zmienna.set("You deal damage to the opponent and he is %s\nEnemy hit you and you are %s\nYou win the battle\n%s" % (naloz_potwor, naloz_gracz, self.wywolaj_status()))
                 print("Wygrales walke!")
                 # trofea_fun(HP_potwora_maksymalne)
-                HP_po_walce = self.aktualny_status[0]
+                # HP_po_walce = self.aktualny_status[0]
                 self.aktualny_status[1] += self.staty[3]
                 walcz.configure(state="disabled")
                 uciekaj.configure(state="disabled")
                 # self.konfiguracja()
-                self.GAME_OVER_win()
+                self.LAST_BOSS_dead()
+                # self.GAME_OVER_win()
                 del self.staty
-                return HP_po_walce, self.aktualny_status[1], self.HP_potwora
             #     HP_potwora = HP_potwora - damage_zadane
             #     HP_gracza = HP_gracza - dmg_potwora
             #     naloz_gracz = self.nakladka_klimat(HP_gracza, HP_maksymalne)
@@ -669,7 +618,6 @@ class Window(tkinter.Frame):
                         self.zmienna.set("You deal damage to the opponent and he is %s\nEnemy hit you and you are %s\nThe battle continues\n%s" % (naloz_potwor, naloz_gracz, self.wywolaj_status()))
                         if self.aktualny_status[0] <= 0:
                             print("Giniesz - GAME OVER ! ! !")
-                            # input()
                             self.GAME_OVER()
                             return self.aktualny_status
                         elif self.HP_potwora <= 0:
@@ -872,34 +820,25 @@ class Window(tkinter.Frame):
 
     def GAME_OVER(self):
         global ostatni_wybor_1, ostatni_wybor_2
-        self.aktualny_status[0] = 0
-        self.zmienna.set("%s\nGAME OVER!!!\nDo You want play one more time?" % self.wywolaj_status())
+        try:
+            dead_button.destroy()
+        finally:
+            self.aktualny_status[0] = 0
+            self.zmienna.set("%s\nGAME OVER!!!\nDo You want play one more time?" % self.wywolaj_status())
 
-        ostatni_wybor_1 = tkinter.Button(text='YES', fg='black', width=20, command=self.main)
-        ostatni_wybor_1.place(x=345, y=225)
+            ostatni_wybor_1 = tkinter.Button(text='YES', fg='black', width=20, command=self.main)
+            ostatni_wybor_1.place(x=345, y=225)
 
-        ostatni_wybor_2 = tkinter.Button(text='NO', fg='black', width=20, command=sys.exit)
-        ostatni_wybor_2.place(x=520, y=225)
+            ostatni_wybor_2 = tkinter.Button(text='NO', fg='black', width=20, command=sys.exit)
+            ostatni_wybor_2.place(x=520, y=225)
 
-        walcz.configure(state="disabled")
-        uciekaj.configure(state="disabled")
+            walcz.configure(state="disabled")
+            uciekaj.configure(state="disabled")
 
-        img = tkinter.PhotoImage(file="Pusta_Mapa.png").zoom(x=4, y=4)
-        imgLabel.image = img
-        imgLabel.configure(image=img)
+            img = tkinter.PhotoImage(file="Pusta_Mapa.png").zoom(x=4, y=4)
+            imgLabel.image = img
+            imgLabel.configure(image=img)
 
-        # dalej_2.destroy()
-        # while True:
-        #     print("Czy chcesz zagrac jeszcze raz? (tak/nie): ")
-        #     ostatni_wybor = input()
-        #     if ostatni_wybor == "tak":
-        #         return self.main()
-        #     elif ostatni_wybor == "nie":
-        #         while True:
-        #             print("Game Over")
-        #             sys.exit()
-        #     else:
-        #         print("Wybrałes failowo, wybierz jeszcze raz")
 
     def GAME_OVER_alternative(self):
         global ostatni_wybor_1_al, ostatni_wybor_2_al
@@ -912,19 +851,10 @@ class Window(tkinter.Frame):
         ostatni_wybor_2_al.place(x=520, y=195)
 
         dalej_2.destroy()
-            # print("Czy chcesz zagrac jeszcze raz? (tak/nie): ")
-            # ostatni_wybor = input()
-            # if ostatni_wybor == "tak":
-            #     return self.main()
-            # elif ostatni_wybor == "nie":
-            #     while True:
-            #         print("Game Over")
-            #         sys.exit()
-            # else:
-            #     print("Wybrałes failowo, wybierz jeszcze raz")
 
     def GAME_OVER_win(self):
         global ostatni_wybor_1_win, ostatni_wybor_2_win
+        finish_button.destroy()
         self.zmienna.set("CONGRATULATIONS!\nDo You want play one more time?")
 
         ostatni_wybor_1_win = tkinter.Button(text='YES', fg='black', width=20, command=self.main)
@@ -937,6 +867,7 @@ class Window(tkinter.Frame):
     # --------------------------------lokacje-----------------------------------------#
     def top_left(self):
         self.frame3.configure(fg="black")
+        self.aktualny_status = self.level()
         self.zmienna.set("You are in north-west part of dungeon\nWhere will You go? You can go on South and East\n%s" % self.wywolaj_status())
 
         self.ktora_lokacja = "NW"
@@ -947,7 +878,7 @@ class Window(tkinter.Frame):
         imgLabel.configure(image=img)
 
         print(self.aktualny_status)
-        self.aktualny_status = self.spotkanie(self.aktualny_status)
+        self.aktualny_status = self.spotkanie()
         # aktualny_status = self.spotkanie(aktualny_status)
         # aktualny_status = self.level(aktualny_status)
         # self.wywolaj_status(aktualny_status)
@@ -965,6 +896,7 @@ class Window(tkinter.Frame):
 
     def top(self):
         self.frame3.configure(fg="black")
+        self.aktualny_status = self.level()
         self.zmienna.set("You are in north part of dungeon\nWhere will You go? You can go on South and West and East\n%s" % self.wywolaj_status())
 
         self.ktora_lokacja = "N"
@@ -975,7 +907,7 @@ class Window(tkinter.Frame):
         imgLabel.configure(image=img)
 
         print(self.aktualny_status)
-        self.aktualny_status = self.spotkanie(self.aktualny_status)
+        self.aktualny_status = self.spotkanie()
         # aktualny_status = self.spotkanie(aktualny_status)
         # aktualny_status = self.level(aktualny_status)
         # self.wywolaj_status(aktualny_status)
@@ -995,6 +927,7 @@ class Window(tkinter.Frame):
 
     def top_right(self):
         self.frame3.configure(fg="black")
+        self.aktualny_status = self.level()
         self.zmienna.set("You are in north-east part of dungeon\nWhere will You go? You can go on South and West\n%s" % self.wywolaj_status())
 
         self.ktora_lokacja = "NE"
@@ -1005,23 +938,11 @@ class Window(tkinter.Frame):
         imgLabel.configure(image=img)
 
         print(self.aktualny_status)
-        self.aktualny_status = self.spotkanie(self.aktualny_status)
-        # aktualny_status = self.spotkanie(aktualny_status)
-        # aktualny_status = self.level(aktualny_status)
-        # self.wywolaj_status(aktualny_status)
-        # print("Znajdujesz się w północno wschodniej czesci lochu")
-        # print("Gdzie idziesz? Mozliwe wyjscia polodnie(s) i zachod(w)")
-        # idz = input()
-        # while (idz != "w" and idz != "s"):
-        #     print("wybrales failowo, wybierz jeszcze raz (w/s)")
-        #     idz = input()
-        # else:
-        #     if idz == 's':
-        #         return self.right(aktualny_status)
-        #     elif idz == "w":
-        #         return self.top_left(aktualny_status)
+        self.aktualny_status = self.spotkanie()
+
 
     def left(self):
+        self.aktualny_status = self.level()
         self.zmienna.set("You are in west part of dungeon\nWhere will You go? You can go on North and South and East\n%s" % self.wywolaj_status())
 
         self.ktora_lokacja = "W"
@@ -1031,28 +952,14 @@ class Window(tkinter.Frame):
         imgLabel.image = img
         imgLabel.configure(image=img)
 
-        self.aktualny_status = self.spotkanie(self.aktualny_status)
-        # aktualny_status = self.spotkanie(aktualny_status)
-        # aktualny_status = self.level(aktualny_status)
-        # self.wywolaj_status(aktualny_status)
-        # print("Znajdujesz się w zachodniej czesci lochu")
-        # print("Gdzie idziesz? Mozliwe wyjscia polodnie(s) i polnoc(n) i wschod(e)")
-        # idz = input()
-        # while (idz != "n" and idz != "e" and idz != "s"):
-        #     print("wybrales failowo, wybierz jeszcze raz (n/e/s)")
-        #     idz = input()
-        # else:
-        #     if idz == 's':
-        #         return self.bot_left(aktualny_status)
-        #     elif idz == "e":
-        #         return self.central(aktualny_status)
-        #     elif idz == "n":
-        #         return self.top_left(aktualny_status)
+        self.aktualny_status = self.spotkanie()
+
 
     def central(self):
         try:
             wskocz.destroy(), niewskakuj.destroy()
         finally:
+            self.aktualny_status = self.level()
             self.zmienna.set("You are in central part of dungeon\nWhere will You go? You can go on North and South and East and West\n%s" % self.wywolaj_status())
 
             self.ktora_lokacja = "CENTER"
@@ -1063,27 +970,9 @@ class Window(tkinter.Frame):
             imgLabel.configure(image=img)
             self.przejscie(self.aktualny_status[0], self.aktualny_status[1], self.aktualny_status[3],self.aktualny_status[4], self.aktualny_status[5])
 
-            # self.aktualny_status = self.spotkanie(self.aktualny_status)
-            # aktualny_status = self.spotkanie(aktualny_status)
-            # aktualny_status = self.level(aktualny_status)
-            # self.wywolaj_status(aktualny_status)
-            # print("Znajdujesz się w centrum lochu czesci lochu")
-            # print("Gdzie idziesz? Mozliwe wyjscia polodnie(s) i polnoc(n) i wschod(e) i zachod(w)")
-            # idz = input()
-            # while (idz != "w" and idz != "n" and idz != "e" and idz != "s"):
-            #     print("wybrales failowo, wybierz jeszcze raz (n/w/e/s)")
-            #     idz = input()
-            # else:
-            #     if idz == "s":
-            #         return self.bot(aktualny_status)
-            #     elif idz == "w":
-            #         return self.left(aktualny_status)
-            #     elif idz == "n":
-            #         return self.top(aktualny_status)
-            #     elif idz == "e":
-            #         return self.right(aktualny_status)
 
     def right(self):
+        self.aktualny_status = self.level()
         self.zmienna.set("You are in east part of dungeon\nWhere will You go? You can go on North and South and West\n%s" % self.wywolaj_status())
 
         self.ktora_lokacja = "E"
@@ -1093,25 +982,11 @@ class Window(tkinter.Frame):
         imgLabel.image = img
         imgLabel.configure(image=img)
 
-        self.aktualny_status = self.spotkanie(self.aktualny_status)
-        # aktualny_status = self.spotkanie(aktualny_status)
-        # aktualny_status = self.level(aktualny_status)
-        # self.wywolaj_status(aktualny_status)
-        # print("Znajdujesz się w wschodniej czesci lochu")
-        # print("Gdzie idziesz? Mozliwe wyjscia polodnie(s) i polnoc(n) i zachod(w)")
-        # idz = input()
-        # while (idz != "w" and idz != "n" and idz != "s"):
-        #     print("wybrales failowo, wybierz jeszcze raz (n/w/s)")
-        #     idz = input()
-        # else:
-        #     if idz == 's':
-        #         return self.bot_right(aktualny_status)
-        #     elif idz == "w":
-        #         return self.central(aktualny_status)
-        #     elif idz == "n":
-        #         return self.top_right(aktualny_status)
+        self.aktualny_status = self.spotkanie()
+
 
     def bot_left(self):
+        self.aktualny_status = self.level()
         self.zmienna.set("You are in south-west part of dungeon\nWhere will You go? You can go on North and East\n%s" % self.wywolaj_status())
 
         self.ktora_lokacja = "SW"
@@ -1121,26 +996,13 @@ class Window(tkinter.Frame):
         imgLabel.image = img
         imgLabel.configure(image=img)
 
-        self.aktualny_status = self.spotkanie(self.aktualny_status)
-        # aktualny_status = self.spotkanie(aktualny_status)
-        # aktualny_status = self.level(aktualny_status)
-        # self.wywolaj_status(aktualny_status)
-        # print("Znajdujesz się w polodniowo zachodniej czesci lochu")
-        # print("Gdzie idziesz? Mozliwe wyjscia polnoc(n) i wschod(e)")
-        # idz = input()
-        # while (idz != "e" and idz != "n"):
-        #     print("wybrales failowo, wybierz jeszcze raz (n/e)")
-        #     idz = input()
-        # else:
-        #     if idz == 'n':
-        #         return self.left(aktualny_status)
-        #     elif idz == "e":
-        #         return self.bot(aktualny_status)
+        self.aktualny_status = self.spotkanie()
 
     def bot(self):
         try:
             wskocz.destroy(), niewskakuj.destroy()
         finally:
+            self.aktualny_status = self.level()
             self.zmienna.set("You are in south part of dungeon\nWhere will You go? You can go on North and West and East\n%s" % self.wywolaj_status())
             self.ktora_lokacja = "S"
             self.konfiguracja()
@@ -1149,10 +1011,11 @@ class Window(tkinter.Frame):
             imgLabel.image = img
             imgLabel.configure(image=img)
 
-            self.aktualny_status = self.spotkanie(self.aktualny_status)
+            self.aktualny_status = self.spotkanie()
 
 
     def bot_right(self):
+        self.aktualny_status = self.level()
         self.zmienna.set("You are in south-east part of dungeon\nWhere will You go? You can go on North and West\n%s" % self.wywolaj_status())
 
         self.ktora_lokacja="SE"
@@ -1163,12 +1026,8 @@ class Window(tkinter.Frame):
         imgLabel.configure(image=img)
 
         print(self.aktualny_status)
-        self.aktualny_status = self.spotkanie(self.aktualny_status)
-        # print(self.aktualny_status)
-        # self.aktualny_status = self.level(self.aktualny_status)
-        # print(self.aktualny_status)
-        # self.wywolaj_status()
-        # print(self.aktualny_status)
+        self.aktualny_status = self.spotkanie()
+
 
     def konfiguracja(self):
         if self.ktora_lokacja == "NW":
@@ -1217,10 +1076,6 @@ class Window(tkinter.Frame):
             east.configure(state="disabled")
             south.configure(state="disabled")
 
-
-    # def gupi_test(self):
-    #     self.zmX += 5
-    #     print(self.zmX)
 
 #====================inicjalizacja okna==============================#
 
